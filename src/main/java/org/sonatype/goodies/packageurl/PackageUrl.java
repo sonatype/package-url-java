@@ -69,6 +69,8 @@ public class PackageUrl
                @Nullable final Map<String, String> qualifiers,
                @Nullable final List<String> subpath)
     {
+        // FIXME: need to have some per-type transformation; which is unfortunate but spec requires some special handling per-type
+
         this.type = checkNotNull(type);
         this.namespace = namespace != null ? ImmutableList.copyOf(namespace) : null;
         this.name = checkNotNull(name);
