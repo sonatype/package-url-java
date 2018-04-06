@@ -156,6 +156,9 @@ public class PackageUrl
                 '}';
     }
 
+    /**
+     * Convert to canonical string representation.
+     */
     @Override
     public String toString() {
         StringBuilder buff = new StringBuilder();
@@ -447,6 +450,9 @@ public class PackageUrl
         }
     }
 
+    /**
+     * Validate {@link #type} value.
+     */
     private static void validateType(final String value) {
         if (value == null) {
             throw new MissingComponentException("type");
@@ -454,6 +460,9 @@ public class PackageUrl
         validate("type", TYPE_PATTERN, value);
     }
 
+    /**
+     * Validate {@link #namespace} value.
+     */
     @Nullable
     private static void validateNamespace(@Nullable final List<String> namespace) {
         if (namespace != null) {
@@ -463,6 +472,9 @@ public class PackageUrl
         }
     }
 
+    /**
+     * Validate {@link #name} value.
+     */
     private static void validateName(final String value) {
         if (value == null) {
             throw new MissingComponentException("name");
@@ -470,6 +482,9 @@ public class PackageUrl
         validate("name", NAME_PATTERN, value);
     }
 
+    /**
+     * Validate {@link #version} value.
+     */
     @Nullable
     private static void validateVersion(@Nullable final String value) {
         if (value != null) {
@@ -477,6 +492,9 @@ public class PackageUrl
         }
     }
 
+    /**
+     * Validate {@link #qualifiers} value.
+     */
     @Nullable
     private static void validateQualifiers(@Nullable final Map<String,String> qualifiers) {
         if (qualifiers != null) {
@@ -487,6 +505,9 @@ public class PackageUrl
         }
     }
 
+    /**
+     * Validate {@link #subpath} value.
+     */
     @Nullable
     private static void validateSubpath(@Nullable final List<String> subpath) {
         if (subpath != null) {
