@@ -280,24 +280,49 @@ public class PackageUrl
 
         Matcher m = PURL_PATTERN.matcher(value);
         if (m.matches()) {
-            String type = lowerCase(m.group("type"));
-
+            String type = parseType(m.group("type"));
             List<String> namespace = parseNamespace(m.group("namespace"));
-
-            String name = PercentEncoding.decode(m.group("name"));
-
-            String version = m.group("version");
-            if (version != null) {
-                version = PercentEncoding.decode(version);
-            }
-
+            String name = parseName(m.group("name"));
+            String version = parseVersion(m.group("version"));
             Map<String, String> qualifiers = parseQualifiers(m.group("qualifiers"));
-
             List<String> subpath = parseSubpath(m.group("subpath"));
 
             return new PackageUrl(type, namespace, name, version, qualifiers, subpath);
         }
         throw new InvalidException(value);
+    }
+
+    /**
+     * Parse {@link #type}.
+     */
+    private static String parseType(final String value) {
+        return lowerCase(value);
+    }
+
+    /**
+     * Parse {@link #namespace} segments.
+     */
+    @Nullable
+    private static List<String> parseNamespace(@Nullable final String value) {
+        return parseSegments(value);
+    }
+
+    /**
+     * Parse {@link #name}.
+     */
+    private static String parseName(final String value) {
+        return PercentEncoding.decode(value);
+    }
+
+    /**
+     * Parse {@link #version}.
+     */
+    @Nullable
+    private static String parseVersion(@Nullable final String value) {
+        if (value != null) {
+            return PercentEncoding.decode(value);
+        }
+        return null;
     }
 
     /**
@@ -323,14 +348,6 @@ public class PackageUrl
             result.put(k, PercentEncoding.decode(v));
         }
         return result;
-    }
-
-    /**
-     * Parse {@link #namespace} segments.
-     */
-    @Nullable
-    private static List<String> parseNamespace(@Nullable final String value) {
-        return parseSegments(value);
     }
 
     /**
