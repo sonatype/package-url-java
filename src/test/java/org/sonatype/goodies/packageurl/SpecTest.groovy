@@ -49,9 +49,9 @@ class SpecTest
             }
             catch (e) {
                 if (!entry.is_invalid) {
-                    // expected
                     throw e
                 }
+                // expected
             }
         }
     }
@@ -82,9 +82,7 @@ class SpecTest
                 assert purl == canonical
             }
             catch (e) {
-                if (!entry.is_invalid) {
-                    // expected
-                }
+                assert entry.is_invalid
             }
         }
     }
