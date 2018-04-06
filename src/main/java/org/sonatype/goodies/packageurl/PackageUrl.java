@@ -70,39 +70,12 @@ public class PackageUrl
                @Nullable final Map<String, String> qualifiers,
                @Nullable final List<String> subpath)
     {
-        // FIXME: move validation to builder, which is the main api to use to construct vs. parse
-
-        this.type = checkNotNull(validate("type", TYPE_PATTERN, type));
-
-        if (namespace != null) {
-            this.namespace = ImmutableList.copyOf(validateNamespace(namespace));
-        }
-        else {
-            this.namespace = null;
-        }
-
-        this.name = checkNotNull(validate("name", NAME_PATTERN, name));
-
-        if (version != null) {
-            this.version = validate("version", VERSION_PATTERN, version);
-        }
-        else {
-            this.version = null;
-        }
-
-        if (qualifiers != null) {
-            this.qualifiers = ImmutableMap.copyOf(validateQualifiers(qualifiers));
-        }
-        else {
-            this.qualifiers = null;
-        }
-
-        if (subpath != null) {
-            this.subpath = ImmutableList.copyOf(validateSubpath(subpath));
-        }
-        else {
-            this.subpath = null;
-        }
+        this.type = checkNotNull(type);
+        this.namespace = namespace != null ? ImmutableList.copyOf(namespace) : null;
+        this.name = checkNotNull(name);
+        this.version = version;
+        this.qualifiers = qualifiers != null ? ImmutableMap.copyOf(qualifiers): null;
+        this.subpath = subpath != null ? ImmutableList.copyOf(subpath) : null;
     }
 
     public String getType() {
@@ -429,6 +402,18 @@ public class PackageUrl
         return value;
     }
 
+    private static String validateType(final String value) {
+        return validate("type", TYPE_PATTERN, value);
+    }
+
+    private static String validateName(final String value) {
+        return validate("name", NAME_PATTERN, value);
+    }
+
+    private static String validateVersion(final String value) {
+        return validate("version", VERSION_PATTERN, value);
+    }
+
     private static List<String> validateNamespace(final List<String> namespace) {
         for (String segment : namespace) {
             validate("namespace.segment", NAMESPACE_SEGMENT_PATTERN, segment);
@@ -529,7 +514,27 @@ public class PackageUrl
          */
         public PackageUrl build() {
             checkState(type != null, "Missing: type");
+            validateType(type);
+
+            if (namespace != null) {
+                validateNamespace(namespace);
+            }
+
             checkState(name != null, "Missing: name");
+            validateName(name);
+
+            if (version != null) {
+                validateVersion(version);
+            }
+
+            if (qualifiers != null) {
+                validateQualifiers(qualifiers);
+            }
+
+            if (subpath != null) {
+                validateSubpath(subpath);
+            }
+
             return new PackageUrl(type, namespace, name, version, qualifiers, subpath);
         }
     }
