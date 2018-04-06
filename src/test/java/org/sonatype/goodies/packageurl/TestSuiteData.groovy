@@ -13,7 +13,6 @@
 package org.sonatype.goodies.packageurl
 
 import groovy.json.JsonSlurper
-import groovy.transform.Memoized
 import groovy.transform.ToString
 
 /**
@@ -47,7 +46,6 @@ class TestSuiteData
         boolean is_invalid
     }
 
-    @Memoized
     static List<Entry> get() {
         URL resource = this.getResource(RESOURCE)
         assert resource != null : "Missing resource: $RESOURCE"
