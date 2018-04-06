@@ -169,9 +169,7 @@ public class PackageUrl
         buff.append(PercentEncoding.encode(name));
 
         if (version != null) {
-            // FIXME: spec indicates version must be percent-encoded, but its rules are different than UrlEncoder
-            // buff.append('@').append(PercentEncoding.encode(version));
-            buff.append('@').append(version);
+            buff.append('@').append(PercentEncoding.encode(version));
         }
 
         if (qualifiers != null && !qualifiers.isEmpty()) {
@@ -179,9 +177,7 @@ public class PackageUrl
             Iterator<Map.Entry<String, String>> iter = qualifiers.entrySet().iterator();
             while (iter.hasNext()) {
                 Map.Entry<String, String> entry = iter.next();
-                // FIXME: spec indicates that value must be percent-encoded, but its rules are different than UrlEncoder
-                // buff.append(entry.getKey()).append('=').append(PercentEncoding.encode(entry.getValue()));
-                buff.append(entry.getKey()).append('=').append(entry.getValue());
+                buff.append(entry.getKey()).append('=').append(PercentEncoding.encode(entry.getValue()));
                 if (iter.hasNext()) {
                     buff.append('&');
                 }
