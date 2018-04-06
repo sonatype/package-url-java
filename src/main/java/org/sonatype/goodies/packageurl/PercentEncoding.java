@@ -13,6 +13,7 @@
 package org.sonatype.goodies.packageurl;
 
 import com.google.common.base.Charsets;
+import com.google.common.net.PercentEscaper;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -21,15 +22,17 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 /**
- * URL and related helpers.
+ * Percent encoding helper.
  *
  * @since ???
  */
-final class Urls
+final class PercentEncoding
 {
-    private Urls() {
+    private PercentEncoding() {
         // empty
     }
+
+    // FIXME: URLEncoder/URLDecoder do not quite handle the specification: https://github.com/package-url/purl-spec#character-encoding
 
     private static final String UTF_8 = Charsets.UTF_8.name();
 

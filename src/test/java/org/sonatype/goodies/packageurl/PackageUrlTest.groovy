@@ -37,32 +37,48 @@ class PackageUrlTest
     @Test
     void 'render as string'() {
         def assertRendering = { final PackageUrl purl, final String expected ->
-            log purl.explain()
+            log "PURL: ${purl.explain()} -> $purl"
             assert purl.toString() == expected
         }
 
-        assertRendering new PackageUrl('foo', 'bar', 'baz', 'qux', [a: 'b', c: 'd'], 'blah'),
+        assertRendering new PackageUrl('foo', ['bar'], 'baz', 'qux', [a: 'b', c: 'd'], ['blah']),
                 'foo:bar/baz@qux?a=b&c=d#blah'
 
-        assertRendering new PackageUrl('foo', 'ns1/ns2', 'n', '1.2.3', [a: 'b', c: 'd'], 'sp1/sp2'),
+        assertRendering new PackageUrl.Builder()
+                .type('foo')
+                .namespace('ns1/ns2')
+                .name('n')
+                .version('1.2.3')
+                .qualifer('a', 'b')
+                .qualifer('c', 'd')
+                .subpath('sp1/sp2')
+                .build(),
                 'foo:ns1/ns2/n@1.2.3?a=b&c=d#sp1/sp2'
 
-        assertRendering new PackageUrl('foo', 'ns1/!ns2', 'n', '1.2.3', [a: 'b', c: 'd'], 'sp1/!sp2'),
+        assertRendering new PackageUrl.Builder()
+                .type('foo')
+                .namespace('ns1/!ns2')
+                .name('n')
+                .version('1.2.3')
+                .qualifer('a', 'b')
+                .qualifer('c', 'd')
+                .subpath('sp1/!sp2')
+                .build(),
                 'foo:ns1/%21ns2/n@1.2.3?a=b&c=d#sp1/%21sp2'
 
         assertRendering new PackageUrl('foo', (List)null, 'bar', 'baz', null, (List)null),
                 'foo:bar@baz'
 
-        assertRendering new PackageUrl('foo', 'bar', 'baz', 'qux', null, null),
+        assertRendering new PackageUrl('foo', ['bar'], 'baz', 'qux', null, null),
                 'foo:bar/baz@qux'
 
-        assertRendering new PackageUrl('foo', null, 'bar', 'baz', null, 'qux'),
+        assertRendering new PackageUrl('foo', null, 'bar', 'baz', null, ['qux']),
                 'foo:bar@baz#qux'
     }
 
     private PackageUrl parse(final String value) {
         def purl = PackageUrl.parse(value)
-        log purl.explain()
+        log "PURL: ${purl.explain()} -> $purl"
         return purl
     }
 

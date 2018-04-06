@@ -62,13 +62,16 @@ public class PackageUrl
     @Nullable
     private final List<String> subpath;
 
-    public PackageUrl(final String type,
-                      @Nullable final List<String> namespace,
-                      final String name,
-                      @Nullable final String version,
-                      @Nullable final Map<String, String> qualifiers,
-                      @Nullable final List<String> subpath)
+    @VisibleForTesting
+    PackageUrl(final String type,
+               @Nullable final List<String> namespace,
+               final String name,
+               @Nullable final String version,
+               @Nullable final Map<String, String> qualifiers,
+               @Nullable final List<String> subpath)
     {
+        // FIXME: move validation to builder, which is the main api to use to construct vs. parse
+
         this.type = checkNotNull(validate("type", TYPE_PATTERN, type));
 
         if (namespace != null) {
@@ -102,17 +105,6 @@ public class PackageUrl
         }
     }
 
-    @VisibleForTesting
-    PackageUrl(final String type,
-               @Nullable final String namespace,
-               final String name,
-               @Nullable final String version,
-               @Nullable final Map<String, String> qualifiers,
-               @Nullable final String subpath)
-    {
-        this(type, parseNamespace(namespace), name, version, qualifiers, parseSubpath(subpath));
-    }
-
     public String getType() {
         return type;
     }
@@ -128,7 +120,7 @@ public class PackageUrl
     @Nullable
     public String getNamespaceAsString() {
         if (namespace != null && !namespace.isEmpty()) {
-            return renderSegments(new StringBuilder(), namespace).toString();
+            return renderSegments(new StringBuilder(), namespace, false).toString();
         }
         return null;
     }
@@ -158,7 +150,7 @@ public class PackageUrl
     @Nullable
     public String getSubpathAsString() {
         if (subpath != null && !subpath.isEmpty()) {
-            return renderSegments(new StringBuilder(), subpath).toString();
+            return renderSegments(new StringBuilder(), subpath, false).toString();
         }
         return null;
     }
@@ -196,16 +188,18 @@ public class PackageUrl
     public String toString() {
         StringBuilder buff = new StringBuilder();
 
-        buff.append(type.toLowerCase(Locale.ENGLISH)).append(':');
+        buff.append(lowerCase(type)).append(':');
         if (namespace != null && !namespace.isEmpty()) {
-            renderSegments(buff, namespace);
+            renderSegments(buff, namespace, true);
             buff.append('/');
         }
 
-        buff.append(Urls.encode(name));
+        buff.append(PercentEncoding.encode(name));
 
         if (version != null) {
-            buff.append('@').append(Urls.encode(version));
+            // FIXME: spec indicates version must be percent-encoded, but its rules are different than UrlEncoder
+            // buff.append('@').append(PercentEncoding.encode(version));
+            buff.append('@').append(version);
         }
 
         if (qualifiers != null && !qualifiers.isEmpty()) {
@@ -213,7 +207,9 @@ public class PackageUrl
             Iterator<Map.Entry<String, String>> iter = qualifiers.entrySet().iterator();
             while (iter.hasNext()) {
                 Map.Entry<String, String> entry = iter.next();
-                buff.append(entry.getKey()).append('=').append(Urls.encode(entry.getValue()));
+                // FIXME: spec indicates that value must be percent-encoded, but its rules are different than UrlEncoder
+                // buff.append(entry.getKey()).append('=').append(PercentEncoding.encode(entry.getValue()));
+                buff.append(entry.getKey()).append('=').append(entry.getValue());
                 if (iter.hasNext()) {
                     buff.append('&');
                 }
@@ -222,24 +218,32 @@ public class PackageUrl
 
         if (subpath != null && !subpath.isEmpty()) {
             buff.append('#');
-            renderSegments(buff, subpath);
+            renderSegments(buff, subpath, true);
         }
 
         return buff.toString();
     }
 
     /**
-     * Render segements to buffer.
+     * Render segments to buffer.
      */
-    private static StringBuilder renderSegments(final StringBuilder buff, final List<String> segments) {
+    private static StringBuilder renderSegments(final StringBuilder buff, final List<String> segments, final boolean encode) {
         Iterator<String> iter = segments.iterator();
         while (iter.hasNext()) {
-            buff.append(Urls.encode(iter.next()));
+            String segment = iter.next();
+            if (encode) {
+                segment = PercentEncoding.encode(segment);
+            }
+            buff.append(segment);
             if (iter.hasNext()) {
                 buff.append('/');
             }
         }
         return buff;
+    }
+
+    private static String lowerCase(final String value) {
+        return value.toLowerCase(Locale.ENGLISH);
     }
 
     //
@@ -306,15 +310,15 @@ public class PackageUrl
 
         Matcher m = PURL_PATTERN.matcher(value);
         if (m.matches()) {
-            String type = m.group("type");
+            String type = lowerCase(m.group("type"));
 
             List<String> namespace = parseNamespace(m.group("namespace"));
 
-            String name = Urls.decode(m.group("name"));
+            String name = PercentEncoding.decode(m.group("name"));
 
             String version = m.group("version");
             if (version != null) {
-                version = Urls.decode(version);
+                version = PercentEncoding.decode(version);
             }
 
             Map<String, String> qualifiers = parseQualifiers(m.group("qualifiers"));
@@ -345,8 +349,8 @@ public class PackageUrl
                 continue;
             }
 
-            String k = entry.getKey().toLowerCase(Locale.ENGLISH);
-            result.put(k, Urls.decode(v));
+            String k = lowerCase(entry.getKey());
+            result.put(k, PercentEncoding.decode(v));
         }
         return result;
     }
@@ -382,7 +386,7 @@ public class PackageUrl
             if (part.isEmpty()) {
                 throw new EmptySegmentException(value);
             }
-            part = Urls.decode(part);
+            part = PercentEncoding.decode(part);
 
             // decoded segment must not contain a segment separator
             if (part.contains("/")) {
@@ -526,7 +530,7 @@ public class PackageUrl
         public PackageUrl build() {
             checkState(type != null, "Missing: type");
             checkState(name != null, "Missing: name");
-            return new PackageUrl(name, namespace, name, version, qualifiers, subpath);
+            return new PackageUrl(type, namespace, name, version, qualifiers, subpath);
         }
     }
 
