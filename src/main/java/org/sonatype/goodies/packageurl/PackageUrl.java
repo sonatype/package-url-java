@@ -69,8 +69,6 @@ public class PackageUrl
                @Nullable final Map<String, String> qualifiers,
                @Nullable final List<String> subpath)
     {
-        // FIXME: need to have some per-type transformation; which is unfortunate but spec requires some special handling per-type
-
         this.type = checkNotNull(type);
         this.namespace = namespace != null ? ImmutableList.copyOf(namespace) : null;
         this.name = checkNotNull(name);
@@ -212,8 +210,26 @@ public class PackageUrl
         return buff;
     }
 
+    /**
+     * Convert given value to lower-case.
+     */
     private static String lowerCase(final String value) {
         return value.toLowerCase(Locale.ENGLISH);
+    }
+
+    /**
+     * Convert given list of values to lower-case.
+     */
+    @Nullable
+    private static List<String> lowerCase(@Nullable final List<String> values) {
+        if (values != null) {
+            List<String> result = new ArrayList<>(values.size());
+            for (String value : values) {
+                result.add(lowerCase(value));
+            }
+            return result;
+        }
+        return null;
     }
 
     //
@@ -287,8 +303,24 @@ public class PackageUrl
             Map<String, String> qualifiers = parseQualifiers(m.group("qualifiers"));
             List<String> subpath = parseSubpath(m.group("subpath"));
 
+            // FIXME: need to have some per-type transformation; which is unfortunate but spec requires some special handling per-type
+            // FIXME: various type-specific transformation required by specification; very problematic
+            switch (type) {
+                case "github":
+                case "bitbucket":
+                    name = lowerCase(name);
+                    namespace = lowerCase(namespace);
+                    break;
+
+                case "pypi":
+                    name = name.replace('_', '-');
+                    name = lowerCase(name);
+                    break;
+            }
+
             return new PackageUrl(type, namespace, name, version, qualifiers, subpath);
         }
+
         throw new InvalidException(value);
     }
 

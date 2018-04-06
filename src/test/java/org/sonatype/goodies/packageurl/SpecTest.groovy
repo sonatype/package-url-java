@@ -33,20 +33,7 @@ class SpecTest
 
     @Test
     void 'test parsing'() {
-        Set<String> skip = [
-                // FIXME: these tests have notes that these formats should have lower-cased, but spec doesn't indicate they should be
-                'bitbucket namespace and name should be lowercased',
-                'github namespace and name should be lowercased',
-                'nuget names are case sensitive',
-                'pypi names have special rules and not case sensitive'
-        ]
-
         entries.each { entry ->
-            if (skip.contains(entry.description)) {
-                log "Skipping entry: $entry"
-                return
-            }
-
             log "Entry: $entry"
             try {
                 def purl = PackageUrl.parse(entry.purl)
