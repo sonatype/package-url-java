@@ -31,7 +31,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
 
 /**
  * <a href="https://github.com/package-url/purl-spec">Package URL</a>.
@@ -395,45 +394,59 @@ public class PackageUrl
     // Validation
     //
 
-    private static String validate(final String type, final Pattern pattern, final String value) {
+    private static void validate(final String type, final Pattern pattern, final String value) {
         if (!pattern.matcher(value).matches()) {
             throw new InvalidException("Invalid " + type + ": " + value);
         }
-        return value;
     }
 
-    private static String validateType(final String value) {
-        return validate("type", TYPE_PATTERN, value);
-    }
-
-    private static String validateName(final String value) {
-        return validate("name", NAME_PATTERN, value);
-    }
-
-    private static String validateVersion(final String value) {
-        return validate("version", VERSION_PATTERN, value);
-    }
-
-    private static List<String> validateNamespace(final List<String> namespace) {
-        for (String segment : namespace) {
-            validate("namespace.segment", NAMESPACE_SEGMENT_PATTERN, segment);
+    private static void validateType(final String value) {
+        if (value == null) {
+            throw new MissingComponentException("type");
         }
-        return namespace;
+        validate("type", TYPE_PATTERN, value);
     }
 
-    private static Map<String,String> validateQualifiers(final Map<String,String> qualifiers) {
-        for (Map.Entry<String,String> entry : qualifiers.entrySet()) {
-            validate("qualifier.key", QUALIFIER_KEY_PATTERN, entry.getKey());
-            validate("qualifier.value", QUALIFIER_VALUE_PATTERN, entry.getValue());
+    @Nullable
+    private static void validateNamespace(@Nullable final List<String> namespace) {
+        if (namespace != null) {
+            for (String segment : namespace) {
+                validate("namespace.segment", NAMESPACE_SEGMENT_PATTERN, segment);
+            }
         }
-        return qualifiers;
     }
 
-    private static List<String> validateSubpath(final List<String> subpath) {
-        for (String segment : subpath) {
-            validate("subpath.segment", SUBPATH_SEGMENT_PATTERN, segment);
+    private static void validateName(final String value) {
+        if (value == null) {
+            throw new MissingComponentException("name");
         }
-        return subpath;
+        validate("name", NAME_PATTERN, value);
+    }
+
+    @Nullable
+    private static void validateVersion(@Nullable final String value) {
+        if (value != null) {
+            validate("version", VERSION_PATTERN, value);
+        }
+    }
+
+    @Nullable
+    private static void validateQualifiers(@Nullable final Map<String,String> qualifiers) {
+        if (qualifiers != null) {
+            for (Map.Entry<String, String> entry : qualifiers.entrySet()) {
+                validate("qualifier.key", QUALIFIER_KEY_PATTERN, entry.getKey());
+                validate("qualifier.value", QUALIFIER_VALUE_PATTERN, entry.getValue());
+            }
+        }
+    }
+
+    @Nullable
+    private static void validateSubpath(@Nullable final List<String> subpath) {
+        if (subpath != null) {
+            for (String segment : subpath) {
+                validate("subpath.segment", SUBPATH_SEGMENT_PATTERN, segment);
+            }
+        }
     }
 
     //
@@ -513,27 +526,12 @@ public class PackageUrl
          * At minimal {@link #type} and {@link #name} must be specified.
          */
         public PackageUrl build() {
-            checkState(type != null, "Missing: type");
             validateType(type);
-
-            if (namespace != null) {
-                validateNamespace(namespace);
-            }
-
-            checkState(name != null, "Missing: name");
+            validateNamespace(namespace);
             validateName(name);
-
-            if (version != null) {
-                validateVersion(version);
-            }
-
-            if (qualifiers != null) {
-                validateQualifiers(qualifiers);
-            }
-
-            if (subpath != null) {
-                validateSubpath(subpath);
-            }
+            validateVersion(version);
+            validateQualifiers(qualifiers);
+            validateSubpath(subpath);
 
             return new PackageUrl(type, namespace, name, version, qualifiers, subpath);
         }
@@ -551,6 +549,17 @@ public class PackageUrl
     {
         private InvalidException(final String message) {
             super(message);
+        }
+    }
+
+    /**
+     * Thrown when package-url component that is required is missing.
+     */
+    public static class MissingComponentException
+        extends InvalidException
+    {
+        private MissingComponentException(final String name) {
+            super("Missing required component: " + name);
         }
     }
 
