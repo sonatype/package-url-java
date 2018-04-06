@@ -87,7 +87,7 @@ public class PackageUrl
     }
 
     /**
-     * Return {@link #namespace} as a string representation.
+     * Return {@link #namespace} as a string representation (unencoded segments).
      */
     @Nullable
     public String getNamespaceAsString() {
@@ -117,7 +117,7 @@ public class PackageUrl
     }
 
     /**
-     * Return {@link #subpath} as a string representation.
+     * Return {@link #subpath} as a string representation (unencoded segments).
      */
     @Nullable
     public String getSubpathAsString() {
