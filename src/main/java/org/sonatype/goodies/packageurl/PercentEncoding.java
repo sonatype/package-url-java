@@ -23,6 +23,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Percent encoding helper.
  *
+ * Handles specific wrinkles related to Package URL specification.
+ *
  * @since ???
  */
 final class PercentEncoding
