@@ -36,7 +36,7 @@ class SpecTest
         entries.each { entry ->
             log "Entry: $entry"
             try {
-                def purl = PackageUrl.parse(entry.purl)
+                PackageUrl purl = PackageUrl.parse(entry.purl)
                 log "PURL: ${purl.explain()} -> $purl"
 
                 assert purl.toString() == entry.canonical_purl
@@ -49,7 +49,41 @@ class SpecTest
             }
             catch (e) {
                 if (!entry.is_invalid) {
+                    // expected
                     throw e
+                }
+            }
+        }
+    }
+
+    @Test
+    void 'test building'() {
+        entries.each { entry ->
+            log "Entry: $entry"
+            PackageUrl purl
+            try {
+                purl = new PackageUrl.Builder()
+                        .type(entry.type)
+                        .namespace(entry.namespace)
+                        .name(entry.name)
+                        .version(entry.version)
+                        .qualifiers(entry.qualifiers)
+                        .subpath(entry.subpath)
+                        .build()
+                log "PURL: ${purl.explain()} -> $purl"
+
+                // puke if we built a PURL that was meant to be invalid
+                assert !entry.is_invalid
+
+                // if valid, ensure canonical form matches
+                def canonical = PackageUrl.parse(entry.canonical_purl)
+
+                // object match, as toString form could be different due to test-suite-data qualifier ordering
+                assert purl == canonical
+            }
+            catch (e) {
+                if (!entry.is_invalid) {
+                    // expected
                 }
             }
         }
