@@ -38,11 +38,7 @@ class SpecTest
                 'bitbucket namespace and name should be lowercased',
                 'github namespace and name should be lowercased',
                 'nuget names are case sensitive',
-                'pypi names have special rules and not case sensitive',
-
-                // FIXME: these tests expect / in qualifier value to be non-encoded in canonical, and have apparently bad test data
-                'maven uses qualifiers',
-                'maven pom reference'
+                'pypi names have special rules and not case sensitive'
         ]
 
         entries.each { entry ->
