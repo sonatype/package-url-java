@@ -30,6 +30,7 @@ class PercentEncodingTest
         log decoded
         assert value == decoded
     }
+
     @Test
     void 'slash is not encoded'() {
         assertEncoding '1.2.3-FOO/bar baz', '1.2.3-FOO/bar%20baz'
