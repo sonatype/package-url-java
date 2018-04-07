@@ -46,6 +46,8 @@ final class PercentEncoding
         return ESCAPER.escape(value);
     }
 
+    // NOTE: guava doesn't provide any decoding support, but URLDecoder should properly decode value
+
     public static String decode(final String value) {
         checkNotNull(value);
         try {
