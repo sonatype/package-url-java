@@ -21,16 +21,22 @@ import org.sonatype.goodies.testsupport.TestSupport
 class PercentEncodingTest
     extends TestSupport
 {
-    @Test
-    void basic() {
-        def value = '1.2.3-FOO/bar baz'
-
-        def encoded = PercentEncoding.encode(value)
-        log encoded
-        assert encoded == '1.2.3-FOO/bar%20baz'
+    private void assertEncoding(final String value, final String encoded) {
+        def result = PercentEncoding.encode(value)
+        log result
+        assert result == encoded
 
         def decoded = PercentEncoding.decode(encoded)
         log decoded
         assert value == decoded
+    }
+    @Test
+    void 'slash is not encoded'() {
+        assertEncoding '1.2.3-FOO/bar baz', '1.2.3-FOO/bar%20baz'
+    }
+
+    @Test
+    void 'colon is not encoded'() {
+        assertEncoding 'sha1:123 foo', 'sha1:123%20foo'
     }
 }
