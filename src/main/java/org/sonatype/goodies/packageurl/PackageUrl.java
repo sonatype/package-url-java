@@ -548,6 +548,9 @@ public class PackageUrl
             return this;
         }
 
+        /**
+         * Parse namespace from value.
+         */
         public Builder namespace(final String namespace) {
             return namespace(parseNamespace(namespace));
         }
@@ -567,6 +570,9 @@ public class PackageUrl
             return this;
         }
 
+        /**
+         * Parse qualifiers from value.
+         */
         public Builder qualifiers(final String qualifiers) {
             return qualifiers(parseQualifiers(qualifiers));
         }
@@ -584,6 +590,9 @@ public class PackageUrl
             return this;
         }
 
+        /**
+         * Parse subpath from value.
+         */
         public Builder subpath(final String subpath) {
             return subpath(parseSubpath(subpath));
         }
