@@ -13,13 +13,10 @@ pipeline {
             when {
                 branch 'master'
             }
-            withMaven(
-//                    jdk: 'Java 8',
-//                    maven: 'Maven 3.0.x',
-                    mavenSettingsConfig: 'public-settings.xml',
-                    mavenLocalRepo: '.repository'
-            ) {
-                sh "mvn -V -B -e clean deploy"
+            steps {
+                withMaven(mavenSettingsConfig: 'public-settings.xml', mavenLocalRepo: '.repository') {
+                    sh "mvn -V -B -e clean deploy"
+                }
             }
         }
 
@@ -29,13 +26,10 @@ pipeline {
                     branch 'master'
                 }
             }
-            withMaven(
-//                    jdk: 'Java 8',
-//                    maven: 'Maven 3.0.x',
-                    mavenSettingsConfig: 'public-settings.xml',
-                    mavenLocalRepo: '.repository'
-            ) {
-                sh "mvn -V -B -e clean install"
+            steps {
+                withMaven(mavenSettingsConfig: 'public-settings.xml', mavenLocalRepo: '.repository') {
+                    sh "mvn -V -B -e clean install"
+                }
             }
         }
     }
