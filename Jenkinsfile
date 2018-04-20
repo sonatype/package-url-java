@@ -1,31 +1,42 @@
-node('ubuntu-zion') {
-    stage('Deploy') {
-        when {
-            branch 'master'
-        }
-        withMaven(
-                jdk: 'Java 8',
-                maven: 'Maven 3.0.x',
-                mavenSettingsConfig: 'public-settings.xml',
-                mavenLocalRepo: '.repository'
-        ) {
-            sh "mvn -V -B -e clean deploy"
-        }
+pipeline {
+    agent {
+        label 'ubuntu-zion'
     }
 
-    stage('Build') {
-        when {
-            not {
+    tools {
+        maven 'Maven 3.0.x'
+        jdk 'Java 8'
+    }
+
+    stages {
+        stage('Deploy') {
+            when {
                 branch 'master'
             }
+            withMaven(
+//                    jdk: 'Java 8',
+//                    maven: 'Maven 3.0.x',
+                    mavenSettingsConfig: 'public-settings.xml',
+                    mavenLocalRepo: '.repository'
+            ) {
+                sh "mvn -V -B -e clean deploy"
+            }
         }
-        withMaven(
-                jdk: 'Java 8',
-                maven: 'Maven 3.0.x',
-                mavenSettingsConfig: 'public-settings.xml',
-                mavenLocalRepo: '.repository'
-        ) {
-            sh "mvn -V -B -e clean install"
+
+        stage('Build') {
+            when {
+                not {
+                    branch 'master'
+                }
+            }
+            withMaven(
+//                    jdk: 'Java 8',
+//                    maven: 'Maven 3.0.x',
+                    mavenSettingsConfig: 'public-settings.xml',
+                    mavenLocalRepo: '.repository'
+            ) {
+                sh "mvn -V -B -e clean install"
+            }
         }
     }
 }
