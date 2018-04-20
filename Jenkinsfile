@@ -1,5 +1,8 @@
 node('ubuntu-zion') {
-    stage('Build') {
+    stage('Deploy') {
+        when {
+            branch 'master'
+        }
         withMaven(
                 jdk: 'Java 8',
                 maven: 'Maven 3.0.x',
@@ -7,6 +10,22 @@ node('ubuntu-zion') {
                 mavenLocalRepo: '.repository'
         ) {
             sh "mvn -V -B -e clean deploy"
+        }
+    }
+
+    stage('Build') {
+        when {
+            not {
+                branch 'master'
+            }
+        }
+        withMaven(
+                jdk: 'Java 8',
+                maven: 'Maven 3.0.x',
+                mavenSettingsConfig: 'public-settings.xml',
+                mavenLocalRepo: '.repository'
+        ) {
+            sh "mvn -V -B -e clean install"
         }
     }
 }
