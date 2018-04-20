@@ -6,7 +6,7 @@ node('ubuntu-zion') {
                 mavenSettingsConfig: 'public-settings.xml',
                 mavenLocalRepo: '.repository'
         ) {
-            sh "mvn -V -B -e clean install"
+            sh "mvn -V -B -e clean deploy"
         }
     }
 }
