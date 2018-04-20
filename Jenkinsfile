@@ -1,5 +1,9 @@
-String mavenVersion = 'Maven 3.0.x'
 String jdkVersion = 'Java 8'
+
+String mavenVersion = 'Maven 3.0.x'
+String mavenSettings = 'public-settings.xml'
+String mavenRepo = '.repository'
+String mavenOptions = '-V -B -e'
 
 pipeline {
     agent {
@@ -19,8 +23,8 @@ pipeline {
                 }
             }
             steps {
-                withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: 'public-settings.xml', mavenLocalRepo: '.repository') {
-                    sh "mvn -V -B -e clean install"
+                withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo) {
+                    sh "mvn $mavenOptions clean install"
                 }
             }
         }
@@ -30,10 +34,16 @@ pipeline {
                 branch 'master'
             }
             steps {
-                withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: 'public-settings.xml', mavenLocalRepo: '.repository') {
-                    sh "mvn -V -B -e clean deploy"
+                withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo) {
+                    sh "mvn $mavenOptions clean deploy"
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            junit 'target/*-reports/*.xml'
         }
     }
 }
