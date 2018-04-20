@@ -2,8 +2,10 @@ String jdkVersion = 'Java 8'
 
 String mavenVersion = 'Maven 3.0.x'
 String mavenSettings = 'public-settings.xml'
-String mavenRepo = '.repository'
+String mavenRepo = '.repo'
 String mavenOptions = '-V -B -e'
+
+String deployBranch = 'master'
 
 pipeline {
     agent {
@@ -19,7 +21,7 @@ pipeline {
         stage('Build') {
             when {
                 not {
-                    branch 'master'
+                    branch deployBranch
                 }
             }
             steps {
@@ -31,7 +33,7 @@ pipeline {
 
         stage('Deploy') {
             when {
-                branch 'master'
+                branch deployBranch
             }
             steps {
                 withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo) {
