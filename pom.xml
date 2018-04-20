@@ -23,16 +23,12 @@
     <version>13</version>
   </parent>
 
-  <!-- TODO: resolve appropriate GA details -->
-
   <groupId>org.sonatype.goodies</groupId>
   <artifactId>package-url-java</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
 
   <version>1-SNAPSHOT</version>
-
-  <!-- TODO: resolve target org and project name -->
 
   <url>https://github.com/sonatype/package-url-java</url>
 
@@ -41,6 +37,12 @@
     <developerConnection>scm:git:ssh://git@github.com/sonatype/package-url-java.git</developerConnection>
     <url>https://github.com/sonatype/package-url-java</url>
   </scm>
+
+  <ciManagement>
+    <system>jenkins</system>
+    <url>https://jenkins.zion.aws.s/job/ossindex/job/package-url-java</url>
+  </ciManagement>
+
 
   <properties>
     <maven.compiler.source>1.7</maven.compiler.source>
