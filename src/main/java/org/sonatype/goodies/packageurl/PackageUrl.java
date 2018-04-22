@@ -156,6 +156,11 @@ public class PackageUrl
                 '}';
     }
 
+    /**
+     * Convert to a builder for mutation.
+     *
+     * @see Builder#from(PackageUrl)
+     */
     public Builder asBuilder() {
         return new Builder().from(this);
     }
