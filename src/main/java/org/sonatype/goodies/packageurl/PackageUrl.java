@@ -156,6 +156,10 @@ public class PackageUrl
                 '}';
     }
 
+    public Builder asBuilder() {
+        return new Builder().from(this);
+    }
+
     /**
      * Convert to canonical string representation.
      */
@@ -537,6 +541,23 @@ public class PackageUrl
         private Map<String,String> qualifiers;
 
         private List<String> subpath;
+
+        public Builder from(final PackageUrl purl) {
+            checkNotNull(purl);
+            this.type = purl.type;
+            if (purl.namespace != null) {
+                this.namespace = new ArrayList<>(purl.namespace);
+            }
+            this.name = purl.name;
+            this.version = purl.version;
+            if (purl.qualifiers != null) {
+                this.qualifiers = new LinkedHashMap<>(purl.qualifiers);
+            }
+            if (purl.subpath != null) {
+                this.subpath = new ArrayList<>(purl.subpath);
+            }
+            return this;
+        }
 
         public Builder type(final String type) {
             this.type = type;
