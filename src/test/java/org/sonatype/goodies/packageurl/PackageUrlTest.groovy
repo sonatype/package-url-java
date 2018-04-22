@@ -296,4 +296,15 @@ class PackageUrlTest
             assert subpath == [ 'qux' ]
         }
     }
+
+    @Test
+    void asBuilder_mutation() {
+        parse('foo:bar@baz#qux').asBuilder().version(null).build().with {
+            assert type == 'foo'
+            assert namespace == null
+            assert name == 'bar'
+            assert version == null
+            assert subpath == [ 'qux' ]
+        }
+    }
 }
