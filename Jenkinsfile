@@ -12,6 +12,10 @@ pipeline {
         label 'ubuntu-zion'
     }
 
+    triggers {
+        pollSCM('*/15 * * * *')
+    }
+
     tools {
         maven mavenVersion
         jdk jdkVersion
