@@ -24,3 +24,8 @@ Implementation of [Package URL](https://github.com/package-url/purl-spec) specif
         .name("junit")
         .version("4.12")
         .build();
+
+### Mutation
+    
+    PackageUrl purl = PackageUrl.parse("maven:junit/junit@4.12");
+    PackageUrl purlNoVersion = purl.asBuilder().version(null).build();
