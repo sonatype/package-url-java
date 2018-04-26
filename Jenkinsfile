@@ -1,6 +1,6 @@
 String jdkVersion = 'Java 8'
 
-String mavenVersion = 'Maven 3.0.x'
+String mavenVersion = 'Maven 3.3.x'
 String mavenSettings = 'public-settings.xml'
 String mavenRepo = '.repo'
 String mavenOptions = '-V -B -e'
