@@ -16,47 +16,48 @@ import groovy.json.JsonSlurper
 import groovy.transform.ToString
 
 /**
- * Package URL specification <a href="https://github.com/package-url/purl-spec/blob/master/test-suite-data.json">Test Suite Data</a>.
+ * Package URL specification <a href="https://github.com/package-url/purl-spec/blob/master/test-suite-data.json">Test
+ * Suite Data</a>.
  */
 class TestSuiteData
 {
-    private static final String RESOURCE = 'test-suite-data.json'
+  private static final String RESOURCE = 'test-suite-data.json'
 
-    @ToString(includeNames = true, includePackage = false)
-    static class Entry
-    {
-        String description
+  @ToString(includeNames = true, includePackage = false)
+  static class Entry
+  {
+    String description
 
-        String purl
+    String purl
 
-        String canonical_purl
+    String canonical_purl
 
-        String type
+    String type
 
-        String namespace
+    String namespace
 
-        String name
+    String name
 
-        String version
+    String version
 
-        Map<String,String> qualifiers
+    Map<String, String> qualifiers
 
-        String subpath
+    String subpath
 
-        boolean is_invalid
+    boolean is_invalid
+  }
+
+  static List<Entry> get() {
+    URL resource = this.getResource(RESOURCE)
+    assert resource != null: "Missing resource: $RESOURCE"
+
+    def entries = new JsonSlurper().parse(resource) as List<Map>
+    return entries.collect { new Entry(it) }
+  }
+
+  static void main(final String[] args) {
+    get().each {
+      println it
     }
-
-    static List<Entry> get() {
-        URL resource = this.getResource(RESOURCE)
-        assert resource != null : "Missing resource: $RESOURCE"
-
-        def entries = new JsonSlurper().parse(resource) as List<Map>
-        return entries.collect { new Entry(it) }
-    }
-
-    static void main(final String[] args) {
-        get().each {
-            println it
-        }
-    }
+  }
 }

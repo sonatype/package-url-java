@@ -12,11 +12,11 @@
  */
 package org.sonatype.goodies.packageurl;
 
-import com.google.common.base.Charsets;
-import com.google.common.net.PercentEscaper;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+
+import com.google.common.base.Charsets;
+import com.google.common.net.PercentEscaper;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -29,31 +29,32 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 final class PercentEncoding
 {
-    private PercentEncoding() {
-        // empty
+  private PercentEncoding() {
+    // empty
+  }
+
+  private static final String UTF_8 = Charsets.UTF_8.name();
+
+  // Package URL specification indicates that {@code :} and {@code /} are "unambiguous unencoded everywhere"
+  private static final String SAFE = "-_.~:/";
+
+  // Package URL specification; via https://en.wikipedia.org/wiki/Percent-encoding; indicates % encoding for space
+  private static final PercentEscaper ESCAPER = new PercentEscaper(SAFE, false);
+
+  public static String encode(final String value) {
+    checkNotNull(value);
+    return ESCAPER.escape(value);
+  }
+
+  // NOTE: guava doesn't provide any decoding support, but URLDecoder should properly decode value
+
+  public static String decode(final String value) {
+    checkNotNull(value);
+    try {
+      return URLDecoder.decode(value, UTF_8);
     }
-
-    private static final String UTF_8 = Charsets.UTF_8.name();
-
-    // Package URL specification indicates that {@code :} and {@code /} are "unambiguous unencoded everywhere"
-    private static final String SAFE = "-_.~:/";
-
-    // Package URL specification; via https://en.wikipedia.org/wiki/Percent-encoding; indicates % encoding for space
-    private static final PercentEscaper ESCAPER = new PercentEscaper(SAFE, false);
-
-    public static String encode(final String value) {
-        checkNotNull(value);
-        return ESCAPER.escape(value);
+    catch (UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
     }
-
-    // NOTE: guava doesn't provide any decoding support, but URLDecoder should properly decode value
-
-    public static String decode(final String value) {
-        checkNotNull(value);
-        try {
-            return URLDecoder.decode(value, UTF_8);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-    }
+  }
 }

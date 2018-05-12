@@ -12,8 +12,9 @@
  */
 package org.sonatype.goodies.packageurl
 
-import org.junit.Test
 import org.sonatype.goodies.testsupport.TestSupport
+
+import org.junit.Test
 
 /**
  * Tests for {@link PercentEncoding}.
@@ -21,23 +22,23 @@ import org.sonatype.goodies.testsupport.TestSupport
 class PercentEncodingTest
     extends TestSupport
 {
-    private void assertEncoding(final String value, final String encoded) {
-        def result = PercentEncoding.encode(value)
-        log result
-        assert result == encoded
+  private void assertEncoding(final String value, final String encoded) {
+    def result = PercentEncoding.encode(value)
+    log result
+    assert result == encoded
 
-        def decoded = PercentEncoding.decode(encoded)
-        log decoded
-        assert value == decoded
-    }
+    def decoded = PercentEncoding.decode(encoded)
+    log decoded
+    assert value == decoded
+  }
 
-    @Test
-    void 'slash is not encoded'() {
-        assertEncoding '1.2.3-FOO/bar baz', '1.2.3-FOO/bar%20baz'
-    }
+  @Test
+  void 'slash is not encoded'() {
+    assertEncoding '1.2.3-FOO/bar baz', '1.2.3-FOO/bar%20baz'
+  }
 
-    @Test
-    void 'colon is not encoded'() {
-        assertEncoding 'sha1:123 foo', 'sha1:123%20foo'
-    }
+  @Test
+  void 'colon is not encoded'() {
+    assertEncoding 'sha1:123 foo', 'sha1:123%20foo'
+  }
 }
