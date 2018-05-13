@@ -538,6 +538,13 @@ public class PackageUrl
   //
 
   /**
+   * Helper to create a builder.
+   */
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  /**
    * {@link PackageUrl} builder.
    */
   public static class Builder
