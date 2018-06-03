@@ -16,13 +16,12 @@ import groovy.json.JsonSlurper
 import groovy.transform.ToString
 
 /**
- * Package URL specification <a href="https://github.com/package-url/purl-spec/blob/master/test-suite-data.json">Test
- * Suite Data</a>.
+ * Package URL specification test-suite-data
+ *
+ * @see <a href="https://github.com/package-url/purl-spec/blob/master/test-suite-data.json">latest</a>
  */
 class TestSuiteData
 {
-  private static final String RESOURCE = 'test-suite-data.json'
-
   @ToString(includeNames = true, includePackage = false)
   static class Entry
   {
@@ -47,11 +46,11 @@ class TestSuiteData
     boolean is_invalid
   }
 
-  static List<Entry> get() {
-    URL resource = this.getResource(RESOURCE)
-    assert resource != null: "Missing resource: $RESOURCE"
+  static List<Entry> get(final String resource) {
+    URL url = this.getResource(resource)
+    assert url != null: "Missing resource: $resource"
 
-    def entries = new JsonSlurper().parse(resource) as List<Map>
+    def entries = new JsonSlurper().parse(url) as List<Map>
     return entries.collect { new Entry(it) }
   }
 

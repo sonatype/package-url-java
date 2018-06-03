@@ -29,7 +29,7 @@ class SpecTest
 
   @BeforeClass
   static void 'load test-suite-data entries'() {
-    entries = TestSuiteData.get()
+    entries = TestSuiteData.get('schemeless-data.json')
   }
 
   @Test
