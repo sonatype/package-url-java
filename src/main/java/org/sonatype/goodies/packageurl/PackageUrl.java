@@ -182,15 +182,25 @@ public class PackageUrl
     /**
      * Render w/o {@code pkg:} scheme.
      */
-    SCHEMELESS
+    SCHEMELESS;
+
+    private static RenderFlavor _default = RenderFlavor.SCHEMELESS;
+
+    public static RenderFlavor getDefault() {
+      return _default;
+    }
+
+    public static void setDefault(final RenderFlavor flavor) {
+      _default = checkNotNull(flavor);
+    }
   }
 
   /**
-   * Convert to canonical string representation with {@link RenderFlavor#SCHEMELESS}.
+   * Convert to canonical string representation with {@link RenderFlavor#getDefault() default flavor}.
    */
   @Override
   public String toString() {
-    return toString(RenderFlavor.SCHEMELESS);
+    return toString(RenderFlavor.getDefault());
   }
 
   /**
