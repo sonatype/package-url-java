@@ -18,11 +18,13 @@ import org.junit.BeforeClass
 import org.junit.Test
 
 /**
- * Package URL specification tests.
+ * Package URL specification tests for scheme-less.
+ *
+ * This is the older specification w/o {@code pkg:}.
  *
  * @see TestSuiteData
  */
-class SpecTest
+class SchemelessSpecTest
     extends TestSupport
 {
   static List<TestSuiteData.Entry> entries
