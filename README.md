@@ -14,7 +14,7 @@ Implementation of [Package URL](https://github.com/package-url/purl-spec) specif
 
 ### Parsing
 
-#### `pkg:` scheme
+#### pkg scheme
 
     PackageUrl purl = PackageUrl.parse("pkg:maven/junit/junit@4.12");
 
@@ -38,7 +38,7 @@ Implementation of [Package URL](https://github.com/package-url/purl-spec) specif
 
 ## Rendering
 
-#### `pkg:` scheme
+#### pkg scheme
     
     PackageUrl purl = PackageUrl.parse("maven:junit/junit@4.12");
     System.out.println(purl.toString(PackageUrl.RenderFlavor.SCHEME));
