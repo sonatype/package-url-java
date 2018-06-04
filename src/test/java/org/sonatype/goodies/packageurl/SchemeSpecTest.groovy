@@ -12,8 +12,10 @@
  */
 package org.sonatype.goodies.packageurl
 
+import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor
 import org.sonatype.goodies.testsupport.TestSupport
 
+import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Test
 
@@ -30,6 +32,12 @@ class SchemeSpecTest
   @BeforeClass
   static void 'load test-suite-data entries'() {
     entries = TestSuiteData.get('scheme-data.json')
+    PackageUrl.RenderFlavor.default = RenderFlavor.SCHEME
+  }
+
+  @AfterClass
+  static void 'reset flavor'() {
+    PackageUrl.RenderFlavor.default = null
   }
 
   @Test

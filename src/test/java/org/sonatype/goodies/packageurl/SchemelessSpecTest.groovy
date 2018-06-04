@@ -12,8 +12,11 @@
  */
 package org.sonatype.goodies.packageurl
 
+import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor
 import org.sonatype.goodies.testsupport.TestSupport
 
+import org.junit.After
+import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Test
 
@@ -32,6 +35,12 @@ class SchemelessSpecTest
   @BeforeClass
   static void 'load test-suite-data entries'() {
     entries = TestSuiteData.get('schemeless-data.json')
+    PackageUrl.RenderFlavor.default = RenderFlavor.SCHEMELESS
+  }
+
+  @AfterClass
+  static void 'reset flavor'() {
+    PackageUrl.RenderFlavor.default = null
   }
 
   @Test

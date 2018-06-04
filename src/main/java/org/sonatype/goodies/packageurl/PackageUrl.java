@@ -184,14 +184,17 @@ public class PackageUrl
      */
     SCHEMELESS;
 
-    private static RenderFlavor _default = RenderFlavor.SCHEMELESS;
+    private static RenderFlavor _default = SCHEMELESS;
 
     public static RenderFlavor getDefault() {
       return _default;
     }
 
-    public static void setDefault(final RenderFlavor flavor) {
-      _default = checkNotNull(flavor);
+    /**
+     * Set the default flavor, or null for the original default.
+     */
+    public static void setDefault(@Nullable final RenderFlavor flavor) {
+      _default = flavor == null ? SCHEMELESS : flavor;
     }
   }
 
@@ -345,7 +348,7 @@ public class PackageUrl
   private static final String SCHEME = "pkg";
 
   private static final Pattern PURL_SCHEME_PATTERN = Pattern.compile(String.format(
-      "%s:(//)?(?<type>%s)/" +
+      "%s:(/)*(?<type>%s)/" +
       "((?<namespace>%s)/)?" +
       "(?<name>%s)" +
       "(@(?<version>%s))?" +
