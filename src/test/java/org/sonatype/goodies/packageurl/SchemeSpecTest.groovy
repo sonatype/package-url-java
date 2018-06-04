@@ -36,7 +36,7 @@ class SchemeSpecTest
   }
 
   @AfterClass
-  static void 'reset flavor'() {
+  static void 'reset render-flavor'() {
     PackageUrl.RenderFlavor.default = null
   }
 
