@@ -170,13 +170,63 @@ public class PackageUrl
   }
 
   /**
-   * Convert to canonical string representation.
+   * How to render the Package-URL.
+   */
+  public enum RenderFlavor
+  {
+    /**
+     * Render with {@code pkg:} scheme.
+     */
+    SCHEME,
+
+    /**
+     * Render w/o {@code pkg:} scheme.
+     */
+    SCHEMELESS;
+
+    private static RenderFlavor _default = SCHEMELESS;
+
+    public static RenderFlavor getDefault() {
+      return _default;
+    }
+
+    /**
+     * Set the default flavor, or null for the original default.
+     */
+    public static void setDefault(@Nullable final RenderFlavor flavor) {
+      _default = flavor == null ? SCHEMELESS : flavor;
+    }
+  }
+
+  /**
+   * Convert to canonical string representation with {@link RenderFlavor#getDefault() default flavor}.
    */
   @Override
   public String toString() {
+    return toString(RenderFlavor.getDefault());
+  }
+
+  /**
+   * Convert to canonical string representation with given rendering flavor.
+   */
+  public String toString(final RenderFlavor flavor) {
+    checkNotNull(flavor);
+
     StringBuilder buff = new StringBuilder();
 
-    buff.append(lowerCase(type)).append(':');
+    if (flavor == RenderFlavor.SCHEME) {
+      buff.append(SCHEME).append(':');
+    }
+
+    buff.append(lowerCase(type));
+
+    if (flavor == RenderFlavor.SCHEME) {
+      buff.append('/');
+    }
+    else {
+      buff.append(':');
+    }
+
     if (namespace != null && !namespace.isEmpty()) {
       renderSegments(buff, namespace, true);
       buff.append('/');
@@ -295,13 +345,25 @@ public class PackageUrl
 
   private static final Splitter SEGMENT_SPLITTER = Splitter.on('/');
 
-  private static final Pattern PURL_PATTERN = Pattern.compile(String.format(
+  private static final String SCHEME = "pkg";
+
+  private static final Pattern PURL_SCHEME_PATTERN = Pattern.compile(String.format(
+      "%s:(/)*(?<type>%s)/" +
+      "((?<namespace>%s)/)?" +
+      "(?<name>%s)" +
+      "(@(?<version>%s))?" +
+      "(\\?(?<qualifiers>%s))?" +
+      "(#(?<subpath>%s))?",
+      SCHEME, TYPE, NAMESPACE, NAME, VERSION, QUALIFIERS, SUBPATH
+  ));
+
+  private static final Pattern PURL_SCHEMELESS_PATTERN = Pattern.compile(String.format(
       "(?<type>%s):(//)?" +
-          "((?<namespace>%s)/)?" +
-          "(?<name>%s)" +
-          "(@(?<version>%s))?" +
-          "(\\?(?<qualifiers>%s))?" +
-          "(#(?<subpath>%s))?",
+      "((?<namespace>%s)/)?" +
+      "(?<name>%s)" +
+      "(@(?<version>%s))?" +
+      "(\\?(?<qualifiers>%s))?" +
+      "(#(?<subpath>%s))?",
       TYPE, NAMESPACE, NAME, VERSION, QUALIFIERS, SUBPATH
   ));
 
@@ -313,7 +375,15 @@ public class PackageUrl
   public static PackageUrl parse(final String value) {
     checkNotNull(value);
 
-    Matcher m = PURL_PATTERN.matcher(value);
+    Pattern pattern;
+    if (value.startsWith(SCHEME + ":")) {
+      pattern = PURL_SCHEME_PATTERN;
+    }
+    else {
+      pattern = PURL_SCHEMELESS_PATTERN;
+    }
+
+    Matcher m = pattern.matcher(value);
     if (m.matches()) {
       String type = parseType(m.group("type"));
       List<String> namespace = parseNamespace(m.group("namespace"));

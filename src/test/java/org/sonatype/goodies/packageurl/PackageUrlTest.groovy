@@ -16,6 +16,7 @@ import org.sonatype.goodies.testsupport.TestSupport
 
 import org.junit.Test
 
+import static org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor
 import static org.junit.Assert.fail
 
 /**
@@ -90,6 +91,24 @@ class PackageUrlTest
       assert namespace == null
       assert name == 'bar'
       assert version == 'baz'
+    }
+  }
+
+  @Test
+  void parse_basic_with_scheme() {
+    parse('pkg:foo/bar@baz').with {
+      assert type == 'foo'
+      assert namespace == null
+      assert name == 'bar'
+      assert version == 'baz'
+    }
+  }
+
+  @Test
+  void tostring_flavors() {
+    parse('pkg:foo/bar@baz').with {
+      assert it.toString(RenderFlavor.SCHEME) == 'pkg:foo/bar@baz'
+      assert it.toString(RenderFlavor.SCHEMELESS) == 'foo:bar@baz'
     }
   }
 

@@ -12,24 +12,35 @@
  */
 package org.sonatype.goodies.packageurl
 
+import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor
 import org.sonatype.goodies.testsupport.TestSupport
 
+import org.junit.After
+import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Test
 
 /**
- * Package URL specification tests.
+ * Package URL specification tests for scheme-less.
+ *
+ * This is the older specification w/o {@code pkg:}.
  *
  * @see TestSuiteData
  */
-class SpecTest
+class SchemelessSpecTest
     extends TestSupport
 {
   static List<TestSuiteData.Entry> entries
 
   @BeforeClass
   static void 'load test-suite-data entries'() {
-    entries = TestSuiteData.get()
+    entries = TestSuiteData.get('schemeless-data.json')
+    PackageUrl.RenderFlavor.default = RenderFlavor.SCHEMELESS
+  }
+
+  @AfterClass
+  static void 'reset render-flavor'() {
+    PackageUrl.RenderFlavor.default = null
   }
 
   @Test

@@ -8,6 +8,13 @@ String mavenOptions = '-V -B -e'
 String deployBranch = 'master'
 
 pipeline {
+  options {
+    buildDiscarder(
+      logRotator(numToKeepStr: '100', daysToKeepStr: '14',  artifactNumToKeepStr: '20', artifactDaysToKeepStr: '10')
+    )
+    timestamps()
+  }
+
   agent {
     label 'ubuntu-zion'
   }
@@ -29,7 +36,9 @@ pipeline {
         }
       }
       steps {
-        withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo) {
+        withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo,
+            // disable automatic artifact publisher
+            options: [ artifactsPublisher(disabled: true) ]) {
           sh "mvn $mavenOptions clean install"
         }
       }
@@ -40,7 +49,9 @@ pipeline {
         branch deployBranch
       }
       steps {
-        withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo) {
+        withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo,
+            // disable automatic artifact publisher
+            options: [ artifactsPublisher(disabled: true) ]) {
           sh "mvn $mavenOptions clean deploy"
         }
       }
@@ -52,12 +63,6 @@ pipeline {
             // HACK: bogus path here to only scan indexed modules
             iqScanPatterns: [[scanPattern: 'no-such-path/*']]
       }
-    }
-  }
-
-  post {
-    always {
-      junit '**/target/*-reports/*.xml'
     }
   }
 }
