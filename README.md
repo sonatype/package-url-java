@@ -14,6 +14,12 @@ Implementation of [Package URL](https://github.com/package-url/purl-spec) specif
 
 ### Parsing
 
+#### `pkg:` scheme
+
+    PackageUrl purl = PackageUrl.parse("pkg:maven/junit/junit@4.12");
+
+#### scheme-less
+
     PackageUrl purl = PackageUrl.parse("maven:junit/junit@4.12");
 
 ### Builder
