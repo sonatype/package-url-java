@@ -36,7 +36,7 @@ pipeline {
         }
       }
       steps {
-        withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo,
+        withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, /*mavenLocalRepo: mavenRepo,*/
             // disable automatic artifact publisher
             options: [ artifactsPublisher(disabled: true) ]) {
           sh "mvn $mavenOptions clean install"
@@ -49,7 +49,7 @@ pipeline {
         branch deployBranch
       }
       steps {
-        withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo,
+        withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, /*mavenLocalRepo: mavenRepo,*/
             // disable automatic artifact publisher
             options: [ artifactsPublisher(disabled: true) ]) {
           sh "mvn $mavenOptions clean deploy"
