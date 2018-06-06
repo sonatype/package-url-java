@@ -67,7 +67,7 @@ pipeline {
   }
 
   post {
-    always {
+    cleanup {
       // purge workspace after build finishes
       deleteDir()
     }
