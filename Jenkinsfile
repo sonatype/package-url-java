@@ -65,4 +65,11 @@ pipeline {
       }
     }
   }
+
+  post {
+    always {
+      // purge workspace after build finishes
+      deleteDir
+    }
+  }
 }
