@@ -38,9 +38,21 @@
     <url>https://github.com/sonatype/package-url-java</url>
   </scm>
 
+  <licenses>
+    <license>
+      <name>ASL2</name>
+      <url>http://opensource.org/licenses/Apache-2.0</url>
+    </license>
+  </licenses>
+
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/sonatype/package-url-java/issues</url>
+  </issueManagement>
+
   <ciManagement>
     <system>jenkins</system>
-    <url>https://jenkins.zion.aws.s/job/ossindex/job/package-url-java</url>
+    <url>https://jenkins.zion.aws.s/job/goodies/job/package-url-java</url>
   </ciManagement>
 
   <properties>
