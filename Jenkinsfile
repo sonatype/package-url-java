@@ -59,7 +59,7 @@ pipeline {
 
     stage('Evaluate Policy') {
       steps {
-        nexusPolicyEvaluation iqApplication: 'oss-index-website', iqStage: 'build',
+        nexusPolicyEvaluation iqApplication: 'goodies', iqStage: 'build',
             // HACK: bogus path here to only scan indexed modules
             iqScanPatterns: [[scanPattern: 'no-such-path/*']]
       }
