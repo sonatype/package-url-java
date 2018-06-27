@@ -23,7 +23,7 @@ Implementation of [Package URL](https://github.com/package-url/purl-spec) specif
     <dependency>
       <groupId>org.sonatype.goodies</groupId>
       <artifactId>package-url-java</artifactId>
-      <version>1-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
 
 ### Parsing
