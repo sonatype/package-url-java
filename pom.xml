@@ -30,7 +30,7 @@
 
   <version>1-SNAPSHOT</version>
 
-  <url>https://github.com/sonatype/package-url-java</url>
+  <url>https://sonatype.github.io/package-url-java/</url>
 
   <scm>
     <connection>scm:git:git://github.com/sonatype/package-url-java.git</connection>
