@@ -12,11 +12,13 @@
     See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
 
 -->
-# Sonatype Goodies - Package URL
+# About
 
 Implementation of [Package URL](https://github.com/package-url/purl-spec) specification for Java.
 
 <h2>Maven</h2>
+
+To use from [Apache Maven](https://maven.apache.org) include dependency:
 
     <dependency>
       <groupId>org.sonatype.goodies</groupId>
