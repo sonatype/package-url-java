@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<envelope>
+    <coordinates>
+        <item>maven:foo/bar@1</item>
+        <item>maven:baz/qux@2</item>
+    </coordinates>
+</envelope>

@@ -45,13 +45,13 @@ class PackageUrlModuleTest
   void 'serialize single'() {
     def purl = 'maven:foo/bar@1'
     def value = PackageUrl.parse(purl)
-    def expected = fixture('fixtures/packageurl/simple.json')
+    def expected = fixture('fixtures/simple.json')
     assert objectMapper.writeValueAsString(value) == expected
   }
 
   @Test
   void 'deserialize single'() {
-    def content = fixture('fixtures/packageurl/simple.json')
+    def content = fixture('fixtures/simple.json')
     objectMapper.readValue(content, PackageUrl.class).with {
       log it
       assert type == 'maven'
@@ -77,13 +77,13 @@ class PackageUrlModuleTest
         ]
     )
 
-    def expected = fixture('fixtures/packageurl/complex.json')
+    def expected = fixture('fixtures/complex.json')
     assert objectMapper.writeValueAsString(value) == expected
   }
 
   @Test
   void 'deserialize complex'() {
-    def content = fixture('fixtures/packageurl/complex.json')
+    def content = fixture('fixtures/complex.json')
     objectMapper.readValue(content, Envelope.class).with {
       log it
       assert coordinates != null
