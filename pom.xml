@@ -38,6 +38,8 @@
     <url>https://github.com/sonatype/package-url-java</url>
   </scm>
 
+  <inceptionYear>2018</inceptionYear>
+
   <licenses>
     <license>
       <name>ASL2</name>
