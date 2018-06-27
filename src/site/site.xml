@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2018-present Sonatype, Inc. All rights reserved.
+
+    This program is licensed to you under the Apache License Version 2.0,
+    and you may not use this file except in compliance with the Apache License Version 2.0.
+    You may obtain a copy of the Apache License Version 2.0 at http://www.apache.org/licenses/LICENSE-2.0.
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the Apache License Version 2.0 is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
+
+-->
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd"
+         name="Sonatype OSS Index: Maven">
+
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.7</version>
+  </skin>
+
+  <publishDate position="right"/>
+  <version position="right"/>
+
+  <custom>
+    <fluidoSkin>
+      <navBarStyle>navbar-inverse</navBarStyle>
+      <topBarEnabled>true</topBarEnabled>
+      <topBarIcon>
+        <name>project</name>
+        <src>images/sonatype-dark-32x32.png</src>
+        <href>${project.url}</href>
+      </topBarIcon>
+      <sideBarEnabled>false</sideBarEnabled>
+      <gitHub>
+        <projectId>sonatype/package-url-java</projectId>
+        <ribbonOrientation>right</ribbonOrientation>
+        <ribbonColor>green</ribbonColor>
+      </gitHub>
+    </fluidoSkin>
+  </custom>
+
+  <body>
+    <breadcrumbs>
+      <item name="Home" href="./index.html"/>
+    </breadcrumbs>
+
+    <menu name="Overview">
+      <item name="About" href="index.html"/>
+    </menu>
+
+    <menu ref="reports"/>
+
+    <footer>
+      Copyright &copy; ${project.inceptionYear} Sonatype, Inc. All rights reserved.
+    </footer>
+  </body>
+</project>

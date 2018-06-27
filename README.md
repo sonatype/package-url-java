@@ -71,3 +71,13 @@ Or set the default:
 
     PackageUrl.RenderFlavor.setDefault(PackageUrl.RenderFlavor.SCHEMELESS);
     System.out.println(purl.toString());
+
+## Site 
+
+### Staging
+
+    mvn -Psite-stage && open target/staging/index.html 
+
+### Publishing
+
+    mvn -Psite-stage && mvn scm-publish:publish-scm
