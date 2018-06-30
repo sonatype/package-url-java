@@ -32,8 +32,8 @@
       <topBarEnabled>true</topBarEnabled>
       <topBarIcon>
         <name>project</name>
-        <src>images/sonatype-dark-32x32.png</src>
-        <href>${project.url}</href>
+        <src>https://sonatype.github.io/package-url-java/images/sonatype-dark-32x32.png</src>
+        <href>https://sonatype.github.io/package-url-java</href>
       </topBarIcon>
       <sideBarEnabled>false</sideBarEnabled>
       <gitHub>
