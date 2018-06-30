@@ -16,6 +16,17 @@
 
 Implementation of [Package URL](https://github.com/package-url/purl-spec) specification for Java.
 
+## Building
+
+### Requirements
+
+* Apache Maven 3.3+
+* JDK 7+ (10 is **NOT** supported)
+
+### Build
+
+    mvn clean install
+
 ## Site 
 
 ### Staging
