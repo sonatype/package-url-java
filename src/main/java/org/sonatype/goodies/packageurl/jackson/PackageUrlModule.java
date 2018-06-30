@@ -40,7 +40,10 @@ public class PackageUrlModule
     addDeserializer(PackageUrl.class, new PackageUrlDeserializer());
   }
 
-  private static class PackageUrlDeserializer
+  /**
+   * {@link PackageUrl} deserializer.
+   */
+  public static class PackageUrlDeserializer
       extends StdDeserializer<PackageUrl>
   {
     private static final long serialVersionUID = 1L;
@@ -58,7 +61,10 @@ public class PackageUrlModule
     }
   }
 
-  private static class PackageUrlSerializer
+  /**
+   * {@link PackageUrl} serializer.
+   */
+  public static class PackageUrlSerializer
       extends StdSerializer<PackageUrl>
   {
     private static final long serialVersionUID = 1L;
