@@ -12,22 +12,14 @@
     See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
 
 -->
-# About
+# Parsing
 
-Implementation of [Package URL](https://github.com/package-url/purl-spec) specification for Java.
+Parsing from string supports 2 options.  With `pkg` scheme or scheme-less.
 
-<h2>Maven</h2>
+## `pkg` scheme
 
-To use from [Apache Maven](https://maven.apache.org) include dependency:
+    PackageUrl purl = PackageUrl.parse("pkg:maven/junit/junit@4.12");
 
-    <dependency>
-      <groupId>org.sonatype.goodies</groupId>
-      <artifactId>package-url-java</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+## scheme-less
 
-<h2>Usage</h2>
-
-* [Buidler](builder.html)
-* [Parsing](parse.html)
-* [Rendering](render.html)
+    PackageUrl purl = PackageUrl.parse("maven:junit/junit@4.12");

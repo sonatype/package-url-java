@@ -51,9 +51,26 @@
 
     <menu name="Overview">
       <item name="About" href="index.html"/>
+      <item name="Builder" href="builder.html"/>
+      <item name="Parsing" href="parse.html"/>
+      <item name="Rendering" href="render.html"/>
+      <item name="Dependency" href="dependency-info.html"/>
+      <item name="License" href="license.html"/>
     </menu>
 
-    <menu ref="reports"/>
+    <menu name="Development">
+      <item name="Source Repository" href="source-repository.html"/>
+      <item name="Maven Dependencies" href="dependencies.html"/>
+      <item name="Team" href="team-list.html"/>
+      <item name="Findbugs Report" href="findbugs.html"/>
+      <item name="PMD Report" href="pmd.html"/>
+      <item name="Surefire Report" href="surefire-report.html"/>
+    </menu>
+
+    <menu name="Reference">
+      <item name="API" href="apidocs/index.html"/>
+      <item name="Source" href="xref/index.html"/>
+    </menu>
 
     <footer>
       Copyright &copy; ${project.inceptionYear} Sonatype, Inc. All rights reserved.

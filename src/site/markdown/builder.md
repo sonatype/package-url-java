@@ -12,19 +12,10 @@
     See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
 
 -->
-# Usage
+# Builder
 
-## Parsing
-
-### pkg scheme
-
-    PackageUrl purl = PackageUrl.parse("pkg:maven/junit/junit@4.12");
-
-### scheme-less
-
-    PackageUrl purl = PackageUrl.parse("maven:junit/junit@4.12");
-
-## Builder
+Construction of a [PackageUrl](apidocs/org/sonatype/goodies/packageurl/PackageUrl.html) is done with a
+[Builder](apidocs/org/sonatype/goodies/packageurl/PackageUrl.Builder.html):
 
     PackageUrl purl = new PackageUrl.Builder()
         .type("maven")
@@ -34,28 +25,8 @@
         .build();
 
 ## Mutation
-    
+
+Mutation is also handled by a builder by converting an existing `PackageUrl` into a `Builder`:
+
     PackageUrl purl = PackageUrl.parse("maven:junit/junit@4.12");
     PackageUrl purlNoVersion = purl.asBuilder().version(null).build();
-
-## Rendering
-
-### pkg scheme
-    
-    PackageUrl purl = PackageUrl.parse("maven:junit/junit@4.12");
-    System.out.println(purl.toString(PackageUrl.RenderFlavor.SCHEME));
-
-Or set the default:
-
-    PackageUrl.RenderFlavor.setDefault(PackageUrl.RenderFlavor.SCHEME);
-    System.out.println(purl.toString());
-    
-### scheme-less
-
-    PackageUrl purl = PackageUrl.parse("maven:junit/junit@4.12");
-    System.out.println(purl.toString(PackageUrl.RenderFlavor.SCHEMELESS));
-
-Or set the default:
-
-    PackageUrl.RenderFlavor.setDefault(PackageUrl.RenderFlavor.SCHEMELESS);
-    System.out.println(purl.toString());
