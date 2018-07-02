@@ -370,7 +370,7 @@ public class PackageUrl
   /**
    * Parse package-url from given value.
    *
-   * Value format: {@code type:namespace/name@version?qualifiers#subpath)
+   * Value format: {@code type:namespace/name@version?qualifiers#subpath}
    */
   public static PackageUrl parse(final String value) {
     checkNotNull(value);
