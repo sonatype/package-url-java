@@ -1,3 +1,4 @@
 org.sonatype.goodies.packageurl
 org.sonatype.goodies.packageurl.jackson
 org.sonatype.goodies.packageurl.jaxb
+org.sonatype.goodies.packageurl.jaxrs
