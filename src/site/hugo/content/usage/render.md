@@ -8,6 +8,11 @@ draft: false
 menu:
   topnav:
     parent: Usage
+
+categories:
+  - usage
+tags:
+  - package-url-java
 ---
 Rendering to a string supports 2 options.  With `pkg` scheme or scheme-less.
 

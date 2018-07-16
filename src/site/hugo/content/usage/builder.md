@@ -8,6 +8,11 @@ draft: false
 menu:
   topnav:
     parent: Usage
+
+categories:
+  - usage
+tags:
+  - package-url-java
 ---
 Construction of a [PackageUrl](../../apidocs/org/sonatype/goodies/packageurl/PackageUrl.html) is done with a
 [Builder](../../apidocs/org/sonatype/goodies/packageurl/PackageUrl.Builder.html):
