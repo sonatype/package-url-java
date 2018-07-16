@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/usage/builder/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/license/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/usage/parse/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/usage/render/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/search/</loc>
+    <priority>0.1</priority>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/usage/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/</loc>
+  </url>
+  
+</urlset>

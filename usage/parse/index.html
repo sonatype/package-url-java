@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html id="site-root" lang="en-us">
+<head>
+  
+<meta charset="UTF-8"/>
+<meta name="author" content="Sonatype, Inc."/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Parsing &ndash; Goodies: Package URL Java</title>
+
+<link rel="shortcut icon" href="/package-url-java/favicon.ico">
+<link rel="icon" type="image/x-icon" href="/package-url-java/favicon.ico"/>
+<link rel="icon" type="image/png" href="/package-url-java/images/favicon-16x16.png" sizes="16x16"/>
+<link rel="icon" type="image/png" href="/package-url-java/images/favicon-32x32.png" sizes="32x32"/>
+
+<link rel="stylesheet" href="/package-url-java/theme.css">
+
+
+  
+  <script>
+    var site_BaseURL = "https:\/\/sonatype.github.io\/package-url-java\/";
+    var site_BasePath = "\/package-url-java";
+  </script>
+
+  
+</head>
+<body id="site-body">
+  <wrapper id="site-wrapper">
+    
+<header id="site-header">
+  <nav id="site-topnav">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/package-url-java/">
+        <img class="d-inline-block align-top mr-2" src="/package-url-java/images/sonatype-dark-32x32.png" width="32" height="32" alt="">
+        Goodies: Package URL Java
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar-toggle">
+        <ul class="navbar-nav mr-auto">
+          
+          
+            <li class="nav-item">
+              <a class="nav-link active" href="/package-url-java/usage/" title="Usage">Usage</a>
+            </li>
+          
+        </ul>
+
+        <form class="form-inline d-flex flex-nowrap" action="https://sonatype.github.io/package-url-java/search" method="get">
+          <div class="input-group" data-toggle="tooltip" data-placement="bottom" title="Search">
+            <input class="form-control border-right-0 border-dark bg-dark text-light" type="search" name="q"
+                   placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-secondary" type="submit">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+
+          
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+    <main id="site-content">
+      
+<div id="page-description">
+  <h1 class="title"><i class="fab fa-java"></i> Parsing</h1>
+  
+    <p class="subtitle">Parse package-url from a string</p>
+  
+</div>
+
+
+
+<p>Parsing from string supports 2 options.  With <code>pkg</code> scheme or scheme-less.</p>
+
+<h2 id="pkg-scheme"><code>pkg</code> scheme</h2>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PackageUrl purl <span style="color:#555">=</span> PackageUrl<span style="color:#555">.</span><span style="color:#309">parse</span><span style="color:#555">(</span><span style="color:#c30">&#34;pkg:maven/junit/junit@4.12&#34;</span><span style="color:#555">);</span></code></pre></div>
+<h2 id="scheme-less">scheme-less</h2>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PackageUrl purl <span style="color:#555">=</span> PackageUrl<span style="color:#555">.</span><span style="color:#309">parse</span><span style="color:#555">(</span><span style="color:#c30">&#34;maven:junit/junit@4.12&#34;</span><span style="color:#555">);</span></code></pre></div>
+
+
+    </main>
+    
+<footer id="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="section-brand">
+        <h5 class="section-title"><img src="/package-url-java/images/sonatype-24x24.png" width="24" height="24" alt=""></h5>
+        <small class="section-entry">&copy; 2018-present, Sonatype Inc.</small>
+      </div>
+
+      
+        <div class="section">
+          <h5 class="section-title">About</h5>
+          <ul class="section-list">
+            
+            <li><a class="section-entry" href="/package-url-java/about/">
+              
+              Goodies: Package URL Java</a></li>
+            
+          </ul>
+        </div>
+      
+        <div class="section">
+          <h5 class="section-title">Resources</h5>
+          <ul class="section-list">
+            
+            <li><a class="section-entry" href="/package-url-java/categories/">
+              
+              Categories</a></li>
+            
+            <li><a class="section-entry" href="/package-url-java/tags/">
+              
+              Tags</a></li>
+            
+          </ul>
+        </div>
+      
+        <div class="section">
+          <h5 class="section-title">Legal</h5>
+          <ul class="section-list">
+            
+            <li><a class="section-entry" href="/package-url-java/license/">
+              
+              License</a></li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+</footer>
+    
+<script src="/package-url-java/theme.js"></script>
+  </wrapper>
+</body>
+</html>
