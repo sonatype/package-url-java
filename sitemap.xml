@@ -15,6 +15,10 @@
   </url>
   
   <url>
+    <loc>https://sonatype.github.io/package-url-java/development/</loc>
+  </url>
+  
+  <url>
     <loc>https://sonatype.github.io/package-url-java/license/</loc>
   </url>
   
