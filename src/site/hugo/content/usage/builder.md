@@ -9,8 +9,8 @@ menu:
   topnav:
     parent: Usage
 ---
-Construction of a [PackageUrl](apidocs/org/sonatype/goodies/packageurl/PackageUrl.html) is done with a
-[Builder](apidocs/org/sonatype/goodies/packageurl/PackageUrl.Builder.html):
+Construction of a [PackageUrl](../../apidocs/org/sonatype/goodies/packageurl/PackageUrl.html) is done with a
+[Builder](../../apidocs/org/sonatype/goodies/packageurl/PackageUrl.Builder.html):
 
 ```java
 PackageUrl purl = new PackageUrl.Builder()

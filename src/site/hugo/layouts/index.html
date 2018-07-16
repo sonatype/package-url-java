@@ -1,0 +1,17 @@
+{{ define "main" }}
+<!--suppress HtmlUnknownTarget -->
+<div class="jumbotron">
+  <h1 class="display-4 welcome-brand">
+    <img src="{{ `/images/sonatype-48x48.png` | relURL }}" width="48" height="48" alt="">
+    {{ .Title }}
+  </h1>
+  <p class="lead text-muted">
+    Implementation of <a href="https://github.com/package-url/purl-spec">Package URL</a> specification for Java.
+  </p>
+</div>
+
+<div class="homepage-content">
+  {{ .Content }}
+</div>
+
+{{ end }}
