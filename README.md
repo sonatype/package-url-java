@@ -31,19 +31,6 @@ Implementation of [Package URL](https://github.com/package-url/purl-spec) specif
 
 ## Site 
 
-### Setup
-
-Prepare `gh-pages` branch:
-
-    git@github.com:jdillon/dionysus-example.git gh-pages
-    cd gh-pages
-    git co --orphan gh-pages
-    rm -rf * .gitignore
-    touch index.html
-    git add index.html
-    git ci -a -m "initial"
-    git push origin gh-pages
-
 ### Building
 
     ./mvnw clean install dionysus:build
