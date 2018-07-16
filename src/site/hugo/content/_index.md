@@ -17,5 +17,5 @@ To use from [Apache Maven](https://maven.apache.org) include dependency:
 
 ## Reference
 
-* [Javadoc](apidocs/)
-* [Source](xref/)
+* [Javadoc](maven/apidocs/)
+* [Source](maven/xref/)

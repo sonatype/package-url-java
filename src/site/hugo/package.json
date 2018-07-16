@@ -8,7 +8,7 @@
   "scripts": {
     "theme-build": "brunch build themes/dionysus",
     "theme-watch": "brunch watch themes/dionysus",
-    "theme-wait": "wait-on themes/dionysus/static/theme.js themes/dionysus/static/theme.css",
+    "theme-wait": "wait-on themes/dionysus/force-update.marker",
     "hugo-server": "yarn theme-wait && hugo server --watch --buildDrafts --disableFastRender",
     "start": "concurrently -k -n brunch,hugo 'yarn theme-watch' 'yarn hugo-server'",
     "build": "brunch build --production themes/dionysus && hugo"

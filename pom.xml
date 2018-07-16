@@ -147,7 +147,23 @@
           <groupId>org.sonatype.dionysus</groupId>
           <artifactId>dionysus-maven-plugin</artifactId>
           <version>1-SNAPSHOT</version>
-          <extensions>true</extensions>
+          <configuration>
+            <theme>
+              <groupId>org.sonatype.dionysus</groupId>
+              <artifactId>dionysus-hugo-theme</artifactId>
+              <version>1-SNAPSHOT</version>
+            </theme>
+            <mavenGoals>
+              <goal>javadoc:aggregate</goal>
+              <goal>jxr:aggregate</goal>
+            </mavenGoals>
+            <generators>
+              <mavenLicenses/>
+              <mavenModules/>
+              <mavenPom/>
+              <mavenPlugin/>
+            </generators>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -283,22 +299,6 @@
 
     <profile>
       <id>dionysus-generate-data</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.sonatype.dionysus</groupId>
-            <artifactId>dionysus-maven-plugin</artifactId>
-            <configuration>
-              <generators>
-                <mavenLicenses/>
-                <mavenModules/>
-                <mavenPom/>
-                <mavenPlugin/>
-              </generators>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
     </profile>
 
     <profile>
