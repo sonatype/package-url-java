@@ -10,5 +10,14 @@
 	<atom:link href="https://sonatype.github.io/package-url-java/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Package Url Java</title>
+      <link>https://sonatype.github.io/package-url-java/tags/package-url-java/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sonatype.github.io/package-url-java/tags/package-url-java/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

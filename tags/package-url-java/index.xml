@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Package Url Java on Goodies: Package URL Java</title>
+    <link>https://sonatype.github.io/package-url-java/tags/package-url-java/</link>
+    <description>Recent content in Package Url Java on Goodies: Package URL Java</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://sonatype.github.io/package-url-java/tags/package-url-java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Builder</title>
+      <link>https://sonatype.github.io/package-url-java/usage/builder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sonatype.github.io/package-url-java/usage/builder/</guid>
+      <description>Construction of a PackageUrl is done with a Builder:
+PackageUrl purl = new PackageUrl.Builder() .type(&amp;#34;maven&amp;#34;) .namespace(&amp;#34;junit&amp;#34;) .name(&amp;#34;junit&amp;#34;) .version(&amp;#34;4.12&amp;#34;) .build(); Mutation Mutation is also handled by a builder by converting an existing PackageUrl into a Builder:
+PackageUrl purl = PackageUrl.parse(&amp;#34;maven:junit/junit@4.12&amp;#34;); PackageUrl purlNoVersion = purl.</description>
+    </item>
+    
+    <item>
+      <title>Parsing</title>
+      <link>https://sonatype.github.io/package-url-java/usage/parse/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sonatype.github.io/package-url-java/usage/parse/</guid>
+      <description>Parsing from string supports 2 options. With pkg scheme or scheme-less.
+pkg scheme PackageUrl purl = PackageUrl.parse(&amp;#34;pkg:maven/junit/junit@4.12&amp;#34;); scheme-less PackageUrl purl = PackageUrl.</description>
+    </item>
+    
+    <item>
+      <title>Render</title>
+      <link>https://sonatype.github.io/package-url-java/usage/render/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sonatype.github.io/package-url-java/usage/render/</guid>
+      <description>Rendering to a string supports 2 options. With pkg scheme or scheme-less.
+This behavior is controlled by RenderFlavor.
+The default behavior can be installed JVM-wide, or can be specified when calling toString(RenderFlavor).
+pkg scheme PackageUrl purl = PackageUrl.parse(&amp;#34;maven:junit/junit@4.12&amp;#34;); System.out.println(purl.toString(PackageUrl.RenderFlavor.SCHEME)); Or set the default:
+PackageUrl.RenderFlavor.setDefault(PackageUrl.RenderFlavor.SCHEME); System.out.println(purl.toString()); scheme-less PackageUrl purl = PackageUrl.parse(&amp;#34;maven:junit/junit@4.12&amp;#34;); System.out.println(purl.toString(PackageUrl.RenderFlavor.SCHEMELESS)); Or set the default:
+PackageUrl.RenderFlavor.setDefault(PackageUrl.RenderFlavor.SCHEMELESS); System.</description>
+    </item>
+    
+  </channel>
+</rss>

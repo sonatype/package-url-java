@@ -23,6 +23,11 @@
   </url>
   
   <url>
+    <loc>https://sonatype.github.io/package-url-java/tags/package-url-java/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://sonatype.github.io/package-url-java/usage/parse/</loc>
   </url>
   
@@ -37,6 +42,11 @@
   
   <url>
     <loc>https://sonatype.github.io/package-url-java/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/package-url-java/categories/usage/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
