@@ -20,4 +20,4 @@ Start Hugo (and theme watcher):
 
 and then browse:
 
-* http://localhost:1313/dionysus-example/
+* http://localhost:1313/package-url-java/
