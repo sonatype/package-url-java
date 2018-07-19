@@ -14,6 +14,7 @@ To use from [Apache Maven](https://maven.apache.org) include dependency:
 * [Builder](usage/builder)
 * [Parsing](usage/parse)
 * [Rendering](usage/render)
+* [Integrations](usage/integrations)
 
 ## Reference
 

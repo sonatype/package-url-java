@@ -14,7 +14,8 @@ categories:
 tags:
   - package-url-java
 ---
-Parsing from string supports 2 options.  With `pkg` scheme or scheme-less.
+Parsing from string with [parse(String)](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrl.html#parse-java.lang.String-)
+supports 2 options.  With `pkg` scheme or scheme-less.
 
 ## `pkg` scheme
 

@@ -14,6 +14,7 @@
     "build": "brunch build --production themes/dionysus && hugo"
   },
   "dependencies": {
+    "brunch": "^2.10.12",
     "concurrently": "^3.6.0",
     "wait-on": "^2.1.0"
   },

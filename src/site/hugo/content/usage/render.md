@@ -16,9 +16,9 @@ tags:
 ---
 Rendering to a string supports 2 options.  With `pkg` scheme or scheme-less.
 
-This behavior is controlled by [RenderFlavor](../../apidocs/org/sonatype/goodies/packageurl/PackageUrl.RenderFlavor.html).
+This behavior is controlled by [RenderFlavor](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrl.RenderFlavor.html).
 
-The *default* behavior can be installed JVM-wide, or can be specified when calling [toString(RenderFlavor)](../../apidocs/org/sonatype/goodies/packageurl/PackageUrl.html#toString-org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor-).
+The *default* behavior can be installed JVM-wide, or can be specified when calling [toString(RenderFlavor)](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrl.html#toString-org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor-).
 
 ## `pkg` scheme
 
