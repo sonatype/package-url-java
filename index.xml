@@ -41,6 +41,16 @@ PackageUrl purl = PackageUrl.parse(&amp;#34;maven:junit/junit@4.12&amp;#34;); Pa
     </item>
     
     <item>
+      <title>Integrations</title>
+      <link>https://sonatype.github.io/package-url-java/usage/integrations/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sonatype.github.io/package-url-java/usage/integrations/</guid>
+      <description> Support for a few common integrations are included as optional features.
+Jackson  org.sonatype.goodies.jackson  JAXB  org.sonatype.goodies.jaxb  JAX-RS  org.sonatype.goodies.jaxrs  </description>
+    </item>
+    
+    <item>
       <title>License</title>
       <link>https://sonatype.github.io/package-url-java/license/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -55,7 +65,7 @@ PackageUrl purl = PackageUrl.parse(&amp;#34;maven:junit/junit@4.12&amp;#34;); Pa
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/package-url-java/usage/parse/</guid>
-      <description>Parsing from string supports 2 options. With pkg scheme or scheme-less.
+      <description>Parsing from string with parse(String) supports 2 options. With pkg scheme or scheme-less.
 pkg scheme PackageUrl purl = PackageUrl.parse(&amp;#34;pkg:maven/junit/junit@4.12&amp;#34;); scheme-less PackageUrl purl = PackageUrl.</description>
     </item>
     
