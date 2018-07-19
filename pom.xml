@@ -302,28 +302,6 @@
         </plugins>
       </build>
     </profile>
-
-    <profile>
-      <id>dionysus-generate-data</id>
-    </profile>
-
-    <profile>
-      <id>dionysus-generate-maven-site</id>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-enforcer-plugin</artifactId>
-              <configuration>
-                <!-- site generation causes problems with project dependency resolution? -->
-                <skip>true</skip>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
   </profiles>
 
 </project>
