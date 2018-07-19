@@ -15,6 +15,7 @@ package org.sonatype.goodies.packageurl.jackson;
 import java.io.IOException;
 
 import org.sonatype.goodies.packageurl.PackageUrl;
+import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -24,6 +25,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link PackageUrl} Jackson module.
@@ -35,9 +38,22 @@ public class PackageUrlModule
 {
   private static final long serialVersionUID = 1L;
 
-  public PackageUrlModule() {
-    addSerializer(PackageUrl.class, new PackageUrlSerializer());
+  private RenderFlavor flavor = RenderFlavor.getDefault();
+
+  /**
+   * Configure {@link RenderFlavor} for string rendering.
+   */
+  public PackageUrlModule withFlavor(final RenderFlavor flavor) {
+    this.flavor = checkNotNull(flavor);
+    return this;
+  }
+
+  @Override
+  public void setupModule(final SetupContext context) {
+    addSerializer(PackageUrl.class, new PackageUrlSerializer(flavor));
     addDeserializer(PackageUrl.class, new PackageUrlDeserializer());
+
+    super.setupModule(context);
   }
 
   /**
@@ -69,15 +85,18 @@ public class PackageUrlModule
   {
     private static final long serialVersionUID = 1L;
 
-    public PackageUrlSerializer() {
+    private final RenderFlavor flavor;
+
+    public PackageUrlSerializer(final RenderFlavor flavor) {
       super(PackageUrl.class);
+      this.flavor = checkNotNull(flavor);
     }
 
     @Override
     public void serialize(final PackageUrl value, final JsonGenerator generator, final SerializerProvider provider)
         throws IOException
     {
-      generator.writeString(value.toString());
+      generator.writeString(value.toString(flavor));
     }
   }
 }

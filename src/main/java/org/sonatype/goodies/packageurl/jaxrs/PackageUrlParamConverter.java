@@ -20,6 +20,7 @@ import javax.ws.rs.ext.ParamConverterProvider;
 import javax.ws.rs.ext.Provider;
 
 import org.sonatype.goodies.packageurl.PackageUrl;
+import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -32,6 +33,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class PackageUrlParamConverter
     implements ParamConverter<PackageUrl>
 {
+  private final RenderFlavor flavor;
+
+  public PackageUrlParamConverter(final RenderFlavor flavor) {
+    this.flavor = checkNotNull(flavor);
+  }
+
   @Override
   public PackageUrl fromString(final String value) {
     checkArgument(value != null);
@@ -41,13 +48,23 @@ public class PackageUrlParamConverter
   @Override
   public String toString(final PackageUrl value) {
     checkArgument(value != null);
-    return value.toString();
+    return value.toString(flavor);
   }
 
   @Provider
   public static class ProviderImpl
       implements ParamConverterProvider
   {
+    private final RenderFlavor flavor;
+
+    public ProviderImpl(final RenderFlavor flavor) {
+      this.flavor = checkNotNull(flavor);
+    }
+
+    public ProviderImpl() {
+      this(RenderFlavor.getDefault());
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public <T> ParamConverter<T> getConverter(final Class<T> rawType,
@@ -56,7 +73,7 @@ public class PackageUrlParamConverter
     {
       checkNotNull(rawType);
       if (rawType.equals(PackageUrl.class)) {
-        return (ParamConverter<T>) new PackageUrlParamConverter();
+        return (ParamConverter<T>) new PackageUrlParamConverter(flavor);
       }
       return null;
     }

@@ -16,6 +16,9 @@ import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.sonatype.goodies.packageurl.PackageUrl;
+import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link PackageUrl} JAXB {@link XmlAdapter}.
@@ -25,6 +28,16 @@ import org.sonatype.goodies.packageurl.PackageUrl;
 public class PackageUrlXmlAdapter
     extends XmlAdapter<String, PackageUrl>
 {
+  private final RenderFlavor flavor;
+
+  public PackageUrlXmlAdapter(final RenderFlavor flavor) {
+    this.flavor = checkNotNull(flavor);
+  }
+
+  public PackageUrlXmlAdapter() {
+    this(RenderFlavor.getDefault());
+  }
+
   @Nullable
   @Override
   public PackageUrl unmarshal(@Nullable final String value) throws Exception {
@@ -38,7 +51,7 @@ public class PackageUrlXmlAdapter
   @Override
   public String marshal(@Nullable final PackageUrl value) throws Exception {
     if (value != null) {
-      return value.toString();
+      return value.toString(flavor);
     }
     return null;
   }
