@@ -1,0 +1,38 @@
+---
+baseURL: https://sonatype.github.io/package-url-java/
+languageCode: en-us
+title: "Goodies: Package URL Java"
+theme: dionysus
+
+# Publish content to maven-standard-ish location for generated content
+publishdir: ../../../target/hugo-public
+
+params:
+  inceptionYear: 2018
+
+taxonomies:
+  tag: tags
+  category: categories
+
+menu:
+  footer_sections:
+    - identifier: footer_about
+      name: About
+      weight: 1
+    - identifier: footer_resources
+      name: Resources
+      weight: 2
+    - identifier: footer_legal
+      name: Legal
+      weight: 3
+
+# Blackfriday options; see https://gohugo.io/content-management/formats/
+
+# see https://www.webpagefx.com/tools/emoji-cheat-sheet/
+enableEmoji: true
+
+# Highlight options; see https://gohugo.io/content-management/syntax-highlighting/
+pygmentsCodeFences: true
+
+# see https://xyproto.github.io/splash/docs/all.html
+pygmentsStyle: manni

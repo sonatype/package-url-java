@@ -1,0 +1,22 @@
+{
+  "name": "goodies-package-url-java",
+  "description": "Goodies: Package URL Java",
+  "private": true,
+  "author": "Sonatype, Inc.",
+  "version": "0.0.1",
+  "repository": "",
+  "scripts": {
+    "theme-build": "brunch build themes/dionysus",
+    "theme-watch": "brunch watch themes/dionysus",
+    "theme-wait": "wait-on themes/dionysus/force-update.marker",
+    "hugo-server": "yarn theme-wait && hugo server --watch --buildDrafts --disableFastRender",
+    "start": "concurrently -k -n brunch,hugo 'yarn theme-watch' 'yarn hugo-server'",
+    "build": "brunch build --production themes/dionysus && hugo"
+  },
+  "dependencies": {
+    "brunch": "^2.10.12",
+    "concurrently": "^3.6.0",
+    "wait-on": "^2.1.0"
+  },
+  "devDependencies": {}
+}

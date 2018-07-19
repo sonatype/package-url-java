@@ -31,10 +31,10 @@ Implementation of [Package URL](https://github.com/package-url/purl-spec) specif
 
 ## Site 
 
-### Staging
+### Building
 
-    mvn -Psite-stage && open target/staging/index.html 
-
+    ./mvnw clean install dionysus:build
+    
 ### Publishing
 
-    mvn -Psite-stage && mvn scm-publish:publish-scm
+    ./mvnw dionysus:publish
