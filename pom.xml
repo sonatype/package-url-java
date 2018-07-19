@@ -134,6 +134,12 @@
         </plugin>
 
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-invoker-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+
+        <plugin>
           <groupId>com.mycila</groupId>
           <artifactId>license-maven-plugin</artifactId>
           <configuration>
@@ -144,12 +150,12 @@
         </plugin>
 
         <plugin>
-          <groupId>org.sonatype.dionysus</groupId>
+          <groupId>org.sonatype.goodies.dionysus</groupId>
           <artifactId>dionysus-maven-plugin</artifactId>
           <version>1-SNAPSHOT</version>
           <configuration>
             <theme>
-              <groupId>org.sonatype.dionysus</groupId>
+              <groupId>org.sonatype.goodies.dionysus</groupId>
               <artifactId>dionysus-hugo-theme</artifactId>
               <version>1-SNAPSHOT</version>
             </theme>
