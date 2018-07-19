@@ -37,7 +37,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * <a href="https://github.com/package-url/purl-spec">Package URL</a>.
  *
  * @see PackageUrl.Builder
- * @since ???
+ * @since 1.0.0
  */
 @Immutable
 public class PackageUrl

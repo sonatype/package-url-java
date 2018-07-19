@@ -14,6 +14,6 @@
 /**
  * Optional support for marshalling with JAXB.
  *
- * @since ???
+ * @since 1.0.0
  */
 package org.sonatype.goodies.packageurl.jaxb;

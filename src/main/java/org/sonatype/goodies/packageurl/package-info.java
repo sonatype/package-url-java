@@ -14,6 +14,6 @@
 /**
  * Package URL.
  *
- * @since ???
+ * @since 1.0.0
  */
 package org.sonatype.goodies.packageurl;

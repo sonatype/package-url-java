@@ -25,7 +25,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  *
  * Handles specific wrinkles related to Package URL specification.
  *
- * @since ???
+ * @since 1.0.0
  */
 final class PercentEncoding
 {

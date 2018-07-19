@@ -14,6 +14,6 @@
 /**
  * Optional support for marshalling with <a href="https://github.com/FasterXML/jackson">Jackson</a>.
  *
- * @since ???
+ * @since 1.0.0
  */
 package org.sonatype.goodies.packageurl.jackson;

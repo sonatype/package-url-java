@@ -14,6 +14,6 @@
 /**
  * Optional support for using as parameter with JAX-RS.
  *
- * @since ???
+ * @since 1.0.0
  */
 package org.sonatype.goodies.packageurl.jaxrs;

@@ -28,7 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * {@link PackageUrl} JAX-RS parameter converter.
  *
- * @since ???
+ * @since 1.0.0
  */
 public class PackageUrlParamConverter
     implements ParamConverter<PackageUrl>

@@ -31,7 +31,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * {@link PackageUrl} Jackson module.
  *
- * @since ???
+ * @since 1.0.0
  */
 public class PackageUrlModule
     extends SimpleModule

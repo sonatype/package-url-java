@@ -23,7 +23,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * {@link PackageUrl} JAXB {@link XmlAdapter}.
  *
- * @since ???
+ * @since 1.0.0
  */
 public class PackageUrlXmlAdapter
     extends XmlAdapter<String, PackageUrl>
