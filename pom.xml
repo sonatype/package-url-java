@@ -143,6 +143,7 @@
           <configuration>
             <excludes combine.children="append">
               <exclude>src/test/resources/**</exclude>
+              <exclude>src/site/hugo/**</exclude>
             </excludes>
           </configuration>
         </plugin>
@@ -165,7 +166,6 @@
               <mavenLicenses/>
               <mavenModules/>
               <mavenPom/>
-              <mavenPlugin/>
             </generators>
           </configuration>
         </plugin>
