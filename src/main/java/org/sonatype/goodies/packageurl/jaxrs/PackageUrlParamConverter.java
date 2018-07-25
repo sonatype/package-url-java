@@ -15,6 +15,7 @@ package org.sonatype.goodies.packageurl.jaxrs;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
+import javax.annotation.Nullable;
 import javax.ws.rs.ext.ParamConverter;
 import javax.ws.rs.ext.ParamConverterProvider;
 import javax.ws.rs.ext.Provider;
@@ -33,10 +34,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class PackageUrlParamConverter
     implements ParamConverter<PackageUrl>
 {
+  @Nullable
   private final RenderFlavor flavor;
 
-  public PackageUrlParamConverter(final RenderFlavor flavor) {
-    this.flavor = checkNotNull(flavor);
+  public PackageUrlParamConverter(@Nullable final RenderFlavor flavor) {
+    this.flavor = flavor;
   }
 
   @Override
@@ -48,21 +50,22 @@ public class PackageUrlParamConverter
   @Override
   public String toString(final PackageUrl value) {
     checkArgument(value != null);
-    return value.toString(flavor);
+    return value.toString(flavor != null ? flavor : RenderFlavor.getDefault());
   }
 
   @Provider
   public static class ProviderImpl
       implements ParamConverterProvider
   {
+    @Nullable
     private final RenderFlavor flavor;
 
     public ProviderImpl(final RenderFlavor flavor) {
-      this.flavor = checkNotNull(flavor);
+      this.flavor = flavor;
     }
 
     public ProviderImpl() {
-      this(RenderFlavor.getDefault());
+      this(null);
     }
 
     @SuppressWarnings("unchecked")

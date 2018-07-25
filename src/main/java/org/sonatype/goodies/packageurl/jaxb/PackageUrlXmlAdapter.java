@@ -28,14 +28,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class PackageUrlXmlAdapter
     extends XmlAdapter<String, PackageUrl>
 {
+  @Nullable
   private final RenderFlavor flavor;
 
-  public PackageUrlXmlAdapter(final RenderFlavor flavor) {
-    this.flavor = checkNotNull(flavor);
+  public PackageUrlXmlAdapter(@Nullable final RenderFlavor flavor) {
+    this.flavor = flavor;
   }
 
   public PackageUrlXmlAdapter() {
-    this(RenderFlavor.getDefault());
+    this(null);
   }
 
   @Nullable
@@ -51,7 +52,7 @@ public class PackageUrlXmlAdapter
   @Override
   public String marshal(@Nullable final PackageUrl value) throws Exception {
     if (value != null) {
-      return value.toString(flavor);
+      return value.toString(flavor != null ? flavor : RenderFlavor.getDefault());
     }
     return null;
   }
