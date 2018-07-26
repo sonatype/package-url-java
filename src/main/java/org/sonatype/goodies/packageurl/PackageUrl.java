@@ -453,7 +453,8 @@ public class PackageUrl
       String k = lowerCase(entry.getKey());
       result.put(k, PercentEncoding.decode(v));
     }
-    return result;
+
+    return result.isEmpty() ? null : result;
   }
 
   /**
@@ -495,7 +496,7 @@ public class PackageUrl
       result.add(part);
     }
 
-    return result;
+    return result.isEmpty() ? null : result;
   }
 
   /**
