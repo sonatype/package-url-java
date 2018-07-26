@@ -31,6 +31,6 @@ PackageUrl purl = new PackageUrl.Builder()
 Mutation is also handled by a builder by converting an existing `PackageUrl` into a `Builder`:
 
 ```java
-PackageUrl purl = PackageUrl.parse("maven:junit/junit@4.12");
+PackageUrl purl = PackageUrl.parse("pkg:maven/junit/junit@4.12");
 PackageUrl purlNoVersion = purl.asBuilder().version(null).build();
 ```

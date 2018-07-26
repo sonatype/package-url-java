@@ -19,11 +19,15 @@ supports 2 options.  With `pkg` scheme or scheme-less.
 
 ## `pkg` scheme
 
+Preferred latest form of the specification.
+
 ```java
 PackageUrl purl = PackageUrl.parse("pkg:maven/junit/junit@4.12");
 ```
 
 ## scheme-less
+
+Backwards compatible parsing for pre-`pkg`-scheme.
 
 ```java
 PackageUrl purl = PackageUrl.parse("maven:junit/junit@4.12");

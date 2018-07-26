@@ -14,7 +14,7 @@ categories:
 tags:
   - package-url-java
 ---
-Rendering to a string supports 2 options.  With `pkg` scheme or scheme-less.
+Rendering to a string supports 2 options.  With `pkg` scheme (current spec standard) or scheme-less (backwards compatible).
 
 This behavior is controlled by [RenderFlavor](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrl.RenderFlavor.html).
 
