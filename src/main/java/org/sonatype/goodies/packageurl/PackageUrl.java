@@ -702,6 +702,11 @@ public class PackageUrl
       return buildAndValidate(true);
     }
 
+    /**
+     * Build and optionally validate.
+     *
+     * Non-validate case is for parsed usage only.
+     */
     PackageUrl buildAndValidate(final boolean validate) {
       if (validate) {
         validateType(type);
