@@ -385,7 +385,7 @@ public class PackageUrl
 
     Matcher m = pattern.matcher(value);
     if (m.matches()) {
-      new Builder()
+      return new Builder()
           .type(parseType(m.group("type")))
           .namespace(parseNamespace(m.group("namespace")))
           .name(parseName(m.group("name")))
