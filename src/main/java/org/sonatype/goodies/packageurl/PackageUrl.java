@@ -184,7 +184,7 @@ public class PackageUrl
      */
     SCHEMELESS;
 
-    private static RenderFlavor _default = SCHEMELESS;
+    private static RenderFlavor _default = SCHEME;
 
     public static RenderFlavor getDefault() {
       return _default;

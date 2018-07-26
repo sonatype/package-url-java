@@ -14,6 +14,8 @@ package org.sonatype.goodies.packageurl.jackson;
 
 import java.io.IOException;
 
+import javax.annotation.Nullable;
+
 import org.sonatype.goodies.packageurl.PackageUrl;
 import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor;
 
@@ -38,13 +40,14 @@ public class PackageUrlModule
 {
   private static final long serialVersionUID = 1L;
 
-  private RenderFlavor flavor = RenderFlavor.getDefault();
+  @Nullable
+  private RenderFlavor flavor;
 
   /**
    * Configure {@link RenderFlavor} for string rendering.
    */
-  public PackageUrlModule withFlavor(final RenderFlavor flavor) {
-    this.flavor = checkNotNull(flavor);
+  public PackageUrlModule withFlavor(@Nullable final RenderFlavor flavor) {
+    this.flavor = flavor;
     return this;
   }
 
@@ -85,18 +88,19 @@ public class PackageUrlModule
   {
     private static final long serialVersionUID = 1L;
 
+    @Nullable
     private final RenderFlavor flavor;
 
-    public PackageUrlSerializer(final RenderFlavor flavor) {
+    public PackageUrlSerializer(@Nullable final RenderFlavor flavor) {
       super(PackageUrl.class);
-      this.flavor = checkNotNull(flavor);
+      this.flavor = flavor;
     }
 
     @Override
     public void serialize(final PackageUrl value, final JsonGenerator generator, final SerializerProvider provider)
         throws IOException
     {
-      generator.writeString(value.toString(flavor));
+      generator.writeString(value.toString(flavor != null ? flavor : RenderFlavor.getDefault()));
     }
   }
 }
