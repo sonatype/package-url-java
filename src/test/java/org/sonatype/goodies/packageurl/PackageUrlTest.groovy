@@ -14,6 +14,8 @@ package org.sonatype.goodies.packageurl
 
 import org.sonatype.goodies.testsupport.TestSupport
 
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 import static org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor
@@ -34,6 +36,17 @@ class PackageUrlTest
     catch (e) {
       // expected
     }
+  }
+
+  @Before
+  void setUp() {
+    // FIXME: ATM these tests assume previous spec w/o 'pkg' scheme
+    RenderFlavor.default = RenderFlavor.SCHEMELESS
+  }
+
+  @After
+  void tearDown() {
+    RenderFlavor.default = null
   }
 
   @Test
