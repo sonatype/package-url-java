@@ -392,8 +392,10 @@ public class PackageUrl
       Map<String, String> qualifiers = parseQualifiers(m.group("qualifiers"));
       List<String> subpath = parseSubpath(m.group("subpath"));
 
+      // HACK: duplicated; tempted to just rip this trash out
       // FIXME: need to have some per-type transformation; which is unfortunate but spec requires some special handling per-type
       // FIXME: various type-specific transformation required by specification; very problematic
+      // FIXME: https://github.com/package-url/purl-spec/issues/38
       switch (type) {
         case "github":
         case "bitbucket":
@@ -719,6 +721,23 @@ public class PackageUrl
       validateVersion(version);
       validateQualifiers(qualifiers);
       validateSubpath(subpath);
+
+      // HACK: duplicated; tempted to just rip this trash out
+      // FIXME: need to have some per-type transformation; which is unfortunate but spec requires some special handling per-type
+      // FIXME: various type-specific transformation required by specification; very problematic
+      // FIXME: https://github.com/package-url/purl-spec/issues/38
+      switch (type) {
+        case "github":
+        case "bitbucket":
+          name = lowerCase(name);
+          namespace = lowerCase(namespace);
+          break;
+
+        case "pypi":
+          name = name.replace('_', '-');
+          name = lowerCase(name);
+          break;
+      }
 
       return new PackageUrl(type, namespace, name, version, qualifiers, subpath);
     }
