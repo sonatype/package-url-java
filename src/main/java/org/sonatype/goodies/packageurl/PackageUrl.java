@@ -385,29 +385,14 @@ public class PackageUrl
 
     Matcher m = pattern.matcher(value);
     if (m.matches()) {
-      String type = parseType(m.group("type"));
-      List<String> namespace = parseNamespace(m.group("namespace"));
-      String name = parseName(m.group("name"));
-      String version = parseVersion(m.group("version"));
-      Map<String, String> qualifiers = parseQualifiers(m.group("qualifiers"));
-      List<String> subpath = parseSubpath(m.group("subpath"));
-
-      // FIXME: need to have some per-type transformation; which is unfortunate but spec requires some special handling per-type
-      // FIXME: various type-specific transformation required by specification; very problematic
-      switch (type) {
-        case "github":
-        case "bitbucket":
-          name = lowerCase(name);
-          namespace = lowerCase(namespace);
-          break;
-
-        case "pypi":
-          name = name.replace('_', '-');
-          name = lowerCase(name);
-          break;
-      }
-
-      return new PackageUrl(type, namespace, name, version, qualifiers, subpath);
+      return new Builder()
+          .type(parseType(m.group("type")))
+          .namespace(parseNamespace(m.group("namespace")))
+          .name(parseName(m.group("name")))
+          .version(parseVersion(m.group("version")))
+          .qualifiers(parseQualifiers(m.group("qualifiers")))
+          .subpath(parseSubpath(m.group("subpath")))
+          .buildAndValidate(false);
     }
 
     throw new InvalidException(value);
@@ -713,12 +698,34 @@ public class PackageUrl
      * At minimal {@link #type} and {@link #name} must be specified.
      */
     public PackageUrl build() {
-      validateType(type);
-      validateNamespace(namespace);
-      validateName(name);
-      validateVersion(version);
-      validateQualifiers(qualifiers);
-      validateSubpath(subpath);
+      return buildAndValidate(true);
+    }
+
+    PackageUrl buildAndValidate(final boolean validate) {
+      if (validate) {
+        validateType(type);
+        validateNamespace(namespace);
+        validateName(name);
+        validateVersion(version);
+        validateQualifiers(qualifiers);
+        validateSubpath(subpath);
+      }
+
+      // FIXME: need to have some per-type transformation; which is unfortunate but spec requires some special handling per-type
+      // FIXME: various type-specific transformation required by specification; very problematic
+      // FIXME: https://github.com/package-url/purl-spec/issues/38
+      switch (type) {
+        case "github":
+        case "bitbucket":
+          name = lowerCase(name);
+          namespace = lowerCase(namespace);
+          break;
+
+        case "pypi":
+          name = name.replace('_', '-');
+          name = lowerCase(name);
+          break;
+      }
 
       return new PackageUrl(type, namespace, name, version, qualifiers, subpath);
     }
