@@ -175,12 +175,12 @@ public class PackageUrl
   public enum RenderFlavor
   {
     /**
-     * Render with {@code pkg:} scheme.
+     * Render with {@code pkg} scheme.
      */
     SCHEME,
 
     /**
-     * Render w/o {@code pkg:} scheme.
+     * Render w/o {@code pkg} scheme.
      */
     SCHEMELESS;
 
