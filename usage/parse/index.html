@@ -80,8 +80,12 @@
 supports 2 options.  With <code>pkg</code> scheme or scheme-less.</p>
 
 <h2 id="pkg-scheme"><code>pkg</code> scheme</h2>
+
+<p>Preferred latest form of the specification.</p>
 <div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PackageUrl purl <span style="color:#555">=</span> PackageUrl<span style="color:#555">.</span><span style="color:#309">parse</span><span style="color:#555">(</span><span style="color:#c30">&#34;pkg:maven/junit/junit@4.12&#34;</span><span style="color:#555">);</span></code></pre></div>
 <h2 id="scheme-less">scheme-less</h2>
+
+<p>Backwards compatible parsing for pre-<code>pkg</code>-scheme.</p>
 <div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PackageUrl purl <span style="color:#555">=</span> PackageUrl<span style="color:#555">.</span><span style="color:#309">parse</span><span style="color:#555">(</span><span style="color:#c30">&#34;maven:junit/junit@4.12&#34;</span><span style="color:#555">);</span></code></pre></div>
 
 

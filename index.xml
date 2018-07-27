@@ -27,7 +27,7 @@
       <guid>https://sonatype.github.io/package-url-java/usage/builder/</guid>
       <description>Construction of a PackageUrl is done with a Builder:
 PackageUrl purl = new PackageUrl.Builder() .type(&amp;#34;maven&amp;#34;) .namespace(&amp;#34;junit&amp;#34;) .name(&amp;#34;junit&amp;#34;) .version(&amp;#34;4.12&amp;#34;) .build(); Mutation Mutation is also handled by a builder by converting an existing PackageUrl into a Builder:
-PackageUrl purl = PackageUrl.parse(&amp;#34;maven:junit/junit@4.12&amp;#34;); PackageUrl purlNoVersion = purl.</description>
+PackageUrl purl = PackageUrl.parse(&amp;#34;pkg:maven/junit/junit@4.12&amp;#34;); PackageUrl purlNoVersion = purl.</description>
     </item>
     
     <item>
@@ -66,7 +66,9 @@ Jackson  org.sonatype.goodies.jackson  JAXB  org.sonatype.goodies.jaxb  JAX-RS  
       
       <guid>https://sonatype.github.io/package-url-java/usage/parse/</guid>
       <description>Parsing from string with parse(String) supports 2 options. With pkg scheme or scheme-less.
-pkg scheme PackageUrl purl = PackageUrl.parse(&amp;#34;pkg:maven/junit/junit@4.12&amp;#34;); scheme-less PackageUrl purl = PackageUrl.</description>
+pkg scheme Preferred latest form of the specification.
+PackageUrl purl = PackageUrl.parse(&amp;#34;pkg:maven/junit/junit@4.12&amp;#34;); scheme-less Backwards compatible parsing for pre-pkg-scheme.
+PackageUrl purl = PackageUrl.</description>
     </item>
     
     <item>
@@ -75,7 +77,7 @@ pkg scheme PackageUrl purl = PackageUrl.parse(&amp;#34;pkg:maven/junit/junit@4.1
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/package-url-java/usage/render/</guid>
-      <description>Rendering to a string supports 2 options. With pkg scheme or scheme-less.
+      <description>Rendering to a string supports 2 options. With pkg scheme (current spec standard) or scheme-less (backwards compatible).
 This behavior is controlled by RenderFlavor.
 The default behavior can be installed JVM-wide, or can be specified when calling toString(RenderFlavor).
 pkg scheme PackageUrl purl = PackageUrl.parse(&amp;#34;maven:junit/junit@4.12&amp;#34;); System.out.println(purl.toString(PackageUrl.RenderFlavor.SCHEME)); Or set the default:

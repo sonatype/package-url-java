@@ -87,7 +87,7 @@
 <h2 id="mutation">Mutation</h2>
 
 <p>Mutation is also handled by a builder by converting an existing <code>PackageUrl</code> into a <code>Builder</code>:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PackageUrl purl <span style="color:#555">=</span> PackageUrl<span style="color:#555">.</span><span style="color:#309">parse</span><span style="color:#555">(</span><span style="color:#c30">&#34;maven:junit/junit@4.12&#34;</span><span style="color:#555">);</span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PackageUrl purl <span style="color:#555">=</span> PackageUrl<span style="color:#555">.</span><span style="color:#309">parse</span><span style="color:#555">(</span><span style="color:#c30">&#34;pkg:maven/junit/junit@4.12&#34;</span><span style="color:#555">);</span>
 PackageUrl purlNoVersion <span style="color:#555">=</span> purl<span style="color:#555">.</span><span style="color:#309">asBuilder</span><span style="color:#555">().</span><span style="color:#309">version</span><span style="color:#555">(</span><span style="color:#069;font-weight:bold">null</span><span style="color:#555">).</span><span style="color:#309">build</span><span style="color:#555">();</span></code></pre></div>
 
 
