@@ -706,6 +706,8 @@ public class PackageUrl
      * Build and optionally validate.
      *
      * Non-validate case is for parsed usage only.
+     *
+     * @since 1.0.1
      */
     PackageUrl buildAndValidate(final boolean validate) {
       if (validate) {
