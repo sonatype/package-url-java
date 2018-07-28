@@ -14,9 +14,9 @@
 -->
 # Sonatype Goodies - Package URL
 
-![License](https://img.shields.io/github/license/sonatype/package-url-java.svg?label=License)
+![license](https://img.shields.io/github/license/sonatype/package-url-java.svg)
 
-![Maven-Central](https://img.shields.io/maven-central/v/org.sonatype.goodies/package-url-java.svg)
+![maven-central](https://img.shields.io/maven-central/v/org.sonatype.goodies/package-url-java.svg)
 
 Implementation of [Package URL](https://github.com/package-url/purl-spec) specification for Java.
 
