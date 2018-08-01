@@ -29,7 +29,7 @@ Implementation of [Package URL](https://github.com/package-url/purl-spec) specif
 
 ### Build
 
-    mvn clean install
+    ./mvnw clean install
 
 ## Site 
 
