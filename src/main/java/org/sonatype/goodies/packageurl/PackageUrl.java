@@ -13,6 +13,7 @@
 package org.sonatype.goodies.packageurl;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -167,6 +168,15 @@ public class PackageUrl
    */
   public Builder asBuilder() {
     return new Builder().from(this);
+  }
+
+  /**
+   * Convert to a URI.
+   *
+   * @since ???
+   */
+  public URI toUri() {
+    return URI.create(toString());
   }
 
   /**
