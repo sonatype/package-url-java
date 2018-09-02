@@ -683,7 +683,9 @@ public class PackageUrl
       return qualifiers(parseQualifiers(qualifiers));
     }
 
-    public Builder qualifer(final String key, final String value) {
+    public Builder qualifier(final String key, final String value) {
+      checkNotNull(key);
+      checkNotNull(value);
       if (qualifiers == null) {
         qualifiers = new LinkedHashMap<>();
       }

@@ -64,8 +64,8 @@ class PackageUrlTest
         .namespace('ns1/ns2')
         .name('n')
         .version('1.2.3')
-        .qualifer('a', 'b')
-        .qualifer('c', 'd')
+        .qualifier('a', 'b')
+        .qualifier('c', 'd')
         .subpath('sp1/sp2')
         .build(),
         'foo:ns1/ns2/n@1.2.3?a=b&c=d#sp1/sp2'
@@ -75,8 +75,8 @@ class PackageUrlTest
         .namespace('ns1/!ns2')
         .name('n')
         .version('1.2.3')
-        .qualifer('a', 'b')
-        .qualifer('c', 'd')
+        .qualifier('a', 'b')
+        .qualifier('c', 'd')
         .subpath('sp1/!sp2')
         .build(),
         'foo:ns1/%21ns2/n@1.2.3?a=b&c=d#sp1/%21sp2'
