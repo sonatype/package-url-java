@@ -319,13 +319,13 @@ public class PackageUrl
 
   private static final Pattern TYPE_PATTERN = Pattern.compile(TYPE);
 
-  private static final String NAMESPACE = "[^@#]+";
+  private static final String NAMESPACE = "[^@#?]+";
 
   private static final String NAMESPACE_SEGMENT = "[^/]+";
 
   private static final Pattern NAMESPACE_SEGMENT_PATTERN = Pattern.compile(NAMESPACE_SEGMENT);
 
-  private static final String NAME = "[^/@]+";
+  private static final String NAME = "[^/@?]+";
 
   private static final Pattern NAME_PATTERN = Pattern.compile(NAME);
 

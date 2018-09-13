@@ -92,6 +92,7 @@ class PackageUrlTest
   }
 
   private PackageUrl parse(final String value) {
+    log "Parse: $value"
     def purl = PackageUrl.parse(value)
     log "PURL: ${purl.explain()} -> $purl"
     return purl
@@ -307,12 +308,38 @@ class PackageUrlTest
   }
 
   @Test
-  void parseQualifiers() {
+  void parseQualifiers_namespace_name_version() {
+    parse('foo:bar/qux@baz?a=b&c=d#blah').with {
+      assert type == 'foo'
+      assert namespace == ['bar']
+      assert name == 'qux'
+      assert version == 'baz'
+      assert qualifiers.a == 'b'
+      assert qualifiers.c == 'd'
+      assert subpath == ['blah']
+    }
+  }
+
+  @Test
+  void parseQualifiers_name_version() {
     parse('foo:bar@baz?a=b&c=d#blah').with {
       assert type == 'foo'
       assert namespace == null
       assert name == 'bar'
       assert version == 'baz'
+      assert qualifiers.a == 'b'
+      assert qualifiers.c == 'd'
+      assert subpath == ['blah']
+    }
+  }
+
+  @Test
+  void parseQualifiers_name() {
+    parse('foo:bar?a=b&c=d#blah').with {
+      assert type == 'foo'
+      assert namespace == null
+      assert name == 'bar'
+      assert version == null
       assert qualifiers.a == 'b'
       assert qualifiers.c == 'd'
       assert subpath == ['blah']
