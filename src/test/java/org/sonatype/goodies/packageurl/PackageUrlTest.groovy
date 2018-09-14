@@ -348,12 +348,34 @@ class PackageUrlTest
 
   @Test
   void parseSubpath() {
-    parse('foo:bar@baz#qux').with {
-      assert type == 'foo'
+    parse('pkg:a/b/c@d#e').with {
+      assert type == 'a'
+      assert namespace == ['b']
+      assert name == 'c'
+      assert version == 'd'
+      assert subpath == ['e']
+    }
+  }
+
+  @Test
+  void parseSubpath_name_version() {
+    parse('pkg:a/b@c#d').with {
+      assert type == 'a'
       assert namespace == null
-      assert name == 'bar'
-      assert version == 'baz'
-      assert subpath == ['qux']
+      assert name == 'b'
+      assert version == 'c'
+      assert subpath == ['d']
+    }
+  }
+
+  @Test
+  void parseSubpath_name() {
+    parse('pkg:a/b#c').with {
+      assert type == 'a'
+      assert namespace == null
+      assert name == 'b'
+      assert version == null
+      assert subpath == ['c']
     }
   }
 
