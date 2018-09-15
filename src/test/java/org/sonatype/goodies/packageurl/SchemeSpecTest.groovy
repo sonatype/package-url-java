@@ -12,7 +12,7 @@
  */
 package org.sonatype.goodies.packageurl
 
-import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor
+
 import org.sonatype.goodies.testsupport.TestSupport
 
 import org.junit.AfterClass
@@ -32,12 +32,12 @@ class SchemeSpecTest
   @BeforeClass
   static void 'load test-suite-data entries'() {
     entries = TestSuiteData.get('scheme-data.json')
-    PackageUrl.RenderFlavor.default = RenderFlavor.SCHEME
+    RenderFlavor.default = RenderFlavor.SCHEME
   }
 
   @AfterClass
   static void 'reset render-flavor'() {
-    PackageUrl.RenderFlavor.default = null
+    RenderFlavor.default = null
   }
 
   @Test
@@ -71,7 +71,7 @@ class SchemeSpecTest
       log "Entry: $entry"
       PackageUrl purl
       try {
-        purl = new PackageUrl.Builder()
+        purl = new PackageUrlBuilder()
             .type(entry.type)
             .namespace(entry.namespace)
             .name(entry.name)

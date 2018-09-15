@@ -12,10 +12,9 @@
  */
 package org.sonatype.goodies.packageurl
 
-import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor
+
 import org.sonatype.goodies.testsupport.TestSupport
 
-import org.junit.After
 import org.junit.AfterClass
 import org.junit.BeforeClass
 import org.junit.Test
@@ -35,12 +34,12 @@ class SchemelessSpecTest
   @BeforeClass
   static void 'load test-suite-data entries'() {
     entries = TestSuiteData.get('schemeless-data.json')
-    PackageUrl.RenderFlavor.default = RenderFlavor.SCHEMELESS
+    RenderFlavor.default = RenderFlavor.SCHEMELESS
   }
 
   @AfterClass
   static void 'reset render-flavor'() {
-    PackageUrl.RenderFlavor.default = null
+    RenderFlavor.default = null
   }
 
   @Test
@@ -74,7 +73,7 @@ class SchemelessSpecTest
       log "Entry: $entry"
       PackageUrl purl
       try {
-        purl = new PackageUrl.Builder()
+        purl = new PackageUrlBuilder()
             .type(entry.type)
             .namespace(entry.namespace)
             .name(entry.name)

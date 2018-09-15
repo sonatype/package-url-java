@@ -18,7 +18,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-import static org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor
 import static org.junit.Assert.fail
 
 /**
@@ -59,7 +58,7 @@ class PackageUrlTest
     assertRendering new PackageUrl('foo', ['bar'], 'baz', 'qux', [a: 'b', c: 'd'], ['blah']),
         'foo:bar/baz@qux?a=b&c=d#blah'
 
-    assertRendering new PackageUrl.Builder()
+    assertRendering new PackageUrlBuilder()
         .type('foo')
         .namespace('ns1/ns2')
         .name('n')
@@ -70,7 +69,7 @@ class PackageUrlTest
         .build(),
         'foo:ns1/ns2/n@1.2.3?a=b&c=d#sp1/sp2'
 
-    assertRendering new PackageUrl.Builder()
+    assertRendering new PackageUrlBuilder()
         .type('foo')
         .namespace('ns1/!ns2')
         .name('n')
