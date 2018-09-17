@@ -199,13 +199,13 @@ class PackageUrlParser
 
       // decoded segment must not contain a segment separator
       if (part.contains("/")) {
-        throw new IllegalSegmentContent("/", value);
+        throw new IllegalSegmentContentException("/", value);
       }
 
       // decoded segment must not contain any invalid values
       for (String invalid : invalids) {
         if (part.equals(invalid)) {
-          throw new IllegalSegmentContent(invalid, value);
+          throw new IllegalSegmentContentException(invalid, value);
         }
       }
       result.add(part);

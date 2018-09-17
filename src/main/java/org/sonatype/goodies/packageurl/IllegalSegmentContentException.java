@@ -17,10 +17,10 @@ package org.sonatype.goodies.packageurl;
  *
  * @since ???
  */
-public class IllegalSegmentContent
+public class IllegalSegmentContentException
     extends InvalidException
 {
-  IllegalSegmentContent(final String content, final String value) {
+  IllegalSegmentContentException(final String content, final String value) {
     super("Illegal segment content: " + content + " in: " + value);
   }
 }
