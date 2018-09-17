@@ -78,7 +78,8 @@ class PackageUrlValidator
     if (value == null) {
       throw new MissingComponentException("name");
     }
-    validate("name", NAME_PATTERN, value);
+    // FIXME: name gets url encoding so not sure there is validation to do here?
+    //validate("name", NAME_PATTERN, value);
   }
 
   /**

@@ -134,8 +134,7 @@ public class PackageUrlBuilder
     if (validate) {
       validateType(type);
       validateNamespace(namespace);
-      // FIXME: name gets url encoding so not sure there is validation to do here?
-      //validateName(name);
+      validateName(name);
       validateVersion(version);
       validateQualifiers(qualifiers);
       validateSubpath(subpath);
