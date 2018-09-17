@@ -19,7 +19,7 @@ import java.util.Locale;
 import javax.annotation.Nullable;
 
 /**
- * ???
+ * String helpers.
  *
  * @since ???
  */
