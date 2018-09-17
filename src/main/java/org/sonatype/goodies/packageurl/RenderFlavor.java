@@ -31,7 +31,7 @@ public enum RenderFlavor
    */
   SCHEMELESS;
 
-  private static RenderFlavor _default = SCHEME;
+  private static volatile RenderFlavor _default = SCHEME;
 
   public static RenderFlavor getDefault() {
     return _default;
