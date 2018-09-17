@@ -22,12 +22,12 @@ import javax.annotation.Nullable;
 public enum RenderFlavor
 {
   /**
-   * Render with {@code pkg} scheme.
+   * Render with {@link PackageUrl#SCHEME} (default).
    */
   SCHEME,
 
   /**
-   * Render w/o {@code pkg} scheme.
+   * Render with-out {@link PackageUrl#SCHEME}.
    */
   SCHEMELESS;
 
