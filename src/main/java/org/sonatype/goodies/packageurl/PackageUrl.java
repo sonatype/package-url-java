@@ -42,6 +42,8 @@ public class PackageUrl
   private static final long serialVersionUID = 1L;
 
   /**
+   * Standard URI scheme for Package-URL.
+   *
    * @since ???
    */
   public static final String SCHEME = "pkg";
@@ -62,6 +64,9 @@ public class PackageUrl
   @Nullable
   private final List<String> subpath;
 
+  /**
+   * Values should have already been validated via {@link PackageUrlBuilder} and {@link PackageUrlValidator}.
+   */
   @VisibleForTesting
   PackageUrl(final String type,
              @Nullable final List<String> namespace,
