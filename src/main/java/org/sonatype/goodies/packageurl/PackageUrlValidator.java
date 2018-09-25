@@ -62,7 +62,6 @@ class PackageUrlValidator
   /**
    * Validate {@link PackageUrl#namespace} value.
    */
-  @Nullable
   static void validateNamespace(@Nullable final List<String> namespace) {
     if (namespace != null) {
       for (String segment : namespace) {
@@ -85,7 +84,6 @@ class PackageUrlValidator
   /**
    * Validate {@link PackageUrl#version} value.
    */
-  @Nullable
   static void validateVersion(@Nullable final String value) {
     if (value != null) {
       validate("version", VERSION_PATTERN, value);
@@ -95,7 +93,6 @@ class PackageUrlValidator
   /**
    * Validate {@link PackageUrl#qualifiers} value.
    */
-  @Nullable
   static void validateQualifiers(@Nullable final Map<String, String> qualifiers) {
     if (qualifiers != null) {
       for (Map.Entry<String, String> entry : qualifiers.entrySet()) {
@@ -109,7 +106,6 @@ class PackageUrlValidator
   /**
    * Validate {@link PackageUrl#subpath} value.
    */
-  @Nullable
   static void validateSubpath(@Nullable final List<String> subpath) {
     if (subpath != null) {
       for (String segment : subpath) {

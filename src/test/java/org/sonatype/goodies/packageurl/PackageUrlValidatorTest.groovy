@@ -16,7 +16,12 @@ import org.sonatype.goodies.testsupport.TestSupport
 
 import org.junit.Test
 
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateName
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateNamespace
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateQualifiers
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateSubpath
 import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateType
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateVersion
 
 /**
  * {@link PackageUrlValidator} tests.
@@ -24,6 +29,10 @@ import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateType
 class PackageUrlValidatorTest
     extends TestSupport
 {
+  //
+  // Type
+  //
+
   @Test(expected = MissingComponentException.class)
   void 'type is non-null'() {
     validateType(null)
@@ -52,5 +61,50 @@ class PackageUrlValidatorTest
   @Test
   void 'type alpha numbers and special'() {
     validateType('valid-12.34')
+  }
+
+  //
+  // Namespace
+  //
+
+  @Test
+  void 'namespace is nullable'() {
+    validateNamespace(null)
+  }
+
+  //
+  // Name
+  //
+
+  @Test(expected = MissingComponentException.class)
+  void 'name is non-null'() {
+    validateName(null)
+  }
+
+  //
+  // Version
+  //
+
+  @Test
+  void 'version is nullable'() {
+    validateVersion(null)
+  }
+
+  //
+  // Qualifiers
+  //
+
+  @Test
+  void 'qualifiers is nullable'() {
+    validateQualifiers(null)
+  }
+
+  //
+  // Subpath
+  //
+
+  @Test
+  void 'subpath is nullable'() {
+    validateSubpath(null)
   }
 }
