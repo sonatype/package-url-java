@@ -83,8 +83,20 @@ public class PackageUrlBuilder
     return this;
   }
 
+  private Map<String, String> getQualifiers() {
+    if (qualifiers == null) {
+      qualifiers = new LinkedHashMap<>();
+    }
+    return qualifiers;
+  }
+
   public PackageUrlBuilder qualifiers(final Map<String, String> qualifiers) {
-    this.qualifiers = qualifiers;
+    if (qualifiers != null) {
+      getQualifiers().putAll(qualifiers);
+    }
+    else {
+      this.qualifiers = null;
+    }
     return this;
   }
 
@@ -95,10 +107,7 @@ public class PackageUrlBuilder
   public PackageUrlBuilder qualifier(final String key, final String value) {
     checkNotNull(key);
     checkNotNull(value);
-    if (qualifiers == null) {
-      qualifiers = new LinkedHashMap<>();
-    }
-    qualifiers.put(key, value);
+    getQualifiers().put(key, value);
     return this;
   }
 
