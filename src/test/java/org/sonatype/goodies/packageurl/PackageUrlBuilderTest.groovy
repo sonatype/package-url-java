@@ -92,4 +92,25 @@ class PackageUrlBuilderTest
     PackageUrl purl = new PackageUrlBuilder().type('foo').name('bar').subpath(subpath.join('/')).build()
     assert purl.subpath == subpath
   }
+
+  @Test
+  void 'qualifiers append'() {
+    PackageUrlBuilder builder = new PackageUrlBuilder().type('foo').name('bar')
+    builder.qualifiers([a: '1', b: '2'])
+    builder.qualifier('c', '3')
+    builder.build().with {
+      assert qualifiers == [a: '1', b: '2', c: '3']
+    }
+  }
+
+  @Test
+  void 'qualifiers null resets'() {
+    PackageUrlBuilder builder = new PackageUrlBuilder().type('foo').name('bar')
+    builder.qualifier('a', '1')
+    builder.qualifiers((Map)null)
+    builder.qualifier('b', '2')
+    builder.build().with {
+      assert qualifiers == [b: '2']
+    }
+  }
 }
