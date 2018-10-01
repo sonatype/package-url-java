@@ -21,7 +21,7 @@ import javax.ws.rs.ext.ParamConverterProvider;
 import javax.ws.rs.ext.Provider;
 
 import org.sonatype.goodies.packageurl.PackageUrl;
-import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor;
+import org.sonatype.goodies.packageurl.RenderFlavor;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;

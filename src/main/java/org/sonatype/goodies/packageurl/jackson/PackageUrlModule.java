@@ -17,7 +17,7 @@ import java.io.IOException;
 import javax.annotation.Nullable;
 
 import org.sonatype.goodies.packageurl.PackageUrl;
-import org.sonatype.goodies.packageurl.PackageUrl.RenderFlavor;
+import org.sonatype.goodies.packageurl.RenderFlavor;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
