@@ -224,6 +224,9 @@ public class PackageUrl
       buff.append('@').append(encodeVersion(version));
     }
 
+
+    // TODO: "sort this list of qualifier strings lexicographically"
+
     if (qualifiers != null && !qualifiers.isEmpty()) {
       buff.append('?');
       Iterator<Map.Entry<String, String>> iter = qualifiers.entrySet().iterator();
