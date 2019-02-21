@@ -41,6 +41,6 @@ public enum RenderFlavor
    * Set the default flavor, or null for the original default.
    */
   public static void setDefault(@Nullable final RenderFlavor flavor) {
-    _default = flavor == null ? SCHEMELESS : flavor;
+    _default = flavor == null ? SCHEME : flavor;
   }
 }
