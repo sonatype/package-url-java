@@ -78,4 +78,21 @@ class PackageUrlTest
     assertRendering new PackageUrl('foo', null, 'bar', 'baz', null, ['qux']),
         'foo:bar@baz#qux'
   }
+
+  @Test
+  void 'render qualifiers lexicographically'() {
+    def assertRendering = { final PackageUrl purl, final String expected ->
+      log "PURL: ${purl.explain()} -> $purl"
+      assert purl.toString() == expected
+    }
+
+    assertRendering new PackageUrlBuilder()
+        .type('foo')
+        .name('n')
+        .version('1.2.3')
+        .qualifier('c', 'd')
+        .qualifier('a', 'b')
+        .build(),
+        'foo:n@1.2.3?a=b&c=d'
+  }
 }
