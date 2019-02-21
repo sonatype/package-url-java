@@ -16,7 +16,9 @@
 
 ![license](https://img.shields.io/github/license/sonatype/package-url-java.svg)
 ![maven-central](https://img.shields.io/maven-central/v/org.sonatype.goodies/package-url-java.svg)
+<!--
 [![depshield](https://depshield.sonatype.org/badges/sonatype/package-url-java/depshield.svg)](https://depshield.github.io)
+-->
 
 Implementation of [Package URL](https://github.com/package-url/purl-spec) specification for Java.
 
