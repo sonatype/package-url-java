@@ -26,7 +26,6 @@ import java.util.TreeSet;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-import javax.print.attribute.standard.MediaSize.NA;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ComparisonChain;
@@ -164,7 +163,7 @@ public class PackageUrl
    */
   @Nullable
   public String getQualifiersAsString() {
-    if (qualifiers != null) {
+    if (qualifiers != null && !qualifiers.isEmpty()) {
       return qualifiers.toString();
     }
     return null;
