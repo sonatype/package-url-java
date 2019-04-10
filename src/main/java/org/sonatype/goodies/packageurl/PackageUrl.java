@@ -125,6 +125,19 @@ public class PackageUrl
     return qualifiers;
   }
 
+  /**
+   * Returns {@link #qualifiers} as a string representation.
+   *
+   * @since ???
+   */
+  @Nullable
+  public String getQualifiersAsString() {
+    if (qualifiers != null) {
+      return qualifiers.toString();
+    }
+    return null;
+  }
+
   @Nullable
   public List<String> getSubpath() {
     return subpath;
