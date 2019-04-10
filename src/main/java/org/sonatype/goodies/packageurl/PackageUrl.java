@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -56,36 +55,6 @@ public class PackageUrl
    * @since ???
    */
   public static final String SCHEME = "pkg";
-
-  /**
-   * @since ???
-   */
-  public static final String TYPE = "type";
-
-  /**
-   * @since ???
-   */
-  public static final String NAMESPACE = "namespace";
-
-  /**
-   * @since ???
-   */
-  public static final String NAME = "name";
-
-  /**
-   * @since ???
-   */
-  public static final String VERSION = "version";
-
-  /**
-   * @since ???
-   */
-  public static final String QUALIFIERS = "qualifiers";
-
-  /**
-   * @since ???
-   */
-  public static final String SUBPATH = "subpath";
 
   private final String type;
 
@@ -156,19 +125,6 @@ public class PackageUrl
     return qualifiers;
   }
 
-  /**
-   * Returns {@link #qualifiers} as a string representation.
-   *
-   * @since ???
-   */
-  @Nullable
-  public String getQualifiersAsString() {
-    if (qualifiers != null && !qualifiers.isEmpty()) {
-      return qualifiers.toString();
-    }
-    return null;
-  }
-
   @Nullable
   public List<String> getSubpath() {
     return subpath;
@@ -183,38 +139,6 @@ public class PackageUrl
       return renderSegments(new StringBuilder(), subpath, false).toString();
     }
     return null;
-  }
-
-  /**
-   * Return map representation.
-   *
-   * @since ???
-   */
-  public Map<String,Object> asMap() {
-    Map<String,Object> result = new LinkedHashMap<>();
-    result.put(TYPE, getType());
-    result.put(NAMESPACE, getNamespace());
-    result.put(NAME, getName());
-    result.put(VERSION, getVersion());
-    result.put(QUALIFIERS, getQualifiers());
-    result.put(SUBPATH, getSubpath());
-    return result;
-  }
-
-  /**
-   * Return map representation with string encoded-values.
-   *
-   * @since ???
-   */
-  public Map<String,String> asMapStringEncoded() {
-    Map<String,String> coordinates = new LinkedHashMap<>();
-    coordinates.put(TYPE, getType());
-    coordinates.put(NAMESPACE, getNamespaceAsString());
-    coordinates.put(NAME, getName());
-    coordinates.put(VERSION, getVersion());
-    coordinates.put(QUALIFIERS, getQualifiersAsString());
-    coordinates.put(SUBPATH, getSubpathAsString());
-    return coordinates;
   }
 
   @Override
