@@ -22,9 +22,12 @@ import javax.xml.bind.annotation.XmlRootElement
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter
 
 import org.sonatype.goodies.packageurl.PackageUrl
+import org.sonatype.goodies.packageurl.RenderFlavor
 import org.sonatype.goodies.testsupport.TestSupport
 
 import groovy.transform.ToString
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 /**
@@ -33,6 +36,11 @@ import org.junit.Test
 class PackageUrlXmlAdapterTest
   extends TestSupport
 {
+  @Before
+  void setUp() {
+    RenderFlavor.default = RenderFlavor.SCHEME
+  }
+
   private String fixture(final String path) {
     def url = getClass().getResource('/' + path)
     assert url != null
@@ -58,8 +66,8 @@ class PackageUrlXmlAdapterTest
 
     def value = new Envelope(
         coordinates: [
-            PackageUrl.parse('maven:foo/bar@1'),
-            PackageUrl.parse('maven:baz/qux@2')
+            PackageUrl.parse('pkg:maven/foo/bar@1'),
+            PackageUrl.parse('pkg:maven/baz/qux@2')
         ]
     )
 

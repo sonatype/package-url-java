@@ -1,1 +1,1 @@
-{"coordinates":["maven:foo/bar@1","maven:baz/qux@2"]}
+{"coordinates":["pkg:maven/foo/bar@1","pkg:maven/baz/qux@2"]}

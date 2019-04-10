@@ -13,6 +13,7 @@
 package org.sonatype.goodies.packageurl.jackson
 
 import org.sonatype.goodies.packageurl.PackageUrl
+import org.sonatype.goodies.packageurl.RenderFlavor
 import org.sonatype.goodies.testsupport.TestSupport
 
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -32,7 +33,7 @@ class PackageUrlModuleTest
   @Before
   void setUp() {
     objectMapper = new ObjectMapper()
-        .registerModule(new PackageUrlModule())
+        .registerModule(new PackageUrlModule().withFlavor(RenderFlavor.SCHEME))
   }
 
   private String fixture(final String path) {
@@ -43,7 +44,7 @@ class PackageUrlModuleTest
 
   @Test
   void 'serialize single'() {
-    def purl = 'maven:foo/bar@1'
+    def purl = 'pkg:maven/foo/bar@1'
     def value = PackageUrl.parse(purl)
     def expected = fixture('fixtures/simple.json')
     assert objectMapper.writeValueAsString(value) == expected
@@ -72,8 +73,8 @@ class PackageUrlModuleTest
   void 'serialize complex'() {
     def value = new Envelope(
         coordinates: [
-            PackageUrl.parse('maven:foo/bar@1'),
-            PackageUrl.parse('maven:baz/qux@2')
+            PackageUrl.parse('pkg:maven/foo/bar@1'),
+            PackageUrl.parse('pkg:maven/baz/qux@2')
         ]
     )
 

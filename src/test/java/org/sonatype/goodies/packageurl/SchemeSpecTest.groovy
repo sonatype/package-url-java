@@ -56,7 +56,7 @@ class SchemeSpecTest
         assert purl.qualifiers == entry.qualifiers
         assert purl.subpathAsString == entry.subpath
       }
-      catch (e) {
+      catch (Throwable e) {
         if (!entry.is_invalid) {
           throw e
         }
@@ -90,7 +90,7 @@ class SchemeSpecTest
         // object match, as toString form could be different due to test-suite-data qualifier ordering
         assert purl == canonical
       }
-      catch (e) {
+      catch (Throwable e) {
         assert entry.is_invalid
       }
     }
