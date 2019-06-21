@@ -22,13 +22,14 @@ import org.sonatype.goodies.packageurl.RenderFlavor;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.core.type.WritableTypeId;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link PackageUrl} Jackson module.
@@ -101,6 +102,17 @@ public class PackageUrlModule
         throws IOException
     {
       generator.writeString(value.toString(flavor != null ? flavor : RenderFlavor.getDefault()));
+    }
+
+    @Override
+    public void serializeWithType(final PackageUrl value,
+                                  final JsonGenerator generator,
+                                  final SerializerProvider provider,
+                                  final TypeSerializer serializer) throws IOException
+    {
+      WritableTypeId typeId = serializer.writeTypePrefix(generator, serializer.typeId(value, JsonToken.VALUE_STRING));
+      serialize(value, generator, provider);
+      serializer.writeTypeSuffix(generator, typeId);
     }
   }
 }
