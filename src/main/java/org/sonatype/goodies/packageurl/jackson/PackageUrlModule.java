@@ -104,6 +104,9 @@ public class PackageUrlModule
       generator.writeString(value.toString(flavor != null ? flavor : RenderFlavor.getDefault()));
     }
 
+    /**
+     * @since ???
+     */
     @Override
     public void serializeWithType(final PackageUrl value,
                                   final JsonGenerator generator,
