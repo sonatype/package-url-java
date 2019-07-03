@@ -15,7 +15,8 @@ tags:
   - package-url-java
 ---
 Construction of a [PackageUrl](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrl.html) is done with a
-[Builder](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrlBuilder.html):
+[Builder](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrlBuilder.html) via
+[builder()](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrl.html#builder--):
 
 ```java
 PackageUrl purl = PackageUrl.builder()
