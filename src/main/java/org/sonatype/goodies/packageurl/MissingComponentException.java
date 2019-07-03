@@ -15,7 +15,7 @@ package org.sonatype.goodies.packageurl;
 /**
  * Thrown when package-url component that is required is missing.
  *
- * @since ???
+ * @since 1.1.0
  */
 public class MissingComponentException
     extends InvalidException

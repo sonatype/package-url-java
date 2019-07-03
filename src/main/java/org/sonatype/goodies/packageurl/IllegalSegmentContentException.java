@@ -15,7 +15,7 @@ package org.sonatype.goodies.packageurl;
 /**
  * Throw when segmented property contains and illegal value.
  *
- * @since ???
+ * @since 1.1.0
  */
 public class IllegalSegmentContentException
     extends InvalidException

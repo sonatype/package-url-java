@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 /**
  * {@link PackageUrl} validator.
  *
- * @since ???
+ * @since 1.1.0
  */
 class PackageUrlValidator
 {

@@ -105,7 +105,7 @@ public class PackageUrlModule
     }
 
     /**
-     * @since ???
+     * @since 1.1.0
      */
     @Override
     public void serializeWithType(final PackageUrl value,

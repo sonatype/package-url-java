@@ -52,7 +52,7 @@ public class PackageUrl
   /**
    * Standard URI scheme for Package-URL.
    *
-   * @since ???
+   * @since 1.1.0
    */
   public static final String SCHEME = "pkg";
 
@@ -186,7 +186,7 @@ public class PackageUrl
   /**
    * Convert to a URI.
    *
-   * @since ???
+   * @since 1.1.0
    */
   public URI toUri() {
     return URI.create(toString());

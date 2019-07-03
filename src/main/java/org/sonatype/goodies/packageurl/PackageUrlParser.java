@@ -28,7 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * {@link PackageUrl} parser.
  *
- * @since ???
+ * @since 1.1.0
  */
 class PackageUrlParser
 {

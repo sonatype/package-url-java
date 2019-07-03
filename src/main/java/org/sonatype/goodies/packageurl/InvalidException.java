@@ -15,7 +15,7 @@ package org.sonatype.goodies.packageurl;
 /**
  * Thrown when package-url is detected to be invalid for some reason.
  *
- * @since ???
+ * @since 1.1.0
  */
 public class InvalidException
     extends RuntimeException

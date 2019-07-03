@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 /**
  * String helpers.
  *
- * @since ???
+ * @since 1.1.0
  */
 final class MoreStrings
 {

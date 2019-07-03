@@ -26,7 +26,7 @@ import static org.sonatype.goodies.packageurl.PackageUrlValidator.*;
 /**
  * {@link PackageUrl} builder.
  *
- * @since ???
+ * @since 1.1.0
  */
 public class PackageUrlBuilder
 {

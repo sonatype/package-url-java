@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 /**
  * How to render the Package-URL.
  *
- * @since ???
+ * @since 1.1.0
  */
 public enum RenderFlavor
 {
