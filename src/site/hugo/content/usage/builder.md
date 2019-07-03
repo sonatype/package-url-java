@@ -15,10 +15,10 @@ tags:
   - package-url-java
 ---
 Construction of a [PackageUrl](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrl.html) is done with a
-[Builder](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrl.Builder.html):
+[Builder](../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrlBuilder.html):
 
 ```java
-PackageUrl purl = new PackageUrl.Builder()
+PackageUrl purl = PackageUrl.builder()
     .type("maven")
     .namespace("junit")
     .name("junit")
