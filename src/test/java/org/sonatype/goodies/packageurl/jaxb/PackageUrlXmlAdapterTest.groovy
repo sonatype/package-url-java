@@ -26,7 +26,6 @@ import org.sonatype.goodies.packageurl.RenderFlavor
 import org.sonatype.goodies.testsupport.TestSupport
 
 import groovy.transform.ToString
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 

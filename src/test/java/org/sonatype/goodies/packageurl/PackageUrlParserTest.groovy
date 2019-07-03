@@ -14,7 +14,6 @@ package org.sonatype.goodies.packageurl
 
 import org.sonatype.goodies.testsupport.TestSupport
 
-import org.junit.After
 import org.junit.Test
 
 import static org.junit.Assert.fail
@@ -34,11 +33,6 @@ class PackageUrlParserTest
     catch (e) {
       // expected
     }
-  }
-
-  @After
-  void tearDown() {
-    RenderFlavor.default = null
   }
 
   private PackageUrl parse(final String value) {

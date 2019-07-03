@@ -14,7 +14,6 @@ package org.sonatype.goodies.packageurl
 
 import org.sonatype.goodies.testsupport.TestSupport
 
-import org.junit.After
 import org.junit.Test
 
 /**
@@ -23,11 +22,6 @@ import org.junit.Test
 class PackageUrlTest
     extends TestSupport
 {
-  @After
-  void tearDown() {
-    RenderFlavor.default = null
-  }
-
   @Test
   void 'render as string'() {
     def assertRendering = { final PackageUrl purl, final String expected ->
