@@ -20,9 +20,9 @@ import org.junit.Test
 import static org.junit.Assert.fail
 
 /**
- * {@link PackageUrlParser} tests.
+ * {@link PackageUrlParser} {@link RenderFlavor#SCHEMELESS} tests.
  */
-class PackageUrlParserTest
+class PackageUrlParserSchemelessTest
     extends TestSupport
 {
   @SuppressWarnings("GroovyUnusedCatchParameter")
@@ -50,19 +50,11 @@ class PackageUrlParserTest
 
   @Test
   void parse_basic() {
-    parse('pkg:foo/bar@baz').with {
+    parse('foo:bar@baz').with {
       assert type == 'foo'
       assert namespace == null
       assert name == 'bar'
       assert version == 'baz'
-    }
-  }
-
-  @Test
-  void tostring_flavors() {
-    parse('pkg:foo/bar@baz').with {
-      assert it.toString(RenderFlavor.SCHEME) == 'pkg:foo/bar@baz'
-      assert it.toString(RenderFlavor.SCHEMELESS) == 'foo:bar@baz'
     }
   }
 
@@ -71,14 +63,14 @@ class PackageUrlParserTest
    */
   @Test
   void parse_examples() {
-    parse('pkg:bitbucket/birkenfeld/pygments-main@244fd47e07d1014f0aed9c').with {
+    parse('bitbucket:birkenfeld/pygments-main@244fd47e07d1014f0aed9c').with {
       assert type == 'bitbucket'
       assert namespace == ['birkenfeld']
       assert name == 'pygments-main'
       assert version == '244fd47e07d1014f0aed9c'
     }
 
-    parse('pkg:deb/debian/curl@7.50.3-1?arch=i386&distro=jessie').with {
+    parse('deb:debian/curl@7.50.3-1?arch=i386&distro=jessie').with {
       assert type == 'deb'
       assert namespace == ['debian']
       assert name == 'curl'
@@ -87,47 +79,47 @@ class PackageUrlParserTest
       assert qualifiers.distro == 'jessie'
     }
 
-    parse('pkg:docker/cassandra@sha256:244fd47e07d1004f0aed9c').with {
+    parse('docker:cassandra@sha256:244fd47e07d1004f0aed9c').with {
       assert type == 'docker'
       assert name == 'cassandra'
       assert version == 'sha256:244fd47e07d1004f0aed9c'
     }
 
-    parse('pkg:docker/gcr.io/customer/dockerimage@sha256:244fd47e07d1004f0aed9c').with {
+    parse('docker:gcr.io/customer/dockerimage@sha256:244fd47e07d1004f0aed9c').with {
       assert type == 'docker'
       assert namespace == ['gcr.io', 'customer']
       assert name == 'dockerimage'
       assert version == 'sha256:244fd47e07d1004f0aed9c'
     }
 
-    parse('pkg:gem/jruby-launcher@1.1.2?platform=java').with {
+    parse('gem:jruby-launcher@1.1.2?platform=java').with {
       assert type == 'gem'
       assert name == 'jruby-launcher'
       assert version == '1.1.2'
       assert qualifiers.platform == 'java'
     }
 
-    parse('pkg:gem/ruby-advisory-db-check@0.12.4').with {
+    parse('gem:ruby-advisory-db-check@0.12.4').with {
       assert type == 'gem'
       assert name == 'ruby-advisory-db-check'
       assert version == '0.12.4'
     }
 
-    parse('pkg:github/package-url/purl-spec@244fd47e07d1004f0aed9c').with {
+    parse('github:package-url/purl-spec@244fd47e07d1004f0aed9c').with {
       assert type == 'github'
       assert namespace == ['package-url']
       assert name == 'purl-spec'
       assert version == '244fd47e07d1004f0aed9c'
     }
 
-    parse('pkg:golang/google.golang.org/genproto#googleapis/api/annotations').with {
+    parse('golang:google.golang.org/genproto#googleapis/api/annotations').with {
       assert type == 'golang'
       assert namespace == ['google.golang.org']
       assert name == 'genproto'
       assert subpath == ['googleapis', 'api', 'annotations']
     }
 
-    parse('pkg:maven/org.apache.xmlgraphics/batik-anim@1.9.1?packaging=sources').with {
+    parse('maven:org.apache.xmlgraphics/batik-anim@1.9.1?packaging=sources').with {
       assert type == 'maven'
       assert namespace == ['org.apache.xmlgraphics']
       assert name == 'batik-anim'
@@ -135,7 +127,7 @@ class PackageUrlParserTest
       assert qualifiers.packaging == 'sources'
     }
 
-    parse('pkg:maven/org.apache.xmlgraphics/batik-anim@1.9.1?repository_url=repo.spring.io/release').with {
+    parse('maven:org.apache.xmlgraphics/batik-anim@1.9.1?repository_url=repo.spring.io/release').with {
       assert type == 'maven'
       assert namespace == ['org.apache.xmlgraphics']
       assert name == 'batik-anim'
@@ -143,32 +135,32 @@ class PackageUrlParserTest
       assert qualifiers.repository_url == 'repo.spring.io/release'
     }
 
-    parse('pkg:npm/%40angular/animation@12.3.1').with {
+    parse('npm:%40angular/animation@12.3.1').with {
       assert type == 'npm'
       assert namespace == ['@angular']
       assert name == 'animation'
       assert version == '12.3.1'
     }
 
-    parse('pkg:npm/foobar@12.3.1').with {
+    parse('npm:foobar@12.3.1').with {
       assert type == 'npm'
       assert name == 'foobar'
       assert version == '12.3.1'
     }
 
-    parse('pkg:nuget/EnterpriseLibrary.Common@6.0.1304').with {
+    parse('nuget:EnterpriseLibrary.Common@6.0.1304').with {
       assert type == 'nuget'
       assert name == 'EnterpriseLibrary.Common'
       assert version == '6.0.1304'
     }
 
-    parse('pkg:pypi/django@1.11.1').with {
+    parse('pypi:django@1.11.1').with {
       assert type == 'pypi'
       assert name == 'django'
       assert version == '1.11.1'
     }
 
-    parse('pkg:rpm/fedora/curl@7.50.3-1.fc25?arch=i386&distro=fedora-25').with {
+    parse('rpm:fedora/curl@7.50.3-1.fc25?arch=i386&distro=fedora-25').with {
       assert type == 'rpm'
       assert namespace == ['fedora']
       assert name == 'curl'
@@ -177,7 +169,7 @@ class PackageUrlParserTest
       assert qualifiers.distro == 'fedora-25'
     }
 
-    parse('pkg:rpm/opensuse/curl@7.56.1-1.1.?arch=i386&distro=opensuse-tumbleweed').with {
+    parse('rpm:opensuse/curl@7.56.1-1.1.?arch=i386&distro=opensuse-tumbleweed').with {
       assert type == 'rpm'
       assert namespace == ['opensuse']
       assert name == 'curl'
@@ -188,18 +180,8 @@ class PackageUrlParserTest
   }
 
   @Test
-  void parse_ignoreLeadingSlash() {
-    parse('pkg:/foo/bar@baz').with {
-      assert type == 'foo'
-      assert namespace == null
-      assert name == 'bar'
-      assert version == 'baz'
-    }
-  }
-
-  @Test
-  void parse_ignoreLeadingDoubleSlash() {
-    parse('pkg://foo/bar@baz').with {
+  void parse_ignoreDoubleSlash() {
+    parse('foo://bar@baz').with {
       assert type == 'foo'
       assert namespace == null
       assert name == 'bar'
@@ -211,18 +193,18 @@ class PackageUrlParserTest
   void parseType_invalid() {
     // type must not start with number
     expectFailure {
-      parse('pkg:1foo/bar@baz')
+      parse('1foo:bar@baz')
     }
 
     // type must not contain spaces
     expectFailure {
-      parse('pkg:f o o/bar@baz')
+      parse('f o o:bar@baz')
     }
   }
 
   @Test
   void parseType_withSpecial() {
-    parse('pkg:foo-1+2/bar@baz').with {
+    parse('foo-1+2:bar@baz').with {
       assert type == 'foo-1+2'
       assert namespace == null
       assert name == 'bar'
@@ -231,15 +213,8 @@ class PackageUrlParserTest
   }
 
   @Test
-  void parseType_renderedLower() {
-    parse('pkg:FOO/bar@baz').with {
-      assert it.toString() == 'pkg:foo/bar@baz'
-    }
-  }
-
-  @Test
   void parseNamespace() {
-    parse('pkg:foo/bar/baz@qux').with {
+    parse('foo:bar/baz@qux').with {
       assert type == 'foo'
       assert namespace == ['bar']
       assert name == 'baz'
@@ -249,7 +224,7 @@ class PackageUrlParserTest
 
   @Test
   void parseNamespace_withSegments() {
-    parse('pkg:foo/a/b/c/baz@qux').with {
+    parse('foo:/a/b/c/baz@qux').with {
       assert type == 'foo'
       assert namespace == ['a', 'b', 'c']
       assert name == 'baz'
@@ -259,7 +234,7 @@ class PackageUrlParserTest
 
   @Test
   void parseQualifiers_namespace_name_version() {
-    parse('pkg:foo/bar/qux@baz?a=b&c=d#blah').with {
+    parse('foo:bar/qux@baz?a=b&c=d#blah').with {
       assert type == 'foo'
       assert namespace == ['bar']
       assert name == 'qux'
@@ -272,7 +247,7 @@ class PackageUrlParserTest
 
   @Test
   void parseQualifiers_name_version() {
-    parse('pkg:foo/bar@baz?a=b&c=d#blah').with {
+    parse('foo:bar@baz?a=b&c=d#blah').with {
       assert type == 'foo'
       assert namespace == null
       assert name == 'bar'
@@ -285,7 +260,7 @@ class PackageUrlParserTest
 
   @Test
   void parseQualifiers_name() {
-    parse('pkg:foo/bar?a=b&c=d#blah').with {
+    parse('foo:bar?a=b&c=d#blah').with {
       assert type == 'foo'
       assert namespace == null
       assert name == 'bar'
@@ -297,41 +272,8 @@ class PackageUrlParserTest
   }
 
   @Test
-  void parseSubpath() {
-    parse('pkg:a/b/c@d#e').with {
-      assert type == 'a'
-      assert namespace == ['b']
-      assert name == 'c'
-      assert version == 'd'
-      assert subpath == ['e']
-    }
-  }
-
-  @Test
-  void parseSubpath_name_version() {
-    parse('pkg:a/b@c#d').with {
-      assert type == 'a'
-      assert namespace == null
-      assert name == 'b'
-      assert version == 'c'
-      assert subpath == ['d']
-    }
-  }
-
-  @Test
-  void parseSubpath_name() {
-    parse('pkg:a/b#c').with {
-      assert type == 'a'
-      assert namespace == null
-      assert name == 'b'
-      assert version == null
-      assert subpath == ['c']
-    }
-  }
-
-  @Test
   void asBuilder_mutation() {
-    parse('pkg:foo/bar@baz#qux').asBuilder().version(null).build().with {
+    parse('foo:bar@baz#qux').asBuilder().version(null).build().with {
       assert type == 'foo'
       assert namespace == null
       assert name == 'bar'

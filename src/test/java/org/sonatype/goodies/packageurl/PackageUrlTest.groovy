@@ -15,10 +15,7 @@ package org.sonatype.goodies.packageurl
 import org.sonatype.goodies.testsupport.TestSupport
 
 import org.junit.After
-import org.junit.Before
 import org.junit.Test
-
-import static org.junit.Assert.fail
 
 /**
  * {@link PackageUrl} tests.
@@ -26,12 +23,6 @@ import static org.junit.Assert.fail
 class PackageUrlTest
     extends TestSupport
 {
-  @Before
-  void setUp() {
-    // FIXME: ATM these tests assume previous spec w/o 'pkg' scheme
-    RenderFlavor.default = RenderFlavor.SCHEMELESS
-  }
-
   @After
   void tearDown() {
     RenderFlavor.default = null
@@ -45,7 +36,7 @@ class PackageUrlTest
     }
 
     assertRendering new PackageUrl('foo', ['bar'], 'baz', 'qux', [a: 'b', c: 'd'], ['blah']),
-        'foo:bar/baz@qux?a=b&c=d#blah'
+        'pkg:foo/bar/baz@qux?a=b&c=d#blah'
 
     assertRendering new PackageUrlBuilder()
         .type('foo')
@@ -56,7 +47,7 @@ class PackageUrlTest
         .qualifier('c', 'd')
         .subpath('sp1/sp2')
         .build(),
-        'foo:ns1/ns2/n@1.2.3?a=b&c=d#sp1/sp2'
+        'pkg:foo/ns1/ns2/n@1.2.3?a=b&c=d#sp1/sp2'
 
     assertRendering new PackageUrlBuilder()
         .type('foo')
@@ -67,16 +58,16 @@ class PackageUrlTest
         .qualifier('c', 'd')
         .subpath('sp1/!sp2')
         .build(),
-        'foo:ns1/%21ns2/n@1.2.3?a=b&c=d#sp1/%21sp2'
+        'pkg:foo/ns1/%21ns2/n@1.2.3?a=b&c=d#sp1/%21sp2'
 
     assertRendering new PackageUrl('foo', (List) null, 'bar', 'baz', null, (List) null),
-        'foo:bar@baz'
+        'pkg:foo/bar@baz'
 
     assertRendering new PackageUrl('foo', ['bar'], 'baz', 'qux', null, null),
-        'foo:bar/baz@qux'
+        'pkg:foo/bar/baz@qux'
 
     assertRendering new PackageUrl('foo', null, 'bar', 'baz', null, ['qux']),
-        'foo:bar@baz#qux'
+        'pkg:foo/bar@baz#qux'
   }
 
   @Test
@@ -93,6 +84,6 @@ class PackageUrlTest
         .qualifier('c', 'd')
         .qualifier('a', 'b')
         .build(),
-        'foo:n@1.2.3?a=b&c=d'
+        'pkg:foo/n@1.2.3?a=b&c=d'
   }
 }
