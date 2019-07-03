@@ -19,8 +19,12 @@ function die {
 
 # show usage and exit
 function usage {
+  if [[ -z "$1" ]]; then
     echo "usage: $basename <command> [options]"
-    exit 2
+  else
+    echo "usage: $basename $1"
+  fi
+  exit 2
 }
 
 # run self
