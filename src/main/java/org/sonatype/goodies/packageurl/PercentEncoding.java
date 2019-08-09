@@ -45,24 +45,27 @@ final class PercentEncoding
    */
   private static final PercentEscaper NAME_ESCAPER = new PercentEscaper("-_.~:", false);
 
+  //@VisibleForTesting
+  static String encode(final String value) {
+    requireNonNull(value);
+    return ESCAPER.escape(value);
+  }
+
   public static String encodeName(final String value) {
     requireNonNull(value);
     return NAME_ESCAPER.escape(value);
   }
 
   public static String encodeVersion(final String value) {
-    requireNonNull(value);
-    return ESCAPER.escape(value);
+    return encode(value);
   }
 
   public static String encodeSegment(final String value) {
-    requireNonNull(value);
-    return ESCAPER.escape(value);
+    return encode(value);
   }
 
   public static String encodeQualifierValue(final String value) {
-    requireNonNull(value);
-    return ESCAPER.escape(value);
+    return encode(value);
   }
 
   // NOTE: guava doesn't provide any decoding support, but URLDecoder should properly decode value
