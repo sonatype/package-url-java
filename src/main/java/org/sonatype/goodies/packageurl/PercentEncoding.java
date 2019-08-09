@@ -14,6 +14,7 @@ package org.sonatype.goodies.packageurl;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import com.google.common.net.PercentEscaper;
 
@@ -44,35 +45,34 @@ final class PercentEncoding
    */
   private static final PercentEscaper NAME_ESCAPER = new PercentEscaper("-_.~:", false);
 
-  public static String encode(final String value) {
-    requireNonNull(value);
-    return ESCAPER.escape(value);
-  }
-
   public static String encodeName(final String value) {
     requireNonNull(value);
     return NAME_ESCAPER.escape(value);
   }
 
   public static String encodeVersion(final String value) {
-    return encode(value);
+    requireNonNull(value);
+    return ESCAPER.escape(value);
   }
 
   public static String encodeSegment(final String value) {
-    // TODO: this may need to have same treatment as name?
-    return encode(value);
+    requireNonNull(value);
+    return ESCAPER.escape(value);
   }
 
   public static String encodeQualifierValue(final String value) {
-    return encode(value);
+    requireNonNull(value);
+    return ESCAPER.escape(value);
   }
 
   // NOTE: guava doesn't provide any decoding support, but URLDecoder should properly decode value
 
+  private static final String UTF_8 = StandardCharsets.UTF_8.name();
+
   public static String decode(final String value) {
     requireNonNull(value);
     try {
-      return URLDecoder.decode(value, "UTF-8");
+      return URLDecoder.decode(value, UTF_8);
     }
     catch (UnsupportedEncodingException e) {
       throw new RuntimeException(e);
