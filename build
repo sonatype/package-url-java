@@ -13,8 +13,8 @@ fi
 
 # show message and exit
 function die {
-    echo "$1"
-    exit 1
+  echo "$1"
+  exit 1
 }
 
 # show usage and exit
@@ -29,78 +29,88 @@ function usage {
 
 # run self
 function self {
-    $0 $*
+  $0 "$@"
 }
+
+if [[ -z "$mvn_options" ]]; then
+  mvn_options=""
+fi
 
 # run maven
 function mvn {
-    ./mvnw $*
+  ./mvnw ${mvn_options} "$@"
 }
 
 command="$1"; shift
 
 # complain if no command is given
 if [ -z "$command" ]; then
-    usage
+  usage
 fi
 
 case "$command" in
-    # change the version of the project
-    change-version)
-        newVersion="$1"
-        if [ -z "$newVersion" ]; then
-            usage "$command <version>"
-        fi
+  # change the version of the project
+  change-version)
+    newVersion="$1"
+    if [ -z "$newVersion" ]; then
+      usage "$command <version>"
+    fi
 
-        mvn org.eclipse.tycho:tycho-versions-plugin:1.2.0:set-version \
-          -Dartifacts=${project} \
-          -Dproperties=${project}.version \
-          -DnewVersion="$newVersion"
-        ;;
+    mvn org.eclipse.tycho:tycho-versions-plugin:1.2.0:set-version \
+      -Dartifacts=${project} \
+      -Dproperties=${project}.version \
+      -DnewVersion="$newVersion"
+    ;;
 
-    # check license headers
-    license-check)
-        mvn -Plicense-check -N $*
-        ;;
+  # check license headers
+  license-check)
+    mvn -f ./pom.xml -N -P -include-private com.mycila:license-maven-plugin:check
+    if [ -f "private/pom.xml" ]; then
+      mvn -f private/pom.xml -N com.mycila:license-maven-plugin:check "$@"
+    fi
+    ;;
 
-    # format license headers
-    license-format)
-        mvn -Plicense-format -N $*
-        ;;
+  # format license headers
+  license-format)
+    mvn -f ./pom.xml -N -P -include-private com.mycila:license-maven-plugin:format
+    if [ -f "private/pom.xml" ]; then
+      mvn -f private/pom.xml -N com.mycila:license-maven-plugin:format "$@"
+    fi
+    ;;
 
-    # release automation
-    release)
-        version="$1"
-        nextVersion="$2"
-        if [ -z "$version" -o -z "$nextVersion" ]; then
-            usage "$command <version> <next-version>"
-        fi
-        releaseTag="release-$version"
+  # release automation
+  release)
+    version="$1"
+    nextVersion="$2"
+    if [ -z "$version" -o -z "$nextVersion" ]; then
+      usage "$command <version> <next-version>"
+    fi
+    releaseTag="release-$version"
 
-        # update version and tag
-        self change-version "$version"
-        git commit -a -m "update version: $version"
-        git tag $releaseTag
+    # update version and tag
+    self change-version "$version"
+    git commit -a -m "update version: $version"
+    git tag $releaseTag
 
-        # deploy release
-        mvn -Prelease clean deploy
+    # deploy release
+    mvn -Prelease clean deploy -Dbuild.notes="t:release"
 
-        # update to next version
-        self change-version "$nextVersion"
-        git commit -a -m "update version: $nextVersion"
+    # update to next version
+    self change-version "$nextVersion"
+    git commit -a -m "update version: $nextVersion"
 
-        # TODO: push origin (branch + tag)
-        ;;
+    # TODO: push origin (branch + tag)
+    ;;
 
-    *)
-        # attempt to lookup command function
-        fn="command_$command"
-        if [ "$(type -t $fn)" = 'function' ]; then
-          $fn $*
-        else
-          # complain about missing command function
-          echo "Unknown command: $command"
-          usage
-        fi
-        ;;
+  *)
+    # attempt to lookup command function
+    fn="command_$command"
+    if [ "$(type -t $fn)" = 'function' ]; then
+      $fn "$@"
+    else
+      # complain about missing command function
+      echo "Unknown command: $command"
+      usage
+    fi
+    ;;
 esac
