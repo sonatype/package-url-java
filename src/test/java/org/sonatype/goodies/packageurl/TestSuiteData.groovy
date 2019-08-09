@@ -16,9 +16,8 @@ import groovy.json.JsonSlurper
 import groovy.transform.ToString
 
 /**
- * Package URL specification test-suite-data
- *
- * @see <a href="https://github.com/package-url/purl-spec/blob/master/test-suite-data.json">latest</a>
+ * Package URL specification
+ * <a href="https://github.com/package-url/purl-spec/blob/master/test-suite-data.json">test-suite-data</a>.
  */
 class TestSuiteData
 {

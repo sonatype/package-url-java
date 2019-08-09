@@ -12,7 +12,6 @@
  */
 package org.sonatype.goodies.packageurl
 
-
 import org.sonatype.goodies.testsupport.TestSupport
 
 import org.junit.AfterClass
