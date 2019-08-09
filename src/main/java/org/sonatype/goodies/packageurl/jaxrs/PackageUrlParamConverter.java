@@ -23,7 +23,6 @@ import javax.ws.rs.ext.Provider;
 import org.sonatype.goodies.packageurl.PackageUrl;
 import org.sonatype.goodies.packageurl.RenderFlavor;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -43,13 +42,17 @@ public class PackageUrlParamConverter
 
   @Override
   public PackageUrl fromString(final String value) {
-    checkArgument(value != null);
+    if (value == null) {
+      throw new IllegalArgumentException();
+    }
     return PackageUrl.parse(value);
   }
 
   @Override
   public String toString(final PackageUrl value) {
-    checkArgument(value != null);
+    if (value == null) {
+      throw new IllegalArgumentException();
+    }
     return value.toString(flavor != null ? flavor : RenderFlavor.getDefault());
   }
 
