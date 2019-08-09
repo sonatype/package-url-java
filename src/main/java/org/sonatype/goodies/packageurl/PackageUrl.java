@@ -26,7 +26,6 @@ import java.util.TreeSet;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -75,7 +74,7 @@ public class PackageUrl
   /**
    * Values should have already been validated via {@link PackageUrlBuilder} and {@link PackageUrlValidator}.
    */
-  @VisibleForTesting
+  //@VisibleForTesting
   PackageUrl(final String type,
              @Nullable final List<String> namespace,
              final String name,
@@ -163,7 +162,7 @@ public class PackageUrl
     return Objects.hash(type, namespace, name, version, qualifiers, subpath);
   }
 
-  @VisibleForTesting
+  //@VisibleForTesting
   String explain() {
     return "{type='" + type + '\'' +
         ", namespace=" + namespace +
