@@ -50,7 +50,7 @@ class PackageUrlValidator
   }
 
   /**
-   * Validate {@link PackageUrl#type} value.
+   * Validate {@code type} value.
    */
   static void validateType(final String value) {
     if (value == null) {
@@ -60,7 +60,7 @@ class PackageUrlValidator
   }
 
   /**
-   * Validate {@link PackageUrl#namespace} value.
+   * Validate {@code namespace} value.
    */
   static void validateNamespace(@Nullable final List<String> namespace) {
     if (namespace != null) {
@@ -71,7 +71,7 @@ class PackageUrlValidator
   }
 
   /**
-   * Validate {@link PackageUrl#name} value.
+   * Validate {@code name} value.
    */
   static void validateName(final String value) {
     if (value == null) {
@@ -82,7 +82,7 @@ class PackageUrlValidator
   }
 
   /**
-   * Validate {@link PackageUrl#version} value.
+   * Validate {@code version} value.
    */
   static void validateVersion(@Nullable final String value) {
     if (value != null) {
@@ -91,7 +91,7 @@ class PackageUrlValidator
   }
 
   /**
-   * Validate {@link PackageUrl#qualifiers} value.
+   * Validate {@code qualifiers} value.
    */
   static void validateQualifiers(@Nullable final Map<String, String> qualifiers) {
     if (qualifiers != null) {
@@ -104,7 +104,7 @@ class PackageUrlValidator
   }
 
   /**
-   * Validate {@link PackageUrl#subpath} value.
+   * Validate {@code subpath} value.
    */
   static void validateSubpath(@Nullable final List<String> subpath) {
     if (subpath != null) {
