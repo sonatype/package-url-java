@@ -31,7 +31,7 @@ import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeName;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeQualifierValue;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeSegment;
@@ -83,9 +83,9 @@ public class PackageUrl
              @Nullable final Map<String, String> qualifiers,
              @Nullable final List<String> subpath)
   {
-    this.type = checkNotNull(type);
+    this.type = requireNonNull(type);
     this.namespace = namespace != null ? ImmutableList.copyOf(namespace) : null;
-    this.name = checkNotNull(name);
+    this.name = requireNonNull(name);
     this.version = version;
     this.qualifiers = qualifiers != null ? ImmutableMap.copyOf(qualifiers) : null;
     this.subpath = subpath != null ? ImmutableList.copyOf(subpath) : null;
@@ -204,7 +204,7 @@ public class PackageUrl
    * Convert to canonical string representation with given rendering flavor.
    */
   public String toString(final RenderFlavor flavor) {
-    checkNotNull(flavor);
+    requireNonNull(flavor);
 
     StringBuilder buff = new StringBuilder();
 

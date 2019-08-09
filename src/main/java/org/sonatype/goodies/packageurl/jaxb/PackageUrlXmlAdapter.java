@@ -18,8 +18,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.sonatype.goodies.packageurl.PackageUrl;
 import org.sonatype.goodies.packageurl.RenderFlavor;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
  * {@link PackageUrl} JAXB {@link XmlAdapter}.
  *

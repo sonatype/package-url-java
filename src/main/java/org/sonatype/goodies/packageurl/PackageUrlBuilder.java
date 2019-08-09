@@ -17,7 +17,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseNamespace;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseQualifiers;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseSubpath;
@@ -43,7 +43,7 @@ public class PackageUrlBuilder
   private List<String> subpath;
 
   public PackageUrlBuilder from(final PackageUrl purl) {
-    checkNotNull(purl);
+    requireNonNull(purl);
     this.type = purl.getType();
     if (purl.getNamespace() != null) {
       this.namespace = new ArrayList<>(purl.getNamespace());
@@ -105,8 +105,8 @@ public class PackageUrlBuilder
   }
 
   public PackageUrlBuilder qualifier(final String key, final String value) {
-    checkNotNull(key);
-    checkNotNull(value);
+    requireNonNull(key);
+    requireNonNull(value);
     getQualifiers().put(key, value);
     return this;
   }

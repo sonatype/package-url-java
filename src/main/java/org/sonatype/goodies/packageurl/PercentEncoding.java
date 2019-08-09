@@ -18,7 +18,7 @@ import java.net.URLDecoder;
 import com.google.common.base.Charsets;
 import com.google.common.net.PercentEscaper;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Percent encoding helper.
@@ -48,12 +48,12 @@ final class PercentEncoding
   private static final PercentEscaper NAME_ESCAPER = new PercentEscaper("-_.~:", false);
 
   public static String encode(final String value) {
-    checkNotNull(value);
+    requireNonNull(value);
     return ESCAPER.escape(value);
   }
 
   public static String encodeName(final String value) {
-    checkNotNull(value);
+    requireNonNull(value);
     return NAME_ESCAPER.escape(value);
   }
 
@@ -73,7 +73,7 @@ final class PercentEncoding
   // NOTE: guava doesn't provide any decoding support, but URLDecoder should properly decode value
 
   public static String decode(final String value) {
-    checkNotNull(value);
+    requireNonNull(value);
     try {
       return URLDecoder.decode(value, UTF_8);
     }
