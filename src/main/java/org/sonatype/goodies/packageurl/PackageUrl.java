@@ -14,6 +14,7 @@ package org.sonatype.goodies.packageurl;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -27,8 +28,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 
 import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeName;
@@ -83,11 +82,11 @@ public class PackageUrl
              @Nullable final List<String> subpath)
   {
     this.type = requireNonNull(type);
-    this.namespace = namespace != null ? ImmutableList.copyOf(namespace) : null;
+    this.namespace = namespace != null ? Collections.unmodifiableList(namespace) : null;
     this.name = requireNonNull(name);
     this.version = version;
-    this.qualifiers = qualifiers != null ? ImmutableMap.copyOf(qualifiers) : null;
-    this.subpath = subpath != null ? ImmutableList.copyOf(subpath) : null;
+    this.qualifiers = qualifiers != null ? Collections.unmodifiableMap(qualifiers) : null;
+    this.subpath = subpath != null ? Collections.unmodifiableList(subpath) : null;
   }
 
   public String getType() {
