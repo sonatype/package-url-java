@@ -27,8 +27,6 @@ import java.util.TreeSet;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.google.common.collect.ComparisonChain;
-
 import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeName;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeQualifierValue;
@@ -235,12 +233,22 @@ public class PackageUrl
 
       // sort list of qualifiers lexicographically; see: https://github.com/package-url/purl-spec/issues/51
       SortedSet<Map.Entry<String,String>> sorted = new TreeSet<>(new Comparator<Entry<String, String>>() {
+        /**
+         * Compare entry.key and then entry.value.
+         */
         @Override
-        public int compare(final Entry<String, String> entry1, final Entry<String, String> entry2) {
-          return ComparisonChain.start()
-              .compare(entry1.getKey(), entry2.getKey())
-              .compare(entry1.getValue(), entry2.getValue())
-              .result();
+        public int compare(final Entry<String, String> left, final Entry<String, String> right) {
+          int key = left.getKey().compareTo(right.getKey());
+          if (key < 0) {
+            return -1;
+          }
+          else if (key > 0) {
+            return 1;
+          }
+          else {
+            int value = left.getValue().compareTo(right.getValue());
+            return Integer.compare(value, 0);
+          }
         }
       });
       sorted.addAll(qualifiers.entrySet());
