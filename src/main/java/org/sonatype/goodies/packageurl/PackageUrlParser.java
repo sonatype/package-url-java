@@ -116,12 +116,13 @@ class PackageUrlParser
   /**
    * Parse {@link PackageUrl#type}.
    */
+  @SuppressWarnings("JavadocReference")
   static String parseType(final String value) {
     return MoreStrings.lowerCase(value);
   }
 
   /**
-   * Parse {@link PackageUrl#namespace} segments.
+   * Parse {@code namespace} segments.
    */
   @Nullable
   static List<String> parseNamespace(@Nullable final String value) {
@@ -129,14 +130,14 @@ class PackageUrlParser
   }
 
   /**
-   * Parse {@link PackageUrl#name}.
+   * Parse {@code name}.
    */
   static String parseName(final String value) {
     return PercentEncoding.decode(value);
   }
 
   /**
-   * Parse {@link PackageUrl#version}.
+   * Parse {@code version}.
    */
   @Nullable
   static String parseVersion(@Nullable final String value) {
@@ -147,7 +148,7 @@ class PackageUrlParser
   }
 
   /**
-   * Parse {@link PackageUrl#qualifiers} map.
+   * Parse {@code qualifiers} map.
    */
   @Nullable
   static Map<String, String> parseQualifiers(@Nullable final String value) {
@@ -173,7 +174,7 @@ class PackageUrlParser
   }
 
   /**
-   * Parse {@link PackageUrl#subpath} segments.
+   * Parse {@code subpath} segments.
    */
   @Nullable
   static List<String> parseSubpath(@Nullable final String value) {
