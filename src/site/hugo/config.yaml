@@ -1,7 +1,7 @@
 ---
 baseURL: https://sonatype.github.io/package-url-java/
 languageCode: en-us
-title: "Goodies: Package URL Java"
+title: "Package URL Java"
 theme: dionysus
 
 # Publish content to maven-standard-ish location for generated content
