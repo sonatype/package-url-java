@@ -27,8 +27,11 @@
   </url>
   
   <url>
+    <loc>https://sonatype.github.io/package-url-java/</loc>
+  </url>
+  
+  <url>
     <loc>https://sonatype.github.io/package-url-java/tags/package-url-java/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -49,16 +52,11 @@
   </url>
   
   <url>
-    <loc>https://sonatype.github.io/package-url-java/categories/usage/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://sonatype.github.io/package-url-java/usage/</loc>
   </url>
   
   <url>
-    <loc>https://sonatype.github.io/package-url-java/</loc>
+    <loc>https://sonatype.github.io/package-url-java/categories/usage/</loc>
   </url>
   
 </urlset>

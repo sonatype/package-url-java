@@ -6,12 +6,12 @@
 <meta name="author" content="Sonatype, Inc."/>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>Builder &ndash; Goodies: Package URL Java</title>
+<title>Builder &ndash; Package URL Java</title>
 
 <link rel="shortcut icon" href="/package-url-java/favicon.ico">
 <link rel="icon" type="image/x-icon" href="/package-url-java/favicon.ico"/>
-<link rel="icon" type="image/png" href="/package-url-java/images/favicon-16x16.png" sizes="16x16"/>
-<link rel="icon" type="image/png" href="/package-url-java/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="/package-url-java/images/favicon.png" sizes="16x16"/>
+<link rel="icon" type="image/png" href="/package-url-java/images/favicon.png" sizes="32x32"/>
 
 <link rel="stylesheet" href="/package-url-java/theme.css">
 
@@ -31,8 +31,8 @@
   <nav id="site-topnav">
     <div class="container-fluid">
       <a class="navbar-brand" href="/package-url-java/">
-        <img class="d-inline-block align-top mr-2" src="/package-url-java/images/sonatype-dark-32x32.png" width="32" height="32" alt="">
-        Goodies: Package URL Java
+        <img class="d-inline-block" src="/package-url-java/images/sonatype-brand-dark.png" height="24" alt="Sonatype">
+        <span class="navbar-brand-app-name align-left ml-2">Package URL Java</span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -79,17 +79,17 @@
 <p>Construction of a <a href="../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrl.html">PackageUrl</a> is done with a
 <a href="../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrlBuilder.html">Builder</a> via
 <a href="../../maven/apidocs/org/sonatype/goodies/packageurl/PackageUrl.html#builder--">builder()</a>:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PackageUrl purl <span style="color:#555">=</span> PackageUrl<span style="color:#555">.</span><span style="color:#309">builder</span><span style="color:#555">()</span>
-    <span style="color:#555">.</span><span style="color:#309">type</span><span style="color:#555">(</span><span style="color:#c30">&#34;maven&#34;</span><span style="color:#555">)</span>
-    <span style="color:#555">.</span><span style="color:#309">namespace</span><span style="color:#555">(</span><span style="color:#c30">&#34;junit&#34;</span><span style="color:#555">)</span>
-    <span style="color:#555">.</span><span style="color:#309">name</span><span style="color:#555">(</span><span style="color:#c30">&#34;junit&#34;</span><span style="color:#555">)</span>
-    <span style="color:#555">.</span><span style="color:#309">version</span><span style="color:#555">(</span><span style="color:#c30">&#34;4.12&#34;</span><span style="color:#555">)</span>
-    <span style="color:#555">.</span><span style="color:#309">build</span><span style="color:#555">();</span></code></pre></div>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PackageUrl <span style="color:#c0f">purl</span> <span style="color:#555">=</span> PackageUrl.<span style="color:#309">builder</span>()
+    .<span style="color:#309">type</span>(<span style="color:#c30">&#34;maven&#34;</span>)
+    .<span style="color:#309">namespace</span>(<span style="color:#c30">&#34;junit&#34;</span>)
+    .<span style="color:#309">name</span>(<span style="color:#c30">&#34;junit&#34;</span>)
+    .<span style="color:#309">version</span>(<span style="color:#c30">&#34;4.12&#34;</span>)
+    .<span style="color:#309">build</span>();</code></pre></div>
 <h2 id="mutation">Mutation</h2>
 
 <p>Mutation is also handled by a builder by converting an existing <code>PackageUrl</code> into a <code>Builder</code>:</p>
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PackageUrl purl <span style="color:#555">=</span> PackageUrl<span style="color:#555">.</span><span style="color:#309">parse</span><span style="color:#555">(</span><span style="color:#c30">&#34;pkg:maven/junit/junit@4.12&#34;</span><span style="color:#555">);</span>
-PackageUrl purlNoVersion <span style="color:#555">=</span> purl<span style="color:#555">.</span><span style="color:#309">asBuilder</span><span style="color:#555">().</span><span style="color:#309">version</span><span style="color:#555">(</span><span style="color:#069;font-weight:bold">null</span><span style="color:#555">).</span><span style="color:#309">build</span><span style="color:#555">();</span></code></pre></div>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PackageUrl <span style="color:#c0f">purl</span> <span style="color:#555">=</span> PackageUrl.<span style="color:#309">parse</span>(<span style="color:#c30">&#34;pkg:maven/junit/junit@4.12&#34;</span>);
+PackageUrl <span style="color:#c0f">purlNoVersion</span> <span style="color:#555">=</span> purl.<span style="color:#309">asBuilder</span>().<span style="color:#309">version</span>(<span style="color:#069;font-weight:bold">null</span>).<span style="color:#309">build</span>();</code></pre></div>
 
 
     </main>
@@ -98,7 +98,9 @@ PackageUrl purlNoVersion <span style="color:#555">=</span> purl<span style="colo
   <div class="container">
     <div class="row">
       <div class="section-brand">
-        <h5 class="section-title"><img src="/package-url-java/images/sonatype-brand.png" height="24" alt=""></h5>
+        <h5 class="section-title">
+          <a href="https://sonatype.com"><img src="/package-url-java/images/sonatype-brand.svg" height="24" alt=""></a>
+        </h5>
         <small class="section-entry">&copy; 2018-present, Sonatype Inc.</small>
       </div>
 
@@ -109,7 +111,7 @@ PackageUrl purlNoVersion <span style="color:#555">=</span> purl<span style="colo
             
             <li><a class="section-entry" href="/package-url-java/about/">
               
-              Goodies: Package URL Java</a></li>
+              Package URL Java</a></li>
             
             <li><a class="section-entry" href="/package-url-java/development/">
               
