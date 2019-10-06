@@ -68,7 +68,7 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
 
-    <dionysus.version>1.0.2</dionysus.version>
+    <dionysus.version>1.0.3</dionysus.version>
   </properties>
 
   <dependencies>
