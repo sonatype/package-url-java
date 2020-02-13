@@ -14,20 +14,18 @@ package org.sonatype.goodies.packageurl;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -236,24 +234,12 @@ public class PackageUrl
       buff.append('?');
 
       // sort list of qualifiers lexicographically; see: https://github.com/package-url/purl-spec/issues/51
-      SortedSet<Map.Entry<String,String>> sorted = new TreeSet<>(new Comparator<Entry<String, String>>() {
-        @Override
-        public int compare(final Entry<String, String> entry1, final Entry<String, String> entry2) {
-          return ComparisonChain.start()
-              .compare(entry1.getKey(), entry2.getKey())
-              .compare(entry1.getValue(), entry2.getValue())
-              .result();
-        }
-      });
-      sorted.addAll(qualifiers.entrySet());
+      SortedMap<String, String> sorted = new TreeMap<>(qualifiers);
 
-      Iterator<Map.Entry<String, String>> iter = sorted.iterator();
-      while (iter.hasNext()) {
-        Map.Entry<String, String> entry = iter.next();
-        buff.append(entry.getKey()).append('=').append(encodeQualifierValue(entry.getValue()));
-        if (iter.hasNext()) {
-          buff.append('&');
-        }
+      String separator = "";
+      for (Entry<String, String> entry : sorted.entrySet()) {
+        buff.append(separator).append(entry.getKey()).append('=').append(encodeQualifierValue(entry.getValue()));
+        separator = "&";
       }
     }
 
