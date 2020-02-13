@@ -42,13 +42,19 @@ public class PackageUrlParamConverter
 
   @Override
   public PackageUrl fromString(final String value) {
-    requireNonNull(value);
+    // Do not use requireNonNull(value); since the interface requires an IllegalArgumentException()
+    if (value == null) {
+      throw new IllegalArgumentException();
+    }
     return PackageUrl.parse(value);
   }
 
   @Override
   public String toString(final PackageUrl value) {
-    requireNonNull(value);
+    // Do not use requireNonNull(value); since the interface requires an IllegalArgumentException()
+    if (value == null) {
+      throw new IllegalArgumentException();
+    }
     return value.toString(flavor != null ? flavor : RenderFlavor.getDefault());
   }
 

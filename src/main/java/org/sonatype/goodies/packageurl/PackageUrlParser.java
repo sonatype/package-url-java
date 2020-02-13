@@ -152,15 +152,16 @@ class PackageUrlParser
     String[] pairs = value.split("&");
     Map<String, String> result = new LinkedHashMap<>(pairs.length);
     for (String pair : pairs) {
-      String[] split = pair.split("=");
+      String[] split = pair.split("=", 2);
       if (split.length == 1) {
+        // qualifiers with missing values should be skipped
+        continue;
+      }
+      String v = split[1];
+      if (v.isEmpty()) {
         // qualifiers with empty values should be skipped
         continue;
       }
-      if (split.length != 2) {
-        throw new InvalidException("Invalid qualifier: " + pair);
-      }
-      String v = split[1];
 
       String k = MoreStrings.lowerCase(split[0]);
       result.put(k, PercentEncoding.decode(v));
