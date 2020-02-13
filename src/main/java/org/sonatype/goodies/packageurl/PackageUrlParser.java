@@ -21,8 +21,6 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
-import com.google.common.base.Splitter;
-
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -54,13 +52,9 @@ class PackageUrlParser
 
   static final String QUALIFIERS = String.format("%s(&%s)*", QUALIFIER, QUALIFIER);
 
-  static final Splitter.MapSplitter QUALIFIER_SPLITTER = Splitter.on('&').withKeyValueSeparator('=');
-
   static final String SUBPATH = ".+";
 
   static final String SUBPATH_SEGMENT = "[^/]+";
-
-  static final Splitter SEGMENT_SPLITTER = Splitter.on('/');
 
   static final Pattern PURL_SCHEME_PATTERN = Pattern.compile(String.format(
       "%s:(/)*(?<type>%s)/" +
@@ -155,17 +149,21 @@ class PackageUrlParser
       return null;
     }
 
-    Map<String, String> pairs = QUALIFIER_SPLITTER.split(value);
-    Map<String, String> result = new LinkedHashMap<>(pairs.size());
-    for (Map.Entry<String, String> entry : pairs.entrySet()) {
-      String v = entry.getValue();
+    String[] pairs = value.split("&");
+    Map<String, String> result = new LinkedHashMap<>(pairs.length);
+    for (String pair : pairs) {
+      String[] split = pair.split("=");
+      if (split.length != 2) {
+        throw new InvalidException("Invalid qualifier: " + pair);
+      }
+      String v = split[1];
 
       // qualifiers with empty values should be skipped
       if (v.isEmpty()) {
         continue;
       }
 
-      String k = MoreStrings.lowerCase(entry.getKey());
+      String k = MoreStrings.lowerCase(split[0]);
       result.put(k, PercentEncoding.decode(v));
     }
 
@@ -189,7 +187,7 @@ class PackageUrlParser
       return null;
     }
 
-    Iterable<String> parts = SEGMENT_SPLITTER.split(stripSlashes(value));
+    String[] parts = stripSlashes(value).split("/");
     List<String> result = new ArrayList<>();
     for (String part : parts) {
       if (part.isEmpty()) {
