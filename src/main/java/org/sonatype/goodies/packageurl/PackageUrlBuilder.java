@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseNamespace;
@@ -92,7 +93,9 @@ public class PackageUrlBuilder
 
   public PackageUrlBuilder qualifiers(final Map<String, String> qualifiers) {
     if (qualifiers != null) {
-      getQualifiers().putAll(qualifiers);
+      for (Entry<String, String> entry : qualifiers.entrySet()) {
+        qualifier(entry.getKey(), entry.getValue());
+      }
     }
     else {
       this.qualifiers = null;
@@ -107,7 +110,9 @@ public class PackageUrlBuilder
   public PackageUrlBuilder qualifier(final String key, final String value) {
     requireNonNull(key);
     requireNonNull(value);
-    getQualifiers().put(key, value);
+    if (!value.isEmpty()) {
+      getQualifiers().put(key, value);
+    }
     return this;
   }
 
