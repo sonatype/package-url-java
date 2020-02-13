@@ -38,17 +38,15 @@ final class PercentEncoding
 
   private static final String UTF_8 = StandardCharsets.UTF_8.name();
 
+  //
+  // Name has some wrinkles and non-clarity about the specification for encoding.  As the {@code /} is used
+  // as a separator but its also "unambiguous unencoded everywhere".
+  //
+  // Bottom line: we do encode {@code /} when in a name, we do not when not in a name.
+  //
+
   public static String encode(final String value) {
-    requireNonNull(value);
-    try {
-      return URLEncoder.encode(value, UTF_8)
-          .replace("+", "%20")
-          .replace("%3A", ":")
-          .replace( "%2F", "/");
-    }
-    catch (UnsupportedEncodingException e) {
-      throw new IllegalArgumentException(e);
-    }
+    return encodeName(value).replace( "%2F", "/");
   }
 
   public static String encodeName(final String value) {
@@ -56,7 +54,10 @@ final class PercentEncoding
     try {
       return URLEncoder.encode(value, UTF_8)
           .replace("+", "%20")
-          .replace("%3A", ":");
+          // despite the fact that ":" is a reserved character in RFC 3986, we do not encode it for purl.
+          .replace("%3A", ":")
+          // "~" is an unreserved character in RFC 3986.
+          .replace("%7E", "~");
     }
     catch (UnsupportedEncodingException e) {
       throw new IllegalArgumentException(e);
