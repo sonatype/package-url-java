@@ -26,8 +26,6 @@ import java.util.TreeMap;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSortedMap;
 import static java.util.Objects.requireNonNull;
@@ -75,7 +73,7 @@ public class PackageUrl
   /**
    * Values should have already been validated via {@link PackageUrlBuilder} and {@link PackageUrlValidator}.
    */
-  @VisibleForTesting
+  // @VisibleForTesting
   PackageUrl(final String type,
              @Nullable final List<String> namespace,
              final String name,
@@ -163,7 +161,7 @@ public class PackageUrl
     return Objects.hash(type, namespace, name, version, qualifiers, subpath);
   }
 
-  @VisibleForTesting
+  // @VisibleForTesting
   String explain() {
     return "{type='" + type + '\'' +
         ", namespace=" + namespace +
