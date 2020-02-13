@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Splitter;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 /**
  * {@link PackageUrl} parser.
@@ -88,7 +88,7 @@ class PackageUrlParser
    * Value format: {@code type:namespace/name@version?qualifiers#subpath}
    */
   public static PackageUrl parse(final String value) {
-    checkNotNull(value);
+    requireNonNull(value);
 
     Pattern pattern;
     if (value.startsWith(PackageUrl.SCHEME + ":")) {

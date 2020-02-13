@@ -23,8 +23,7 @@ import javax.ws.rs.ext.Provider;
 import org.sonatype.goodies.packageurl.PackageUrl;
 import org.sonatype.goodies.packageurl.RenderFlavor;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 /**
  * {@link PackageUrl} JAX-RS parameter converter.
@@ -43,13 +42,13 @@ public class PackageUrlParamConverter
 
   @Override
   public PackageUrl fromString(final String value) {
-    checkArgument(value != null);
+    requireNonNull(value);
     return PackageUrl.parse(value);
   }
 
   @Override
   public String toString(final PackageUrl value) {
-    checkArgument(value != null);
+    requireNonNull(value);
     return value.toString(flavor != null ? flavor : RenderFlavor.getDefault());
   }
 
@@ -74,7 +73,7 @@ public class PackageUrlParamConverter
                                               final Type genericType,
                                               final Annotation[] annotations)
     {
-      checkNotNull(rawType);
+      requireNonNull(rawType);
       if (rawType.equals(PackageUrl.class)) {
         return (ParamConverter<T>) new PackageUrlParamConverter(flavor);
       }
