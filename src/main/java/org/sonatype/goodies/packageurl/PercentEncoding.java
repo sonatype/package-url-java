@@ -14,8 +14,8 @@ package org.sonatype.goodies.packageurl;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
-import com.google.common.base.Charsets;
 import com.google.common.net.PercentEscaper;
 
 import static java.util.Objects.requireNonNull;
@@ -37,7 +37,7 @@ final class PercentEncoding
     // empty
   }
 
-  private static final String UTF_8 = Charsets.UTF_8.name();
+  private static final String UTF_8 = StandardCharsets.UTF_8.name();
 
   private static final PercentEscaper ESCAPER = new PercentEscaper("-_.~:/", false);
 
