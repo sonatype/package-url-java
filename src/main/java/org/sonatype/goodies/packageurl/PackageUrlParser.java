@@ -153,15 +153,14 @@ class PackageUrlParser
     Map<String, String> result = new LinkedHashMap<>(pairs.length);
     for (String pair : pairs) {
       String[] split = pair.split("=");
+      if (split.length == 1) {
+        // qualifiers with empty values should be skipped
+        continue;
+      }
       if (split.length != 2) {
         throw new InvalidException("Invalid qualifier: " + pair);
       }
       String v = split[1];
-
-      // qualifiers with empty values should be skipped
-      if (v.isEmpty()) {
-        continue;
-      }
 
       String k = MoreStrings.lowerCase(split[0]);
       result.put(k, PercentEncoding.decode(v));
