@@ -17,6 +17,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseNamespace;
@@ -171,6 +173,14 @@ public class PackageUrlBuilder
         break;
     }
 
-    return new PackageUrl(type, namespace, name, version, qualifiers, subpath);
+    SortedMap<String, String> sortedQualifiers = null;
+    if (qualifiers != null) {
+      sortedQualifiers = new TreeMap<>();
+      for (Entry<String, String> entry : qualifiers.entrySet()) {
+        sortedQualifiers.put(MoreStrings.lowerCase(entry.getKey()), entry.getValue());
+      }
+    }
+
+    return new PackageUrl(type, namespace, name, version, sortedQualifiers, subpath);
   }
 }

@@ -57,7 +57,7 @@ class PackageUrlBuilderTest
 
   @Test
   void 'from purl'() {
-    PackageUrl purl1 = new PackageUrl('foo', ['a', 'b', 'c'], 'bar', 'baz', [a: '1'], ['d', 'e', 'f'])
+    PackageUrl purl1 = new PackageUrl('foo', ['a', 'b', 'c'], 'bar', 'baz', [a: '1'] as TreeMap, ['d', 'e', 'f'])
     log purl1
     PackageUrlBuilder builder = new PackageUrlBuilder().from(purl1)
     PackageUrl purl2 = builder.build()
@@ -96,7 +96,7 @@ class PackageUrlBuilderTest
   @Test
   void 'qualifiers append'() {
     PackageUrlBuilder builder = new PackageUrlBuilder().type('foo').name('bar')
-    builder.qualifiers([a: '1', b: '2'])
+    builder.qualifiers([a: '1', B: '2'])
     builder.qualifier('c', '3')
     builder.build().with {
       assert qualifiers == [a: '1', b: '2', c: '3']
@@ -108,7 +108,7 @@ class PackageUrlBuilderTest
     PackageUrlBuilder builder = new PackageUrlBuilder().type('foo').name('bar')
     builder.qualifier('a', '1')
     builder.qualifiers((Map)null)
-    builder.qualifier('b', '2')
+    builder.qualifier('B', '2')
     builder.build().with {
       assert qualifiers == [b: '2']
     }
@@ -117,7 +117,7 @@ class PackageUrlBuilderTest
   @Test
   void 'qualifiers that are empty'() {
     PackageUrlBuilder builder = new PackageUrlBuilder().type('foo').name('bar')
-    builder.qualifiers([a: '1', b: ''])
+    builder.qualifiers([A: '1', b: ''])
     builder.qualifier('c', '3')
     builder.qualifier('d', '')
     builder.build().with {

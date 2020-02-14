@@ -157,13 +157,13 @@ class PackageUrlParser
         // qualifiers with missing values should be skipped
         continue;
       }
+      String k = split[0];
       String v = split[1];
       if (MoreStrings.isBlank(v)) {
         // qualifiers with empty values should be skipped
         continue;
       }
 
-      String k = MoreStrings.lowerCase(split[0]);
       result.put(k, PercentEncoding.decode(v));
     }
 
