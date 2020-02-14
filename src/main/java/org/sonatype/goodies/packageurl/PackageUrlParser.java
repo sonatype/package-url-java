@@ -152,7 +152,7 @@ class PackageUrlParser
     String[] pairs = value.split("&");
     Map<String, String> result = new LinkedHashMap<>(pairs.length);
     for (String pair : pairs) {
-      String[] split = pair.split("=", 2);
+      String[] split = pair.split("=", 2); // Splits the pair into either one or two pieces.
       if (split.length == 1) {
         // qualifiers with missing values should be skipped
         continue;
