@@ -234,6 +234,7 @@ public class PackageUrl
       buff.append('?');
 
       // sort list of qualifiers lexicographically; see: https://github.com/package-url/purl-spec/issues/51
+      // presently this only sorts by qualifier.key; unsure what the specific requirement is ^^^
       SortedMap<String, String> sorted = new TreeMap<>(qualifiers);
 
       String separator = "";
