@@ -46,18 +46,21 @@ final class PercentEncoding
   //
 
   public static String encode(final String value) {
-    return encodeName(value).replace( "%2F", "/");
+    String encoded = encodeName(value);
+    encoded = simpleReplace(encoded, "%2F", "/");
+    return encoded;
   }
 
   public static String encodeName(final String value) {
     requireNonNull(value);
     try {
-      return URLEncoder.encode(value, UTF_8)
-          .replace("+", "%20")
-          // despite the fact that ":" is a reserved character in RFC 3986, we do not encode it for purl.
-          .replace("%3A", ":")
-          // "~" is an unreserved character in RFC 3986.
-          .replace("%7E", "~");
+      String encoded = URLEncoder.encode(value, UTF_8);
+      encoded = simpleReplace(encoded, "+", "%20");
+      // despite the fact that ":" is a reserved character in RFC 3986, we do not encode it for purl.
+      encoded = simpleReplace(encoded, "%3A", ":");
+      // "~" is an unreserved character in RFC 3986.
+      encoded = simpleReplace(encoded, "%7E", "~");
+      return encoded;
     }
     catch (UnsupportedEncodingException e) {
       throw new IllegalArgumentException(e);
@@ -85,5 +88,33 @@ final class PercentEncoding
     catch (UnsupportedEncodingException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  /**
+   * A simpler version of String.replace() that does not involve regexp's and Patterns.
+   * Modeled after a similar method in org.codehaus.plexus's StrungUtils.
+   * https://github.com/codehaus-plexus/plexus-utils/blob/master/src/main/java/org/codehaus/plexus/util/StringUtils.java#L848
+
+   */
+  // @VisibleForTesting
+  static String simpleReplace(String text, String target, String replacement) {
+
+    int start = 0;
+    int index = text.indexOf(target, start);
+    if (index == -1) {
+      return text;
+    }
+
+    StringBuilder stringBuilder = new StringBuilder(text.length());
+    do {
+      stringBuilder
+          .append(text, start, index)
+          .append(replacement);
+      start = index + target.length();
+      index = text.indexOf(target, start);
+    } while (index != -1);
+    stringBuilder.append(text, start, text.length());
+
+    return stringBuilder.toString();
   }
 }

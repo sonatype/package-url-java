@@ -66,4 +66,14 @@ class PercentEncodingTest
   void 'tilda is not encoded'() {
     assertEncoding '~user', '~user'
   }
+
+  @Test
+  void 'simpleReplace'() {
+    assert PercentEncoding.simpleReplace("xxxxyyyyxxxx", "y", "a") == "xxxxaaaaxxxx"
+    assert PercentEncoding.simpleReplace("xxxxyyyyxxxx", "yyyy", "a") == "xxxxaxxxx"
+    assert PercentEncoding.simpleReplace("xxxxyyyyxxxx", "y", "aaaa") == "xxxxaaaaaaaaaaaaaaaaxxxx"
+    assert PercentEncoding.simpleReplace("xxxxyyyyxxxx", "x", "a") == "aaaayyyyaaaa"
+    assert PercentEncoding.simpleReplace("xxxxyyyyxxxx", "xx", "a") == "aayyyyaa"
+    assert PercentEncoding.simpleReplace("xxxxyyyyxxxx", "xxx", "a") == "axyyyyax"
+  }
 }
