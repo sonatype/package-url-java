@@ -159,7 +159,9 @@ public class PackageUrl
     return Objects.hash(type, namespace, name, version, qualifiers, subpath);
   }
 
-  // @VisibleForTesting
+  /**
+   * Returns a json-like representation of structure; Exposed for tests.
+   */
   String explain() {
     return "{type='" + type + '\'' +
         ", namespace=" + namespace +
