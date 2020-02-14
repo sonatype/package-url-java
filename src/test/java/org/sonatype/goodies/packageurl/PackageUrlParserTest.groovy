@@ -42,9 +42,22 @@ class PackageUrlParserTest
     return purl
   }
 
+  private PackageUrl parseAsIs(final String value) {
+    log "ParseAsIs: $value"
+    def purl = PackageUrl.parseAsIs(value)
+    log "PURL AsIs: ${purl.explain()} -> $purl"
+    return purl
+  }
+
   @Test
   void parse_basic() {
     parse('pkg:foo/bar@baz').with {
+      assert type == 'foo'
+      assert namespace == null
+      assert name == 'bar'
+      assert version == 'baz'
+    }
+    parseAsIs('pkg:foo/bar@baz').with {
       assert type == 'foo'
       assert namespace == null
       assert name == 'bar'
@@ -55,6 +68,10 @@ class PackageUrlParserTest
   @Test
   void tostring_flavors() {
     parse('pkg:foo/bar@baz').with {
+      assert it.toString(RenderFlavor.SCHEME) == 'pkg:foo/bar@baz'
+      assert it.toString(RenderFlavor.SCHEMELESS) == 'foo:bar@baz'
+    }
+    parseAsIs('pkg:foo/bar@baz').with {
       assert it.toString(RenderFlavor.SCHEME) == 'pkg:foo/bar@baz'
       assert it.toString(RenderFlavor.SCHEMELESS) == 'foo:bar@baz'
     }
@@ -71,6 +88,18 @@ class PackageUrlParserTest
       assert name == 'pygments-main'
       assert version == '244fd47e07d1014f0aed9c'
     }
+    parse('pkg:bitbucket/BirkenFeld/Pygments-Main@244fd47e07d1014f0aed9c').with {
+      assert type == 'bitbucket'
+      assert namespace == ['birkenfeld']
+      assert name == 'pygments-main'
+      assert version == '244fd47e07d1014f0aed9c'
+    }
+    parseAsIs('pkg:bitbucket/BirkenFeld/Pygments-Main@244fd47e07d1014f0aed9c').with {
+      assert type == 'bitbucket'
+      assert namespace == ['BirkenFeld']
+      assert name == 'Pygments-Main'
+      assert version == '244fd47e07d1014f0aed9c'
+    }
 
     parse('pkg:deb/debian/curl@7.50.3-1?arch=i386&distro=jessie').with {
       assert type == 'deb'
@@ -79,6 +108,26 @@ class PackageUrlParserTest
       assert version == '7.50.3-1'
       assert qualifiers.arch == 'i386'
       assert qualifiers.distro == 'jessie'
+    }
+    parse('pkg:deb/debian/curl@7.50.3-1?Arch=i386&Distro=jessie').with {
+      assert type == 'deb'
+      assert namespace == ['debian']
+      assert name == 'curl'
+      assert version == '7.50.3-1'
+      assert qualifiers.arch == 'i386'
+      assert qualifiers.distro == 'jessie'
+      assert qualifiers.Arch == null
+      assert qualifiers.Distro == null
+    }
+    parseAsIs('pkg:deb/debian/curl@7.50.3-1?Arch=i386&Distro=jessie').with {
+      assert type == 'deb'
+      assert namespace == ['debian']
+      assert name == 'curl'
+      assert version == '7.50.3-1'
+      assert qualifiers.Arch == 'i386'
+      assert qualifiers.Distro == 'jessie'
+      assert qualifiers.arch == null
+      assert qualifiers.distro == null
     }
 
     parse('pkg:docker/cassandra@sha256:244fd47e07d1004f0aed9c').with {
@@ -108,13 +157,26 @@ class PackageUrlParserTest
       assert qualifiers.platform == 'java'
       assert qualifiers.Platform == null
     }
+    parseAsIs('pkg:gem/jruby-launcher@1.1.2?Platform=java').with {
+      assert type == 'gem'
+      assert name == 'jruby-launcher'
+      assert version == '1.1.2'
+      assert qualifiers.Platform == 'java'
+      assert qualifiers.platform == null
+    }
 
     parse('pkg:gem/jruby-launcher@1.1.2?Platform=').with {
       assert type == 'gem'
       assert name == 'jruby-launcher'
       assert version == '1.1.2'
+      assert qualifiers == null
+    }
+    parseAsIs('pkg:gem/jruby-launcher@1.1.2?Platform=').with {
+      assert type == 'gem'
+      assert name == 'jruby-launcher'
+      assert version == '1.1.2'
+      assert qualifiers.Platform == ''
       assert qualifiers.platform == null
-      assert qualifiers.Platform == null
     }
 
     parse('pkg:gem/ruby-advisory-db-check@0.12.4').with {
@@ -127,6 +189,18 @@ class PackageUrlParserTest
       assert type == 'github'
       assert namespace == ['package-url']
       assert name == 'purl-spec'
+      assert version == '244fd47e07d1004f0aed9c'
+    }
+    parse('pkg:github/Package-Url/Purl-Spec@244fd47e07d1004f0aed9c').with {
+      assert type == 'github'
+      assert namespace == ['package-url']
+      assert name == 'purl-spec'
+      assert version == '244fd47e07d1004f0aed9c'
+    }
+    parseAsIs('pkg:github/Package-Url/Purl-Spec@244fd47e07d1004f0aed9c').with {
+      assert type == 'github'
+      assert namespace == ['Package-Url']
+      assert name == 'Purl-Spec'
       assert version == '244fd47e07d1004f0aed9c'
     }
 
@@ -172,9 +246,14 @@ class PackageUrlParserTest
       assert version == '6.0.1304'
     }
 
-    parse('pkg:pypi/django@1.11.1').with {
+    parse('pkg:pypi/django_allauth@1.11.1').with {
       assert type == 'pypi'
-      assert name == 'django'
+      assert name == 'django-allauth'
+      assert version == '1.11.1'
+    }
+    parseAsIs('pkg:pypi/django_allauth@1.11.1').with {
+      assert type == 'pypi'
+      assert name == 'django_allauth'
       assert version == '1.11.1'
     }
 

@@ -33,6 +33,13 @@ class PackageUrlBuilderTest
     catch (MissingComponentException e) {
       assert e.name == 'type'
     }
+    try {
+      new PackageUrlBuilder().name('foo').buildAsIs()
+      fail()
+    }
+    catch (MissingComponentException e) {
+      assert e.name == 'type'
+    }
   }
 
   @Test
@@ -44,11 +51,24 @@ class PackageUrlBuilderTest
     catch (MissingComponentException e) {
       assert e.name == 'name'
     }
+    try {
+      new PackageUrlBuilder().type('foo').buildAsIs()
+      fail()
+    }
+    catch (MissingComponentException e) {
+      assert e.name == 'name'
+    }
   }
 
   @Test
   void 'basic components'() {
-    new PackageUrlBuilder().type('foo').name('bar').version('baz').build().with {
+    def builder = new PackageUrlBuilder().type('foo').name('bar').version('baz')
+    builder.build().with {
+      assert type == 'foo'
+      assert name == 'bar'
+      assert version == 'baz'
+    }
+    builder.buildAsIs().with {
       assert type == 'foo'
       assert name == 'bar'
       assert version == 'baz'
@@ -63,34 +83,41 @@ class PackageUrlBuilderTest
     PackageUrl purl2 = builder.build()
     log purl2
     assert purl1 == purl2
+    PackageUrl purl3 = builder.buildAsIs()
+    log purl3
+    assert purl1 == purl3
   }
 
   @Test
   void 'namespace asis'() {
     List<String> ns = ['a', 'b', 'c']
-    PackageUrl purl = new PackageUrlBuilder().type('foo').name('bar').namespace(ns).build()
-    assert purl.namespace == ns
+    def builder = new PackageUrlBuilder().type('foo').name('bar').namespace(ns)
+    assert builder.build().namespace == ns
+    assert builder.buildAsIs().namespace == ns
   }
 
   @Test
   void 'namespace parsed'() {
     List<String> ns = ['a', 'b', 'c']
-    PackageUrl purl = new PackageUrlBuilder().type('foo').name('bar').namespace(ns.join('/')).build()
-    assert purl.namespace == ns
+    def builder = new PackageUrlBuilder().type('foo').name('bar').namespace(ns.join('/'))
+    assert builder.build().namespace == ns
+    assert builder.buildAsIs().namespace == ns
   }
 
   @Test
   void 'subpath asis'() {
     List<String> subpath = ['a', 'b', 'c']
-    PackageUrl purl = new PackageUrlBuilder().type('foo').name('bar').subpath(subpath).build()
-    assert purl.subpath == subpath
+    def builder = new PackageUrlBuilder().type('foo').name('bar').subpath(subpath)
+    assert builder.build().subpath == subpath
+    assert builder.buildAsIs().subpath == subpath
   }
 
   @Test
   void 'subpath parsed'() {
     List<String> subpath = ['a', 'b', 'c']
-    PackageUrl purl = new PackageUrlBuilder().type('foo').name('bar').subpath(subpath.join('/')).build()
-    assert purl.subpath == subpath
+    def builder = new PackageUrlBuilder().type('foo').name('bar').subpath(subpath.join('/'))
+    assert builder.build().subpath == subpath
+    assert builder.buildAsIs().subpath == subpath
   }
 
   @Test
@@ -100,6 +127,9 @@ class PackageUrlBuilderTest
     builder.qualifier('c', '3')
     builder.build().with {
       assert qualifiers == [a: '1', b: '2', c: '3']
+    }
+    builder.buildAsIs().with {
+      assert qualifiers == [a: '1', B: '2', c: '3']
     }
   }
 
@@ -112,6 +142,9 @@ class PackageUrlBuilderTest
     builder.build().with {
       assert qualifiers == [b: '2']
     }
+    builder.buildAsIs().with {
+      assert qualifiers == [B: '2']
+    }
   }
 
   @Test
@@ -123,5 +156,33 @@ class PackageUrlBuilderTest
     builder.build().with {
       assert qualifiers == [a: '1', c: '3']
     }
+    builder.buildAsIs().with {
+      assert qualifiers == [A: '1', b: '', c: '3', d: '']
+    }
   }
+
+  @Test
+  void 'bitbucket namespace and name'() {
+    PackageUrlBuilder builder = new PackageUrlBuilder().type('bitbucket').namespace('fOo').name('BaR')
+    builder.build().with {
+      assert namespace == ['foo']
+      assert name == 'bar'
+    }
+    builder.buildAsIs().with {
+      assert namespace == ['fOo']
+      assert name == 'BaR'
+    }
+  }
+
+  @Test
+  void 'pypi name'() {
+    PackageUrlBuilder builder = new PackageUrlBuilder().type('pypi').name('fOo-BaR_baZ')
+    builder.build().with {
+      assert name == 'foo-bar-baz'
+    }
+    builder.buildAsIs().with {
+      assert name == 'fOo-BaR_baZ'
+    }
+  }
+
 }

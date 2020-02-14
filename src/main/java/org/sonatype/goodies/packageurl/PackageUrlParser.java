@@ -72,7 +72,7 @@ class PackageUrlParser
       "(?<name>%s)" +
       "(@(?<version>%s))?" +
       "(\\?(?<qualifiers>%s))?" +
-      "(#(?<subpath>%s))?",
+          "(#(?<subpath>%s))?",
       TYPE, NAMESPACE, NAME, VERSION, QUALIFIERS, SUBPATH
   ));
 
@@ -81,7 +81,7 @@ class PackageUrlParser
    *
    * Value format: {@code type:namespace/name@version?qualifiers#subpath}
    */
-  public static PackageUrl parse(final String value) {
+  static PackageUrl parse(final String value, final boolean correct) {
     requireNonNull(value);
 
     Pattern pattern;
@@ -101,7 +101,7 @@ class PackageUrlParser
           .version(parseVersion(m.group("version")))
           .qualifiers(parseQualifiers(m.group("qualifiers")))
           .subpath(parseSubpath(m.group("subpath")))
-          .buildAndValidate(false);
+          .buildAndValidate(false, correct);
     }
 
     throw new InvalidException(value);

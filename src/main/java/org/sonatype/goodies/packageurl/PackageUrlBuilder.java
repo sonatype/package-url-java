@@ -139,7 +139,17 @@ public class PackageUrlBuilder
    * At minimal {@link #type} and {@link #name} must be specified.
    */
   public PackageUrl build() {
-    return buildAndValidate(true);
+    return buildAndValidate(true, true);
+  }
+
+  /**
+   * Build a {@link PackageUrl} "as is".
+   * That is, will *not* make the corrections defined in the spec to the namespace, to the name or to the qualifier keys.
+   *
+   * At minimal {@link #type} and {@link #name} must be specified.
+   */
+  public PackageUrl buildAsIs() {
+    return buildAndValidate(true, false);
   }
 
   /**
@@ -149,7 +159,7 @@ public class PackageUrlBuilder
    *
    * @since 1.0.1
    */
-  PackageUrl buildAndValidate(final boolean validate) {
+  PackageUrl buildAndValidate(final boolean validate, final boolean correct) {
     if (validate) {
       validateType(type);
       validateNamespace(namespace);
@@ -164,26 +174,37 @@ public class PackageUrlBuilder
     // FIXME: https://github.com/package-url/purl-spec/issues/38
     List<String> correctedNamespace = namespace;
     String correctedName = name;
-    switch (type) {
-      case "github":
-      case "bitbucket":
-        correctedNamespace = MoreStrings.lowerCase(namespace);
-        correctedName = MoreStrings.lowerCase(name);
-        break;
+    if (correct) {
+      switch (type) {
+        case "github":
+        case "bitbucket":
+          correctedNamespace = MoreStrings.lowerCase(namespace);
+          correctedName = MoreStrings.lowerCase(name);
+          break;
 
-      case "pypi":
-        correctedName = name.replace('_', '-');
-        correctedName = MoreStrings.lowerCase(correctedName);
-        break;
+        case "pypi":
+          correctedName = name.replace('_', '-');
+          correctedName = MoreStrings.lowerCase(correctedName);
+          break;
+      }
     }
 
     SortedMap<String, String> correctedQualifiers = null;
     if (qualifiers != null) {
       correctedQualifiers = new TreeMap<>();
       for (Entry<String, String> entry : qualifiers.entrySet()) {
-         if (!MoreStrings.isBlank(entry.getValue())) {
-          correctedQualifiers.put(MoreStrings.lowerCase(entry.getKey()), entry.getValue());
-         }
+        String key = entry.getKey();
+        String value = entry.getValue();
+        if (correct && MoreStrings.isBlank(value)) {
+          continue;
+        }
+        if (correct) {
+          key = MoreStrings.lowerCase(key);
+        }
+        correctedQualifiers.put(key, value);
+      }
+      if (correctedQualifiers.isEmpty()) {
+        correctedQualifiers = null;
       }
     }
 

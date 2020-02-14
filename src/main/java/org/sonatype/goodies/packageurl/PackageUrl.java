@@ -271,7 +271,16 @@ public class PackageUrl
    * Parse package-url from given value.
    */
   public static PackageUrl parse(final String value) {
-    return PackageUrlParser.parse(value);
+    return PackageUrlParser.parse(value, true);
+  }
+
+  /**
+   * Parse package-url from given value.
+   *
+   * That is, will *not* make the corrections defined in the spec to the namespace, to the name or to the qualifier keys.
+   */
+  public static PackageUrl parseAsIs(final String value) {
+    return PackageUrlParser.parse(value, false);
   }
 
   /**
