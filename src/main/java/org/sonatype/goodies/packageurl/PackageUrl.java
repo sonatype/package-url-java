@@ -72,7 +72,6 @@ public class PackageUrl
   /**
    * Values should have already been validated via {@link PackageUrlBuilder} and {@link PackageUrlValidator}.
    */
-  // @VisibleForTesting
   PackageUrl(final String type,
              @Nullable final List<String> namespace,
              final String name,
