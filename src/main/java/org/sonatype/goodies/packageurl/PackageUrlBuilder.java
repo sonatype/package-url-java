@@ -160,27 +160,29 @@ public class PackageUrlBuilder
     // FIXME: need to have some per-type transformation; which is unfortunate but spec requires some special handling per-type
     // FIXME: various type-specific transformation required by specification; very problematic
     // FIXME: https://github.com/package-url/purl-spec/issues/38
+    List<String> correctedNamespace = namespace;
+    String correctedName = name;
     switch (type) {
       case "github":
       case "bitbucket":
-        name = MoreStrings.lowerCase(name);
-        namespace = MoreStrings.lowerCase(namespace);
+        correctedNamespace = MoreStrings.lowerCase(namespace);
+        correctedName = MoreStrings.lowerCase(name);
         break;
 
       case "pypi":
-        name = name.replace('_', '-');
-        name = MoreStrings.lowerCase(name);
+        correctedName = name.replace('_', '-');
+        correctedName = MoreStrings.lowerCase(correctedName);
         break;
     }
 
-    SortedMap<String, String> sortedQualifiers = null;
+    SortedMap<String, String> correctedQualifiers = null;
     if (qualifiers != null) {
-      sortedQualifiers = new TreeMap<>();
+      correctedQualifiers = new TreeMap<>();
       for (Entry<String, String> entry : qualifiers.entrySet()) {
-        sortedQualifiers.put(MoreStrings.lowerCase(entry.getKey()), entry.getValue());
+        correctedQualifiers.put(MoreStrings.lowerCase(entry.getKey()), entry.getValue());
       }
     }
 
-    return new PackageUrl(type, namespace, name, version, sortedQualifiers, subpath);
+    return new PackageUrl(type, correctedNamespace, correctedName, version, correctedQualifiers, subpath);
   }
 }
