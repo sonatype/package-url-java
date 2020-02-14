@@ -92,9 +92,9 @@ final class PercentEncoding
 
   /**
    * A simpler version of String.replace() that does not involve regexp's and Patterns.
+   *
    * Modeled after a similar method in org.codehaus.plexus's StrungUtils.
    * https://github.com/codehaus-plexus/plexus-utils/blob/master/src/main/java/org/codehaus/plexus/util/StringUtils.java#L848
-
    */
   // @VisibleForTesting
   static String simpleReplace(String text, String target, String replacement) {
