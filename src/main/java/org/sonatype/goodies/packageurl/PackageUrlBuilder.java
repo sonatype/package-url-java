@@ -110,7 +110,8 @@ public class PackageUrlBuilder
   public PackageUrlBuilder qualifier(final String key, final String value) {
     requireNonNull(key);
     requireNonNull(value);
-    if (!value.isEmpty()) {
+    // FIXME: this may be better off as part of builder API to throw IAE
+    if (!MoreStrings.isBlank(value)) {
       getQualifiers().put(key, value);
     }
     return this;
