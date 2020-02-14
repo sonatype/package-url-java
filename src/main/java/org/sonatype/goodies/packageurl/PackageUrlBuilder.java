@@ -24,7 +24,12 @@ import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseNamespace;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseQualifiers;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseSubpath;
-import static org.sonatype.goodies.packageurl.PackageUrlValidator.*;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateName;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateNamespace;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateQualifiers;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateSubpath;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateType;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateVersion;
 
 /**
  * {@link PackageUrl} builder.
@@ -112,10 +117,7 @@ public class PackageUrlBuilder
   public PackageUrlBuilder qualifier(final String key, final String value) {
     requireNonNull(key);
     requireNonNull(value);
-    // FIXME: this may be better off as part of builder API to throw IAE
-    if (!MoreStrings.isBlank(value)) {
-      getQualifiers().put(key, value);
-    }
+    getQualifiers().put(key, value);
     return this;
   }
 
@@ -179,7 +181,9 @@ public class PackageUrlBuilder
     if (qualifiers != null) {
       correctedQualifiers = new TreeMap<>();
       for (Entry<String, String> entry : qualifiers.entrySet()) {
-        correctedQualifiers.put(MoreStrings.lowerCase(entry.getKey()), entry.getValue());
+         if (!MoreStrings.isBlank(entry.getValue())) {
+          correctedQualifiers.put(MoreStrings.lowerCase(entry.getKey()), entry.getValue());
+         }
       }
     }
 

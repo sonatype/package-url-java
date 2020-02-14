@@ -46,7 +46,7 @@ class PackageUrlParser
 
   static final String QUALIFIER_KEY = "[a-zA-Z.\\-_][a-zA-Z\\d.\\-_]*";
 
-  static final String QUALIFIER_VALUE = "[^&]+?";
+  static final String QUALIFIER_VALUE = "[^&]*?";
 
   static final String QUALIFIER = String.format("%s=%s", QUALIFIER_KEY, QUALIFIER_VALUE);
 
@@ -153,17 +153,8 @@ class PackageUrlParser
     Map<String, String> result = new LinkedHashMap<>(pairs.length);
     for (String pair : pairs) {
       String[] split = pair.split("=", 2); // Splits the pair into either one or two pieces
-      if (split.length == 1) {
-        // qualifiers with missing values should be skipped
-        continue;
-      }
       String k = split[0];
-      String v = split[1];
-      if (MoreStrings.isBlank(v)) {
-        // qualifiers with empty values should be skipped
-        continue;
-      }
-
+      String v = split.length == 1 ? "" : split[1];
       result.put(k, PercentEncoding.decode(v));
     }
 

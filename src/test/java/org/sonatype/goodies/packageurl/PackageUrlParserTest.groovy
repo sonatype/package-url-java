@@ -101,6 +101,22 @@ class PackageUrlParserTest
       assert qualifiers.platform == 'java'
     }
 
+    parse('pkg:gem/jruby-launcher@1.1.2?Platform=java').with {
+      assert type == 'gem'
+      assert name == 'jruby-launcher'
+      assert version == '1.1.2'
+      assert qualifiers.platform == 'java'
+      assert qualifiers.Platform == null
+    }
+
+    parse('pkg:gem/jruby-launcher@1.1.2?Platform=').with {
+      assert type == 'gem'
+      assert name == 'jruby-launcher'
+      assert version == '1.1.2'
+      assert qualifiers.platform == null
+      assert qualifiers.Platform == null
+    }
+
     parse('pkg:gem/ruby-advisory-db-check@0.12.4').with {
       assert type == 'gem'
       assert name == 'ruby-advisory-db-check'
