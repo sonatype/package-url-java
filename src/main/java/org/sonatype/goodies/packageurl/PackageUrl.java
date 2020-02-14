@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import static java.util.Collections.unmodifiableList;
-import static java.util.Collections.unmodifiableSortedMap;
+import static java.util.Collections.unmodifiableMap;
 import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeName;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeQualifierValue;
@@ -64,8 +64,7 @@ public class PackageUrl
   private final String version;
 
   @Nullable
-  // sorted map of qualifiers (lexicographically); see: https://github.com/package-url/purl-spec/issues/51
-  private final SortedMap<String, String> qualifiers;
+  private final Map<String, String> qualifiers;
 
   @Nullable
   private final List<String> subpath;
@@ -85,7 +84,7 @@ public class PackageUrl
     this.namespace = namespace != null ? unmodifiableList(namespace) : null;
     this.name = requireNonNull(name);
     this.version = version;
-    this.qualifiers = qualifiers != null ? unmodifiableSortedMap(new TreeMap<>(qualifiers)) : null;
+    this.qualifiers = qualifiers != null ? unmodifiableMap(qualifiers) : null;
     this.subpath = subpath != null ? unmodifiableList(subpath) : null;
   }
 
@@ -119,7 +118,7 @@ public class PackageUrl
   }
 
   @Nullable
-  public SortedMap<String, String> getQualifiers() {
+  public Map<String, String> getQualifiers() {
     return qualifiers;
   }
 
@@ -233,8 +232,11 @@ public class PackageUrl
     if (qualifiers != null && !qualifiers.isEmpty()) {
       buff.append('?');
 
+      // sort list of qualifiers lexicographically; see: https://github.com/package-url/purl-spec/issues/51
+      SortedMap<String, String> sorted = new TreeMap<>(qualifiers);
+
       String separator = "";
-      for (Entry<String, String> entry : qualifiers.entrySet()) {
+      for (Entry<String, String> entry : sorted.entrySet()) {
         buff.append(separator).append(entry.getKey()).append('=').append(encodeQualifierValue(entry.getValue()));
         separator = "&";
       }
