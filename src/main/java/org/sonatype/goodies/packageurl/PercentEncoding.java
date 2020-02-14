@@ -97,8 +97,7 @@ final class PercentEncoding
    * https://github.com/codehaus-plexus/plexus-utils/blob/master/src/main/java/org/codehaus/plexus/util/StringUtils.java#L848
    */
   // @VisibleForTesting
-  static String simpleReplace(String text, String target, String replacement) {
-
+  static String simpleReplace(final String text, final String target, final String replacement) {
     int start = 0;
     int index = text.indexOf(target, start);
     if (index == -1) {
