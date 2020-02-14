@@ -1,6 +1,4 @@
-# IntelliJ IDE
-/package-url-java.iml
-/.idea/
-
-# Build target
-/target/
+target/
+.idea/
+references
+build.rc
