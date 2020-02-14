@@ -82,11 +82,11 @@ public class PackageUrl
              @Nullable final List<String> subpath)
   {
     this.type = requireNonNull(type);
-    this.namespace = namespace != null ? unmodifiableList(new ArrayList<>(namespace)) : null;
+    this.namespace = namespace != null ? unmodifiableList(namespace) : null;
     this.name = requireNonNull(name);
     this.version = version;
     this.qualifiers = qualifiers != null ? unmodifiableSortedMap(new TreeMap<>(qualifiers)) : null;
-    this.subpath = subpath != null ? unmodifiableList(new ArrayList<>(subpath)) : null;
+    this.subpath = subpath != null ? unmodifiableList(subpath) : null;
   }
 
   public String getType() {
