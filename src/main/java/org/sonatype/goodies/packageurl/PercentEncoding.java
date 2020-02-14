@@ -95,6 +95,8 @@ final class PercentEncoding
    *
    * Modeled after a similar method in org.codehaus.plexus's StrungUtils.
    * https://github.com/codehaus-plexus/plexus-utils/blob/master/src/main/java/org/codehaus/plexus/util/StringUtils.java#L848
+   *
+   * @since ???
    */
   // @VisibleForTesting
   static String simpleReplace(final String text, final String target, final String replacement) {
