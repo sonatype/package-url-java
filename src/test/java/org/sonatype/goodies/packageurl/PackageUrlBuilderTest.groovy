@@ -113,4 +113,15 @@ class PackageUrlBuilderTest
       assert qualifiers == [b: '2']
     }
   }
+
+  @Test
+  void 'qualifiers that are empty'() {
+    PackageUrlBuilder builder = new PackageUrlBuilder().type('foo').name('bar')
+    builder.qualifiers([a: '1', b: ''])
+    builder.qualifier('c', '3')
+    builder.qualifier('d', '')
+    builder.build().with {
+      assert qualifiers == [a: '1', c: '3']
+    }
+  }
 }

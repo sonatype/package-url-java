@@ -16,8 +16,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseNamespace;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseQualifiers;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseSubpath;
@@ -43,7 +44,7 @@ public class PackageUrlBuilder
   private List<String> subpath;
 
   public PackageUrlBuilder from(final PackageUrl purl) {
-    checkNotNull(purl);
+    requireNonNull(purl);
     this.type = purl.getType();
     if (purl.getNamespace() != null) {
       this.namespace = new ArrayList<>(purl.getNamespace());
@@ -92,7 +93,9 @@ public class PackageUrlBuilder
 
   public PackageUrlBuilder qualifiers(final Map<String, String> qualifiers) {
     if (qualifiers != null) {
-      getQualifiers().putAll(qualifiers);
+      for (Entry<String, String> entry : qualifiers.entrySet()) {
+        qualifier(entry.getKey(), entry.getValue());
+      }
     }
     else {
       this.qualifiers = null;
@@ -105,9 +108,12 @@ public class PackageUrlBuilder
   }
 
   public PackageUrlBuilder qualifier(final String key, final String value) {
-    checkNotNull(key);
-    checkNotNull(value);
-    getQualifiers().put(key, value);
+    requireNonNull(key);
+    requireNonNull(value);
+    // FIXME: this may be better off as part of builder API to throw IAE
+    if (!MoreStrings.isBlank(value)) {
+      getQualifiers().put(key, value);
+    }
     return this;
   }
 

@@ -14,24 +14,21 @@ package org.sonatype.goodies.packageurl;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableMap;
+import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeName;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeQualifierValue;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeSegment;
@@ -75,7 +72,6 @@ public class PackageUrl
   /**
    * Values should have already been validated via {@link PackageUrlBuilder} and {@link PackageUrlValidator}.
    */
-  @VisibleForTesting
   PackageUrl(final String type,
              @Nullable final List<String> namespace,
              final String name,
@@ -83,12 +79,12 @@ public class PackageUrl
              @Nullable final Map<String, String> qualifiers,
              @Nullable final List<String> subpath)
   {
-    this.type = checkNotNull(type);
-    this.namespace = namespace != null ? ImmutableList.copyOf(namespace) : null;
-    this.name = checkNotNull(name);
+    this.type = requireNonNull(type);
+    this.namespace = namespace != null ? unmodifiableList(namespace) : null;
+    this.name = requireNonNull(name);
     this.version = version;
-    this.qualifiers = qualifiers != null ? ImmutableMap.copyOf(qualifiers) : null;
-    this.subpath = subpath != null ? ImmutableList.copyOf(subpath) : null;
+    this.qualifiers = qualifiers != null ? unmodifiableMap(qualifiers) : null;
+    this.subpath = subpath != null ? unmodifiableList(subpath) : null;
   }
 
   public String getType() {
@@ -163,7 +159,9 @@ public class PackageUrl
     return Objects.hash(type, namespace, name, version, qualifiers, subpath);
   }
 
-  @VisibleForTesting
+  /**
+   * Returns a json-like representation of structure; Exposed for tests.
+   */
   String explain() {
     return "{type='" + type + '\'' +
         ", namespace=" + namespace +
@@ -204,7 +202,7 @@ public class PackageUrl
    * Convert to canonical string representation with given rendering flavor.
    */
   public String toString(final RenderFlavor flavor) {
-    checkNotNull(flavor);
+    requireNonNull(flavor);
 
     StringBuilder buff = new StringBuilder();
 
@@ -236,24 +234,13 @@ public class PackageUrl
       buff.append('?');
 
       // sort list of qualifiers lexicographically; see: https://github.com/package-url/purl-spec/issues/51
-      SortedSet<Map.Entry<String,String>> sorted = new TreeSet<>(new Comparator<Entry<String, String>>() {
-        @Override
-        public int compare(final Entry<String, String> entry1, final Entry<String, String> entry2) {
-          return ComparisonChain.start()
-              .compare(entry1.getKey(), entry2.getKey())
-              .compare(entry1.getValue(), entry2.getValue())
-              .result();
-        }
-      });
-      sorted.addAll(qualifiers.entrySet());
+      // presently this only sorts by qualifier.key; unsure what the specific requirement is ^^^
+      SortedMap<String, String> sorted = new TreeMap<>(qualifiers);
 
-      Iterator<Map.Entry<String, String>> iter = sorted.iterator();
-      while (iter.hasNext()) {
-        Map.Entry<String, String> entry = iter.next();
-        buff.append(entry.getKey()).append('=').append(encodeQualifierValue(entry.getValue()));
-        if (iter.hasNext()) {
-          buff.append('&');
-        }
+      String separator = "";
+      for (Entry<String, String> entry : sorted.entrySet()) {
+        buff.append(separator).append(entry.getKey()).append('=').append(encodeQualifierValue(entry.getValue()));
+        separator = "&";
       }
     }
 
