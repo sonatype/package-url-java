@@ -193,13 +193,10 @@ public class PackageUrlBuilder
     if (qualifiers != null) {
       correctedQualifiers = new TreeMap<>();
       for (Entry<String, String> entry : qualifiers.entrySet()) {
-        String key = entry.getKey();
+        String key = MoreStrings.lowerCase(entry.getKey());
         String value = entry.getValue();
         if (correct && MoreStrings.isBlank(value)) {
           continue;
-        }
-        if (correct) {
-          key = MoreStrings.lowerCase(key);
         }
         correctedQualifiers.put(key, value);
       }

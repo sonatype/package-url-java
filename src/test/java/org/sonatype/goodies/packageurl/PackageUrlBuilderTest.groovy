@@ -129,7 +129,7 @@ class PackageUrlBuilderTest
       assert qualifiers == [a: '1', b: '2', c: '3']
     }
     builder.buildAsIs().with {
-      assert qualifiers == [a: '1', B: '2', c: '3']
+      assert qualifiers == [a: '1', b: '2', c: '3']
     }
   }
 
@@ -143,7 +143,7 @@ class PackageUrlBuilderTest
       assert qualifiers == [b: '2']
     }
     builder.buildAsIs().with {
-      assert qualifiers == [B: '2']
+      assert qualifiers == [b: '2']
     }
   }
 
@@ -157,7 +157,7 @@ class PackageUrlBuilderTest
       assert qualifiers == [a: '1', c: '3']
     }
     builder.buildAsIs().with {
-      assert qualifiers == [A: '1', b: '', c: '3', d: '']
+      assert qualifiers == [a: '1', b: '', c: '3', d: '']
     }
   }
 

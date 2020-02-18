@@ -124,10 +124,10 @@ class PackageUrlParserTest
       assert namespace == ['debian']
       assert name == 'curl'
       assert version == '7.50.3-1'
-      assert qualifiers.Arch == 'i386'
-      assert qualifiers.Distro == 'jessie'
-      assert qualifiers.arch == null
-      assert qualifiers.distro == null
+      assert qualifiers.arch == 'i386'
+      assert qualifiers.distro == 'jessie'
+      assert qualifiers.Arch == null
+      assert qualifiers.Distro == null
     }
 
     parse('pkg:docker/cassandra@sha256:244fd47e07d1004f0aed9c').with {
@@ -161,8 +161,8 @@ class PackageUrlParserTest
       assert type == 'gem'
       assert name == 'jruby-launcher'
       assert version == '1.1.2'
-      assert qualifiers.Platform == 'java'
-      assert qualifiers.platform == null
+      assert qualifiers.platform == 'java'
+      assert qualifiers.Platform == null
     }
 
     parse('pkg:gem/jruby-launcher@1.1.2?Platform=').with {
@@ -175,8 +175,7 @@ class PackageUrlParserTest
       assert type == 'gem'
       assert name == 'jruby-launcher'
       assert version == '1.1.2'
-      assert qualifiers.Platform == ''
-      assert qualifiers.platform == null
+      assert qualifiers.platform == ''
     }
 
     parse('pkg:gem/ruby-advisory-db-check@0.12.4').with {
