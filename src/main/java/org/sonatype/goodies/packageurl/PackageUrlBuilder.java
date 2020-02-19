@@ -38,6 +38,8 @@ import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateVersio
  */
 public class PackageUrlBuilder
 {
+  private boolean asIsMode;
+
   private String type;
 
   private List<String> namespace;
@@ -64,6 +66,15 @@ public class PackageUrlBuilder
     if (purl.getSubpath() != null) {
       this.subpath = new ArrayList<>(purl.getSubpath());
     }
+    return this;
+  }
+
+  /**
+   * In "as-is" mode the builder does *not* make the changes defined in the purl spec to the namespace and name.
+   * By default the builder is not in "as-is" mode, to maintain compliance with the purl spec.
+   */
+  public PackageUrlBuilder asIsMode(boolean asIsMode) {
+    this.asIsMode = asIsMode;
     return this;
   }
 
@@ -139,17 +150,7 @@ public class PackageUrlBuilder
    * At minimal {@link #type} and {@link #name} must be specified.
    */
   public PackageUrl build() {
-    return buildAndValidate(true, true);
-  }
-
-  /**
-   * Build a {@link PackageUrl} "as is".
-   * That is, will *not* make the corrections defined in the spec to the namespace, to the name or to the qualifier keys.
-   *
-   * At minimal {@link #type} and {@link #name} must be specified.
-   */
-  public PackageUrl buildAsIs() {
-    return buildAndValidate(true, false);
+    return buildAndValidate(true);
   }
 
   /**
@@ -159,7 +160,7 @@ public class PackageUrlBuilder
    *
    * @since 1.0.1
    */
-  PackageUrl buildAndValidate(final boolean validate, final boolean correct) {
+  PackageUrl buildAndValidate(final boolean validate) {
     if (validate) {
       validateType(type);
       validateNamespace(namespace);
@@ -174,7 +175,7 @@ public class PackageUrlBuilder
     // FIXME: https://github.com/package-url/purl-spec/issues/38
     List<String> correctedNamespace = namespace;
     String correctedName = name;
-    if (correct) {
+    if (!asIsMode) {
       switch (type) {
         case "github":
         case "bitbucket":

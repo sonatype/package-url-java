@@ -34,7 +34,7 @@ class PackageUrlBuilderTest
       assert e.name == 'type'
     }
     try {
-      new PackageUrlBuilder().name('foo').buildAsIs()
+      new PackageUrlBuilder().name('foo').asIsMode(true).build()
       fail()
     }
     catch (MissingComponentException e) {
@@ -52,7 +52,7 @@ class PackageUrlBuilderTest
       assert e.name == 'name'
     }
     try {
-      new PackageUrlBuilder().type('foo').buildAsIs()
+      new PackageUrlBuilder().type('foo').asIsMode(true).build()
       fail()
     }
     catch (MissingComponentException e) {
@@ -68,7 +68,7 @@ class PackageUrlBuilderTest
       assert name == 'bar'
       assert version == 'baz'
     }
-    builder.buildAsIs().with {
+    builder.asIsMode(true).build().with {
       assert type == 'foo'
       assert name == 'bar'
       assert version == 'baz'
@@ -83,7 +83,7 @@ class PackageUrlBuilderTest
     PackageUrl purl2 = builder.build()
     log purl2
     assert purl1 == purl2
-    PackageUrl purl3 = builder.buildAsIs()
+    PackageUrl purl3 = builder.asIsMode(true).build()
     log purl3
     assert purl1 == purl3
   }
@@ -93,7 +93,7 @@ class PackageUrlBuilderTest
     List<String> ns = ['a', 'b', 'c']
     def builder = new PackageUrlBuilder().type('foo').name('bar').namespace(ns)
     assert builder.build().namespace == ns
-    assert builder.buildAsIs().namespace == ns
+    assert builder.asIsMode(true).build().namespace == ns
   }
 
   @Test
@@ -101,7 +101,7 @@ class PackageUrlBuilderTest
     List<String> ns = ['a', 'b', 'c']
     def builder = new PackageUrlBuilder().type('foo').name('bar').namespace(ns.join('/'))
     assert builder.build().namespace == ns
-    assert builder.buildAsIs().namespace == ns
+    assert builder.asIsMode(true).build().namespace == ns
   }
 
   @Test
@@ -109,7 +109,7 @@ class PackageUrlBuilderTest
     List<String> subpath = ['a', 'b', 'c']
     def builder = new PackageUrlBuilder().type('foo').name('bar').subpath(subpath)
     assert builder.build().subpath == subpath
-    assert builder.buildAsIs().subpath == subpath
+    assert builder.asIsMode(true).build().subpath == subpath
   }
 
   @Test
@@ -117,7 +117,7 @@ class PackageUrlBuilderTest
     List<String> subpath = ['a', 'b', 'c']
     def builder = new PackageUrlBuilder().type('foo').name('bar').subpath(subpath.join('/'))
     assert builder.build().subpath == subpath
-    assert builder.buildAsIs().subpath == subpath
+    assert builder.asIsMode(true).build().subpath == subpath
   }
 
   @Test
@@ -128,7 +128,7 @@ class PackageUrlBuilderTest
     builder.build().with {
       assert qualifiers == [a: '1', b: '2', c: '3']
     }
-    builder.buildAsIs().with {
+    builder.asIsMode(true).build().with {
       assert qualifiers == [a: '1', b: '2', c: '3']
     }
   }
@@ -142,7 +142,7 @@ class PackageUrlBuilderTest
     builder.build().with {
       assert qualifiers == [b: '2']
     }
-    builder.buildAsIs().with {
+    builder.asIsMode(true).build().with {
       assert qualifiers == [b: '2']
     }
   }
@@ -156,7 +156,7 @@ class PackageUrlBuilderTest
     builder.build().with {
       assert qualifiers == [a: '1', c: '3']
     }
-    builder.buildAsIs().with {
+    builder.asIsMode(true).build().with {
       assert qualifiers == [a: '1', c: '3']
     }
   }
@@ -168,7 +168,7 @@ class PackageUrlBuilderTest
       assert namespace == ['foo']
       assert name == 'bar'
     }
-    builder.buildAsIs().with {
+    builder.asIsMode(true).build().with {
       assert namespace == ['fOo']
       assert name == 'BaR'
     }
@@ -180,7 +180,7 @@ class PackageUrlBuilderTest
     builder.build().with {
       assert name == 'foo-bar-baz'
     }
-    builder.buildAsIs().with {
+    builder.asIsMode(true).build().with {
       assert name == 'fOo-BaR_baZ'
     }
   }
