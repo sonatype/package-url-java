@@ -148,7 +148,7 @@ class PackageUrlBuilderTest
   }
 
   @Test
-  void 'qualifiers that are empty'() {
+  void 'qualifiers that are empty and uppercase keys'() {
     PackageUrlBuilder builder = new PackageUrlBuilder().type('foo').name('bar')
     builder.qualifiers([A: '1', b: ''])
     builder.qualifier('c', '3')
@@ -164,6 +164,19 @@ class PackageUrlBuilderTest
   @Test
   void 'bitbucket namespace and name'() {
     PackageUrlBuilder builder = new PackageUrlBuilder().type('bitbucket').namespace('fOo').name('BaR')
+    builder.build().with {
+      assert namespace == ['foo']
+      assert name == 'bar'
+    }
+    builder.asIsMode(true).build().with {
+      assert namespace == ['fOo']
+      assert name == 'BaR'
+    }
+  }
+
+  @Test
+  void 'github namespace and name'() {
+    PackageUrlBuilder builder = new PackageUrlBuilder().type('github').namespace('fOo').name('BaR')
     builder.build().with {
       assert namespace == ['foo']
       assert name == 'bar'

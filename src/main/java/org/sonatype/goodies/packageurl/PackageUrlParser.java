@@ -72,7 +72,7 @@ public class PackageUrlParser
       "(?<name>%s)" +
       "(@(?<version>%s))?" +
       "(\\?(?<qualifiers>%s))?" +
-          "(#(?<subpath>%s))?",
+      "(#(?<subpath>%s))?",
       TYPE, NAMESPACE, NAME, VERSION, QUALIFIERS, SUBPATH
   ));
 
