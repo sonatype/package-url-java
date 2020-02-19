@@ -28,7 +28,7 @@ import static java.util.Objects.requireNonNull;
  *
  * @since 1.1.0
  */
-class PackageUrlParser
+public class PackageUrlParser
 {
   private PackageUrlParser() {
     // empty
