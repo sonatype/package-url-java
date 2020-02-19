@@ -157,7 +157,7 @@ class PackageUrlBuilderTest
       assert qualifiers == [a: '1', c: '3']
     }
     builder.buildAsIs().with {
-      assert qualifiers == [a: '1', b: '', c: '3', d: '']
+      assert qualifiers == [a: '1', c: '3']
     }
   }
 

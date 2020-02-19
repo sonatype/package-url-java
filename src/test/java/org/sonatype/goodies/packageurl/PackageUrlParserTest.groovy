@@ -175,7 +175,7 @@ class PackageUrlParserTest
       assert type == 'gem'
       assert name == 'jruby-launcher'
       assert version == '1.1.2'
-      assert qualifiers.platform == ''
+      assert qualifiers == null
     }
 
     parse('pkg:gem/ruby-advisory-db-check@0.12.4').with {

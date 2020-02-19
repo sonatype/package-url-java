@@ -195,7 +195,7 @@ public class PackageUrlBuilder
       for (Entry<String, String> entry : qualifiers.entrySet()) {
         String key = MoreStrings.lowerCase(entry.getKey());
         String value = entry.getValue();
-        if (correct && MoreStrings.isBlank(value)) {
+        if (MoreStrings.isBlank(value)) {
           continue;
         }
         correctedQualifiers.put(key, value);
