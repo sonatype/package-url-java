@@ -271,7 +271,7 @@ public class PackageUrl
    * Parse package-url from given value.
    */
   public static PackageUrl parse(final String value) {
-    return PackageUrlParser.parse(value, false);
+    return PackageUrlParser.parse(value, true);
   }
 
   /**

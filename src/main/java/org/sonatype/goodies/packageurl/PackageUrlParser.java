@@ -81,7 +81,7 @@ public class PackageUrlParser
    *
    * Value format: {@code type:namespace/name@version?qualifiers#subpath}
    */
-  public static PackageUrl parse(final String value, final boolean asIsMode) {
+  public static PackageUrl parse(final String value, final boolean typeSpecificTransformations) {
     requireNonNull(value);
 
     Pattern pattern;
@@ -95,7 +95,7 @@ public class PackageUrlParser
     Matcher m = pattern.matcher(value);
     if (m.matches()) {
       return new PackageUrlBuilder()
-          .asIsMode(asIsMode)
+          .typeSpecificTransformations(typeSpecificTransformations)
           .type(parseType(m.group("type")))
           .namespace(parseNamespace(m.group("namespace")))
           .name(parseName(m.group("name")))

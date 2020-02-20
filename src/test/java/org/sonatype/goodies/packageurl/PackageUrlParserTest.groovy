@@ -44,7 +44,7 @@ class PackageUrlParserTest
 
   private PackageUrl parseAsIs(final String value) {
     log "ParseAsIs: $value"
-    def purl = PackageUrlParser.parse(value, true)
+    def purl = PackageUrlParser.parse(value, false)
     log "PURL AsIs: ${purl.explain()} -> $purl"
     return purl
   }

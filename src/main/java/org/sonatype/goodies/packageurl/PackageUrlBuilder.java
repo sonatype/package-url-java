@@ -38,7 +38,7 @@ import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateVersio
  */
 public class PackageUrlBuilder
 {
-  private boolean asIsMode;
+  private boolean typeSpecificTransformations = true;
 
   private String type;
 
@@ -70,11 +70,12 @@ public class PackageUrlBuilder
   }
 
   /**
-   * In "as-is" mode the builder does *not* make the changes defined in the purl spec to the namespace and name.
-   * By default the builder is not in "as-is" mode, to maintain compliance with the purl spec.
+   * If typeSpecificTransformations is enabled then the builder
+   * will make the changes defined in the purl spec to the namespace and name for specific types.
+   * By default typeSpecificTransformations is enabled (set to {@code true}), to maintain compliance with the purl spec.
    */
-  public PackageUrlBuilder asIsMode(boolean asIsMode) {
-    this.asIsMode = asIsMode;
+  public PackageUrlBuilder typeSpecificTransformations(boolean enable) {
+    this.typeSpecificTransformations = enable;
     return this;
   }
 
@@ -175,7 +176,7 @@ public class PackageUrlBuilder
     // FIXME: https://github.com/package-url/purl-spec/issues/38
     List<String> correctedNamespace = namespace;
     String correctedName = name;
-    if (!asIsMode) {
+    if (typeSpecificTransformations) {
       switch (type) {
         case "github":
         case "bitbucket":
