@@ -70,9 +70,11 @@ public class PackageUrlBuilder
   }
 
   /**
-   * If typeSpecificTransformations is enabled then the builder
-   * will make the changes defined in the purl spec to the namespace and name for specific types.
-   * By default typeSpecificTransformations is enabled (set to {@code true}), to maintain compliance with the purl spec.
+   * If enabled then the builder will make the changes defined in the Package URL spec to the namespace and name for specific types.
+   *
+   * By default this is enabled to maintain compliance with the spec.
+   *
+   * @since ???
    */
   public PackageUrlBuilder typeSpecificTransformations(boolean enable) {
     this.typeSpecificTransformations = enable;
@@ -174,6 +176,7 @@ public class PackageUrlBuilder
     // FIXME: need to have some per-type transformation; which is unfortunate but spec requires some special handling per-type
     // FIXME: various type-specific transformation required by specification; very problematic
     // FIXME: https://github.com/package-url/purl-spec/issues/38
+
     List<String> correctedNamespace = namespace;
     String correctedName = name;
     if (typeSpecificTransformations) {
