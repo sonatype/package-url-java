@@ -31,7 +31,7 @@ class SchemeSpecTest
 
   @BeforeClass
   static void 'load test-suite-data entries'() {
-    entries = TestSuiteData.get('scheme-data.json')
+    entries = TestSuiteData.get('test-suite-data.json')
     RenderFlavor.default = RenderFlavor.SCHEME
   }
 
