@@ -283,7 +283,7 @@ public class PackageUrl
   /**
    * Helper to create a parser
    *
-   * @since 1.1.2.
+   * @since ???
    */
   public static PackageUrlParser parser() {
     return new PackageUrlParser();

@@ -28,15 +28,10 @@ import static java.util.Objects.requireNonNull;
  *
  * @since 1.1.0
  */
-class PackageUrlParser
+public class PackageUrlParser
 {
 
-  private boolean typeSpecificTransformations;
-
-  PackageUrlParser() {
-    this.typeSpecificTransformations = true;
-    // empty
-  }
+  private boolean typeSpecificTransformations = true;
 
   static final String TYPE = "[a-zA-Z][a-zA-Z\\d.+-]*";
 
