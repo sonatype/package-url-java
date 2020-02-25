@@ -60,8 +60,12 @@ public class PackageUrl
   @Nullable
   private final String version;
 
+  /**
+   * Sorted map of qualifiers (lexicographically).
+   *
+   * See: https://github.com/package-url/purl-spec/issues/51
+   */
   @Nullable
-  // sorted map of qualifiers (lexicographically); see: https://github.com/package-url/purl-spec/issues/51
   private final SortedMap<String, String> qualifiers;
 
   @Nullable
