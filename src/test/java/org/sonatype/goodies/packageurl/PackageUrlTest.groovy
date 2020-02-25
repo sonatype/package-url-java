@@ -29,7 +29,7 @@ class PackageUrlTest
       assert purl.toString() == expected
     }
 
-    assertRendering new PackageUrl('foo', ['bar'], 'baz', 'qux', [a: 'b', c: 'd'], ['blah']),
+    assertRendering new PackageUrl('foo', ['bar'], 'baz', 'qux', [a: 'b', c: 'd'] as TreeMap, ['blah']),
         'pkg:foo/bar/baz@qux?a=b&c=d#blah'
 
     assertRendering new PackageUrlBuilder()

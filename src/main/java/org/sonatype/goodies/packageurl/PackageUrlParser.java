@@ -28,12 +28,8 @@ import static java.util.Objects.requireNonNull;
  *
  * @since 1.1.0
  */
-class PackageUrlParser
+public class PackageUrlParser
 {
-  private PackageUrlParser() {
-    // empty
-  }
-
   static final String TYPE = "[a-zA-Z][a-zA-Z\\d.+-]*";
 
   static final String NAMESPACE = "[^@#?]+";
@@ -46,7 +42,7 @@ class PackageUrlParser
 
   static final String QUALIFIER_KEY = "[a-zA-Z.\\-_][a-zA-Z\\d.\\-_]*";
 
-  static final String QUALIFIER_VALUE = "[^&]+?";
+  static final String QUALIFIER_VALUE = "[^&]*?";
 
   static final String QUALIFIER = String.format("%s=%s", QUALIFIER_KEY, QUALIFIER_VALUE);
 
@@ -76,12 +72,26 @@ class PackageUrlParser
       TYPE, NAMESPACE, NAME, VERSION, QUALIFIERS, SUBPATH
   ));
 
+  private boolean typeSpecificTransformations = true;
+
+  /**
+   * If enabled then the builder will make the changes defined in the Package URL spec to the namespace and name for specific types.
+   *
+   * By default this is enabled to maintain compliance with the spec.
+   *
+   * @since ???
+   */
+  public PackageUrlParser typeSpecificTransformations(boolean enable) {
+    this.typeSpecificTransformations = enable;
+    return this;
+  }
+
   /**
    * Parse package-url from given value.
    *
    * Value format: {@code type:namespace/name@version?qualifiers#subpath}
    */
-  public static PackageUrl parse(final String value) {
+  public PackageUrl parse(final String value) {
     requireNonNull(value);
 
     Pattern pattern;
@@ -95,6 +105,7 @@ class PackageUrlParser
     Matcher m = pattern.matcher(value);
     if (m.matches()) {
       return new PackageUrlBuilder()
+          .typeSpecificTransformations(typeSpecificTransformations)
           .type(parseType(m.group("type")))
           .namespace(parseNamespace(m.group("namespace")))
           .name(parseName(m.group("name")))
@@ -153,17 +164,8 @@ class PackageUrlParser
     Map<String, String> result = new LinkedHashMap<>(pairs.length);
     for (String pair : pairs) {
       String[] split = pair.split("=", 2); // Splits the pair into either one or two pieces
-      if (split.length == 1) {
-        // qualifiers with missing values should be skipped
-        continue;
-      }
-      String v = split[1];
-      if (MoreStrings.isBlank(v)) {
-        // qualifiers with empty values should be skipped
-        continue;
-      }
-
-      String k = MoreStrings.lowerCase(split[0]);
+      String k = split[0];
+      String v = split.length == 1 ? "" : split[1];
       result.put(k, PercentEncoding.decode(v));
     }
 

@@ -17,12 +17,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseNamespace;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseQualifiers;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseSubpath;
-import static org.sonatype.goodies.packageurl.PackageUrlValidator.*;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateName;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateNamespace;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateQualifiers;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateSubpath;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateType;
+import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateVersion;
 
 /**
  * {@link PackageUrl} builder.
@@ -31,6 +38,8 @@ import static org.sonatype.goodies.packageurl.PackageUrlValidator.*;
  */
 public class PackageUrlBuilder
 {
+  private boolean typeSpecificTransformations = true;
+
   private String type;
 
   private List<String> namespace;
@@ -57,6 +66,18 @@ public class PackageUrlBuilder
     if (purl.getSubpath() != null) {
       this.subpath = new ArrayList<>(purl.getSubpath());
     }
+    return this;
+  }
+
+  /**
+   * If enabled then the builder will make the changes defined in the Package URL spec to the namespace and name for specific types.
+   *
+   * By default this is enabled to maintain compliance with the spec.
+   *
+   * @since ???
+   */
+  public PackageUrlBuilder typeSpecificTransformations(boolean enable) {
+    this.typeSpecificTransformations = enable;
     return this;
   }
 
@@ -110,10 +131,7 @@ public class PackageUrlBuilder
   public PackageUrlBuilder qualifier(final String key, final String value) {
     requireNonNull(key);
     requireNonNull(value);
-    // FIXME: this may be better off as part of builder API to throw IAE
-    if (!MoreStrings.isBlank(value)) {
-      getQualifiers().put(key, value);
-    }
+    getQualifiers().put(key, value);
     return this;
   }
 
@@ -158,19 +176,40 @@ public class PackageUrlBuilder
     // FIXME: need to have some per-type transformation; which is unfortunate but spec requires some special handling per-type
     // FIXME: various type-specific transformation required by specification; very problematic
     // FIXME: https://github.com/package-url/purl-spec/issues/38
-    switch (type) {
-      case "github":
-      case "bitbucket":
-        name = MoreStrings.lowerCase(name);
-        namespace = MoreStrings.lowerCase(namespace);
-        break;
 
-      case "pypi":
-        name = name.replace('_', '-');
-        name = MoreStrings.lowerCase(name);
-        break;
+    List<String> correctedNamespace = namespace;
+    String correctedName = name;
+    if (typeSpecificTransformations) {
+      switch (type) {
+        case "github":
+        case "bitbucket":
+          correctedNamespace = MoreStrings.lowerCase(namespace);
+          correctedName = MoreStrings.lowerCase(name);
+          break;
+
+        case "pypi":
+          correctedName = name.replace('_', '-');
+          correctedName = MoreStrings.lowerCase(correctedName);
+          break;
+      }
     }
 
-    return new PackageUrl(type, namespace, name, version, qualifiers, subpath);
+    SortedMap<String, String> correctedQualifiers = null;
+    if (qualifiers != null) {
+      correctedQualifiers = new TreeMap<>();
+      for (Entry<String, String> entry : qualifiers.entrySet()) {
+        String key = MoreStrings.lowerCase(entry.getKey());
+        String value = entry.getValue();
+        if (MoreStrings.isBlank(value)) {
+          continue;
+        }
+        correctedQualifiers.put(key, value);
+      }
+      if (correctedQualifiers.isEmpty()) {
+        correctedQualifiers = null;
+      }
+    }
+
+    return new PackageUrl(type, correctedNamespace, correctedName, version, correctedQualifiers, subpath);
   }
 }

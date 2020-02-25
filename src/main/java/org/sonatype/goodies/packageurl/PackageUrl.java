@@ -14,20 +14,17 @@ package org.sonatype.goodies.packageurl;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.SortedMap;
-import java.util.TreeMap;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import static java.util.Collections.unmodifiableList;
-import static java.util.Collections.unmodifiableMap;
+import static java.util.Collections.unmodifiableSortedMap;
 import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeName;
 import static org.sonatype.goodies.packageurl.PercentEncoding.encodeQualifierValue;
@@ -63,8 +60,13 @@ public class PackageUrl
   @Nullable
   private final String version;
 
+  /**
+   * Sorted map of qualifiers (lexicographically).
+   *
+   * See: https://github.com/package-url/purl-spec/issues/51
+   */
   @Nullable
-  private final Map<String, String> qualifiers;
+  private final SortedMap<String, String> qualifiers;
 
   @Nullable
   private final List<String> subpath;
@@ -76,14 +78,14 @@ public class PackageUrl
              @Nullable final List<String> namespace,
              final String name,
              @Nullable final String version,
-             @Nullable final Map<String, String> qualifiers,
+             @Nullable final SortedMap<String, String> qualifiers,
              @Nullable final List<String> subpath)
   {
     this.type = requireNonNull(type);
     this.namespace = namespace != null ? unmodifiableList(namespace) : null;
     this.name = requireNonNull(name);
     this.version = version;
-    this.qualifiers = qualifiers != null ? unmodifiableMap(qualifiers) : null;
+    this.qualifiers = qualifiers != null ? unmodifiableSortedMap(qualifiers) : null;
     this.subpath = subpath != null ? unmodifiableList(subpath) : null;
   }
 
@@ -117,7 +119,7 @@ public class PackageUrl
   }
 
   @Nullable
-  public Map<String, String> getQualifiers() {
+  public SortedMap<String, String> getQualifiers() {
     return qualifiers;
   }
 
@@ -233,12 +235,8 @@ public class PackageUrl
     if (qualifiers != null && !qualifiers.isEmpty()) {
       buff.append('?');
 
-      // sort list of qualifiers lexicographically; see: https://github.com/package-url/purl-spec/issues/51
-      // presently this only sorts by qualifier.key; unsure what the specific requirement is ^^^
-      SortedMap<String, String> sorted = new TreeMap<>(qualifiers);
-
       String separator = "";
-      for (Entry<String, String> entry : sorted.entrySet()) {
+      for (Entry<String, String> entry : qualifiers.entrySet()) {
         buff.append(separator).append(entry.getKey()).append('=').append(encodeQualifierValue(entry.getValue()));
         separator = "&";
       }
@@ -275,9 +273,20 @@ public class PackageUrl
 
   /**
    * Parse package-url from given value.
+   *
+   * Shortcut to {@code parser().parse(value)}
    */
   public static PackageUrl parse(final String value) {
-    return PackageUrlParser.parse(value);
+    return parser().parse(value);
+  }
+
+  /**
+   * Helper to create a parser
+   *
+   * @since ???
+   */
+  public static PackageUrlParser parser() {
+    return new PackageUrlParser();
   }
 
   /**
