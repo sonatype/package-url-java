@@ -79,7 +79,7 @@ public class PackageUrlParser
    *
    * By default this is enabled to maintain compliance with the spec.
    *
-   * @since ???
+   * @since 1.2.0
    */
   public PackageUrlParser typeSpecificTransformations(boolean enable) {
     this.typeSpecificTransformations = enable;

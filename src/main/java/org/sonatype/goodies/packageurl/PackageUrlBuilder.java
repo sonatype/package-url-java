@@ -74,7 +74,7 @@ public class PackageUrlBuilder
    *
    * By default this is enabled to maintain compliance with the spec.
    *
-   * @since ???
+   * @since 1.2.0
    */
   public PackageUrlBuilder typeSpecificTransformations(boolean enable) {
     this.typeSpecificTransformations = enable;

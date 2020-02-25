@@ -54,7 +54,7 @@ final class MoreStrings
   /**
    * Check if given string is {@code null}, empty {@literal ""} or only contains whitespace.
    *
-   * @since ???
+   * @since 1.2.0
    */
   static boolean isBlank(@Nullable final String value) {
     return value != null && value.trim().isEmpty();
