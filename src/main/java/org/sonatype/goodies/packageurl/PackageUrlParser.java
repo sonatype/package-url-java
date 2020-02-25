@@ -30,9 +30,6 @@ import static java.util.Objects.requireNonNull;
  */
 public class PackageUrlParser
 {
-
-  private boolean typeSpecificTransformations = true;
-
   static final String TYPE = "[a-zA-Z][a-zA-Z\\d.+-]*";
 
   static final String NAMESPACE = "[^@#?]+";
@@ -75,6 +72,7 @@ public class PackageUrlParser
       TYPE, NAMESPACE, NAME, VERSION, QUALIFIERS, SUBPATH
   ));
 
+  private boolean typeSpecificTransformations = true;
 
   /**
    * If enabled then the builder will make the changes defined in the Package URL spec to the namespace and name for specific types.
