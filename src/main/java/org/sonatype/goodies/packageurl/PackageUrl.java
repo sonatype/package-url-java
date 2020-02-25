@@ -273,9 +273,20 @@ public class PackageUrl
 
   /**
    * Parse package-url from given value.
+   *
+   * Shortcut to {@code parser().parse(value)}
    */
   public static PackageUrl parse(final String value) {
-    return PackageUrlParser.parse(value, true);
+    return parser().parse(value);
+  }
+
+  /**
+   * Helper to create a parser
+   *
+   * @since 1.1.2.
+   */
+  public static PackageUrlParser parser() {
+    return new PackageUrlParser();
   }
 
   /**

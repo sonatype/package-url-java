@@ -28,9 +28,13 @@ import static java.util.Objects.requireNonNull;
  *
  * @since 1.1.0
  */
-public class PackageUrlParser
+class PackageUrlParser
 {
-  private PackageUrlParser() {
+
+  private boolean typeSpecificTransformations;
+
+  PackageUrlParser() {
+    this.typeSpecificTransformations = true;
     // empty
   }
 
@@ -76,12 +80,25 @@ public class PackageUrlParser
       TYPE, NAMESPACE, NAME, VERSION, QUALIFIERS, SUBPATH
   ));
 
+
+  /**
+   * If enabled then the builder will make the changes defined in the Package URL spec to the namespace and name for specific types.
+   *
+   * By default this is enabled to maintain compliance with the spec.
+   *
+   * @since ???
+   */
+  public PackageUrlParser typeSpecificTransformations(boolean enable) {
+    this.typeSpecificTransformations = enable;
+    return this;
+  }
+
   /**
    * Parse package-url from given value.
    *
    * Value format: {@code type:namespace/name@version?qualifiers#subpath}
    */
-  public static PackageUrl parse(final String value, final boolean typeSpecificTransformations) {
+  public PackageUrl parse(final String value) {
     requireNonNull(value);
 
     Pattern pattern;
