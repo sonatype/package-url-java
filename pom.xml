@@ -65,8 +65,8 @@
   </distributionManagement>
 
   <properties>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
 
     <dionysus.version>1.0.3</dionysus.version>
   </properties>
@@ -172,13 +172,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <dependencies>
-          <dependency>
-            <groupId>org.owasp.maven.enforcer</groupId>
-            <artifactId>class-file-format-rule</artifactId>
-            <version>1.0.0</version>
-          </dependency>
-        </dependencies>
         <executions>
           <execution>
             <id>checks</id>
@@ -192,21 +185,8 @@
                   <version>[3.3,)</version>
                 </requireMavenVersion>
                 <requireJavaVersion>
-                  <version>[1.7,)</version>
+                  <version>[1.8,)</version>
                 </requireJavaVersion>
-              </rules>
-            </configuration>
-          </execution>
-          <execution>
-            <id>enforce-classfileformat</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <byteCodeRule implementation="org.owasp.maven.enforcer.rule.ClassFileFormatRule">
-                  <supportedClassFileFormat>51</supportedClassFileFormat>
-                </byteCodeRule>
               </rules>
             </configuration>
           </execution>
@@ -219,7 +199,7 @@
         <configuration>
           <signature>
             <groupId>org.codehaus.mojo.signature</groupId>
-            <artifactId>java17</artifactId>
+            <artifactId>java18</artifactId>
             <version>1.0</version>
           </signature>
         </configuration>
