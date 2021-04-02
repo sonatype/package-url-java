@@ -26,19 +26,10 @@ Implementation of [Package URL](https://github.com/package-url/purl-spec) specif
 
 ### Requirements
 
-* Apache Maven 3.3+
-* JDK 8+ (10 is **NOT** supported)
+* [Apache Maven](https://maven.apache.org/) 3.6+ (prefer to use included `mvnw`)
+* JDK 8+
+* BaSH (for `build` script)
 
 ### Build
 
     ./build rebuild
-
-## Site 
-
-### Building
-
-    ./build site_build
-    
-### Publishing
-
-    ./build site_deploy
