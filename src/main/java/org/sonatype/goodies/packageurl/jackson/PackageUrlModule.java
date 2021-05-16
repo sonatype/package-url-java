@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.WritableTypeId;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.KeyDeserializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
@@ -54,9 +55,9 @@ public class PackageUrlModule
 
   @Override
   public void setupModule(final SetupContext context) {
-    addSerializer(PackageUrl.class, new PackageUrlSerializer(flavor));
     addDeserializer(PackageUrl.class, new PackageUrlDeserializer());
-
+    addKeyDeserializer(PackageUrl.class, new PackageUrlKeyDeserializer());
+    addSerializer(PackageUrl.class, new PackageUrlSerializer(flavor));
     super.setupModule(context);
   }
 
@@ -78,6 +79,28 @@ public class PackageUrlModule
     {
       String value = parser.readValueAs(String.class);
       return PackageUrl.parse(value);
+    }
+  }
+
+  /**
+   * {@link PackageUrl} key-deserializer.
+   *
+   * @since ???
+   */
+  public static class PackageUrlKeyDeserializer
+      extends KeyDeserializer
+      implements java.io.Serializable
+  {
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public Object deserializeKey(final String value, final DeserializationContext context)
+        throws IOException
+    {
+      if (value != null) {
+        return PackageUrl.parse(value);
+      }
+      return null;
     }
   }
 
