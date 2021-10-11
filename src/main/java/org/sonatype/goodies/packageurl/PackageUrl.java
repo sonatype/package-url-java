@@ -144,7 +144,7 @@ public class PackageUrl
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (!(o instanceof PackageUrl)) {
       return false;
     }
     PackageUrl that = (PackageUrl) o;
