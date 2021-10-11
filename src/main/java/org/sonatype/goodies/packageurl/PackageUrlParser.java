@@ -160,7 +160,7 @@ public class PackageUrlParser
       return null;
     }
 
-    String[] pairs = value.split("&");
+    String[] pairs = value.split("&", 0);
     Map<String, String> result = new LinkedHashMap<>(pairs.length);
     for (String pair : pairs) {
       String[] split = pair.split("=", 2); // Splits the pair into either one or two pieces
@@ -189,7 +189,7 @@ public class PackageUrlParser
       return null;
     }
 
-    String[] parts = stripSlashes(value).split("/");
+    String[] parts = stripSlashes(value).split("/", 0);
     List<String> result = new ArrayList<>();
     for (String part : parts) {
       if (part.isEmpty()) {
