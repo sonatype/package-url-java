@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 import static java.util.Objects.requireNonNull;
 import static org.sonatype.goodies.packageurl.PackageUrlParser.parseNamespace;
@@ -38,6 +39,8 @@ import static org.sonatype.goodies.packageurl.PackageUrlValidator.validateVersio
  */
 public class PackageUrlBuilder
 {
+  private static final Pattern PYPI_NORMALIZED_NAME_PATTERN = Pattern.compile("[-_.]+");
+
   private boolean typeSpecificTransformations = true;
 
   private String type;
@@ -188,7 +191,8 @@ public class PackageUrlBuilder
           break;
 
         case "pypi":
-          correctedName = name.replace('_', '-');
+          // Equivalent of: https://peps.python.org/pep-0503/#normalized-names
+          correctedName = PYPI_NORMALIZED_NAME_PATTERN.matcher(name).replaceAll("-");
           correctedName = MoreStrings.lowerCase(correctedName);
           break;
       }

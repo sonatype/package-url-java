@@ -189,12 +189,12 @@ class PackageUrlBuilderTest
 
   @Test
   void 'pypi name'() {
-    PackageUrlBuilder builder = new PackageUrlBuilder().type('pypi').name('fOo-BaR_baZ')
+    PackageUrlBuilder builder = new PackageUrlBuilder().type('pypi').name('fOo--BaR_.baZ')
     builder.build().with {
       assert name == 'foo-bar-baz'
     }
     builder.typeSpecificTransformations(false).build().with {
-      assert name == 'fOo-BaR_baZ'
+      assert name == 'fOo--BaR_.baZ'
     }
   }
 
